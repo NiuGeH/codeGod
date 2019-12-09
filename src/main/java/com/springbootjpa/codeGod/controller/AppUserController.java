@@ -5,11 +5,14 @@ import com.springbootjpa.codeGod.common.AjaxUtils;
 import com.springbootjpa.codeGod.common.Func_T;
 import com.springbootjpa.codeGod.repository.SysUsersRolesRepository;
 import com.springbootjpa.codeGod.utils.RedisUtils;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+@Api("后台接口")
 @Controller
 @RequestMapping("/AppUser")
 public class AppUserController extends InitBinderController {
@@ -29,15 +33,23 @@ public class AppUserController extends InitBinderController {
     @Autowired
     private SysUsersRolesRepository sysUsersRolesRepository;
 
-    @RequestMapping("login")
+    @PostMapping(value = "login" )
     @ResponseBody
-    public AjaxResult login(String mb,HttpServletRequest request) {
+    //POST 必须大写
+    @ApiOperation(value = "登录接口" , httpMethod = "POST" , notes = "说明")
+    @ApiImplicitParams({
+            //参数介绍 方便前端测试
+            //POST(dataForm) paramType必须为query
+            @ApiImplicitParam(name = "mb", value = "张三" ,example = "sda", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "Obj", value = "你好" , required = false , paramType="query")
+    })
+    public AjaxResult login(String mb,String Obj , HttpServletRequest request) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
                 System.out.println(mb+" aaa");
+                System.out.println(Obj);
                 return "mb";
-
             }
         });
     }

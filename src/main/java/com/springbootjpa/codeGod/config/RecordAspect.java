@@ -27,7 +27,7 @@ import java.util.Map;
 public class RecordAspect {
     private static Logger logger = LoggerFactory.getLogger(RecordAspect.class);
     // 定义切点Pointcut
-    @Pointcut("execution(* com.springbootjpa.codeGod.*controller.*.*(..))")
+    @Pointcut("execution(* com.springbootjpa.codeGod.*controller..*.*(..))")
     public void excudeService() {
     }
 
