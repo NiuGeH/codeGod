@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+
+<body>
+<div id="app">
+
+    <form action="" method="post">
+        用户名: <input placeholder="用户名" name="username" style="width: 200px"/><br>
+        密码: <input type="password" placeholder="密码" name="password" style="width: 200px"/>
+        <br><input type="submit" value="提交">
+    </form>
+
+</div>
+</body>
+<script type="text/javascript">
+    var default_IN;
+    default_IN = new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

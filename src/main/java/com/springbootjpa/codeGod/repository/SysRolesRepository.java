@@ -1,0 +1,9 @@
+package com.springbootjpa.codeGod.repository;
+
+import com.springbootjpa.codeGod.entity.SysRolesEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface SysRolesRepository extends JpaSpecificationExecutor<SysRolesEntity>, PagingAndSortingRepository<SysRolesEntity, Long>, JpaRepository<SysRolesEntity,Long> {
+}
