@@ -44,7 +44,9 @@
 
     $(function () {
 
-        $.post("/codeGod/AppUser/login",function (data) {
+        $.post("/codeGod/AppUser/login",{
+            "mb":encrypt("123456123456","MI97JSJfjwIDAQAB")
+        },function (data) {
             var dat = JSON.parse(decrypt(data.data,"MI97JSJfjwIDAQAB"));
             console.log(dat.zhangsan);
 

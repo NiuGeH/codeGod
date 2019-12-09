@@ -19,30 +19,24 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/AppUser")
-public class AppUserController {
+public class AppUserController extends InitBinderController {
     private static Logger logger = LoggerFactory.getLogger(UserRolesController.class);
 
 
     @Resource
     RedisUtils redisUtils = new RedisUtils();
 
-    private  Map<String, Object> keyMapVal = new HashMap<String, Object>();
-
     @Autowired
     private SysUsersRolesRepository sysUsersRolesRepository;
 
     @RequestMapping("login")
     @ResponseBody
-    public AjaxResult login (String mb, HttpServletRequest request){
+    public AjaxResult login(String mb,HttpServletRequest request) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-
-                HashMap<String ,Object> hashMap = new HashMap<>();
-                hashMap.put("zhangsan",sysUsersRolesRepository.findAll());
-                hashMap.put("lisi","sad");
-                    return hashMap;
-
+                System.out.println(mb+" aaa");
+                return "mb";
 
             }
         });

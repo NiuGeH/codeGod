@@ -40,6 +40,7 @@ public class ShiroConfiguration {
         filters.put("authc", new CaptchaFormAuthenticationFilter());
         //防止登录成功之后才能下载favicon.ico
         filterChainDefinitionMap.put("/dist/**", "anon");
+        filterChainDefinitionMap.put("/AppUser/**","anon");
 
         //权限判别
         filterChainDefinitionMap.put("/tex", "roles[\"user:create\"]");

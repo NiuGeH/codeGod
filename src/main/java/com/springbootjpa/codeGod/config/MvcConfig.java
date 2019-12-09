@@ -15,7 +15,6 @@ public class MvcConfig implements WebMvcConfigurer {
             //注册拦截器
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
-
                 // /**  表示拦截所有路径下的所有请求
                 registry.addInterceptor(new CodeGodHandlerInterceptor()).addPathPatterns("/AppUser/*")
                         .excludePathPatterns("/appIndex/IoReadImage/**");

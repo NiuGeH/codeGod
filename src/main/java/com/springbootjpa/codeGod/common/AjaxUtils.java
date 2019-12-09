@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -16,9 +17,10 @@ import java.util.ArrayList;
  * Ajax工具类
  */
 @PropertySource({"classpath:application.properties","classpath:application-dev.properties"})
+@Controller
 public class AjaxUtils {
 
-    private static String RSA_PUBLICAKEY ;
+    public static String RSA_PUBLICAKEY ;
 
     @Value("${RSA_PUBLICAKEY}")
     public void setUrl(String RSA_PUBLICAKEY) {
@@ -40,7 +42,6 @@ public class AjaxUtils {
         try {
             T result = action.invoke();
             String s = JSONUtils.beanToJson(result);
-//            System.out.println(RSA_PUBLICAKEY);
             result = (T)aesUtils.enCode(s,RSA_PUBLICAKEY);
 //            System.out.println(result.toString());
             ajaxResult.setSuccess(true);
