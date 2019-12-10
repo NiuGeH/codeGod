@@ -43,7 +43,7 @@ public class AppUserController extends InitBinderController {
             @ApiImplicitParam(name = "mb", value = "张三" ,example = "sda", required = true, paramType = "query"),
             @ApiImplicitParam(name = "Obj", value = "你好" , required = false , paramType="query")
     })
-    public AjaxResult login(String mb,String Obj , HttpServletRequest request) {
+    public AjaxResult login(String deCode,String mb,String Obj , HttpServletRequest request) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
