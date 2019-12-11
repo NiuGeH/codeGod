@@ -1,5 +1,6 @@
-package com.springbootjpa.codeGod.entity;
+package com.springbootjpa.codeGod.entity.sys;
 
+import com.springbootjpa.codeGod.entity.AbstractEntity;
 import lombok.Data;
 
 import javax.persistence.Column;

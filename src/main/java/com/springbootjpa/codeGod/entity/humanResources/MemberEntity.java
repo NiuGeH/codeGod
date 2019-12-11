@@ -1,9 +1,10 @@
-package com.springbootjpa.codeGod.entity;
+package com.springbootjpa.codeGod.entity.humanResources;
+
+import com.springbootjpa.codeGod.entity.AbstractEntity;
+import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
 import java.io.Serializable;
 
 import javax.persistence.*;
@@ -12,8 +13,8 @@ import javax.persistence.*;
  * 用户基础表
  */
 @Data
-@Entity
 @ApiModel(value = "用户基础表")
+@Entity
 @Table(name = "member")
 public class MemberEntity extends AbstractEntity implements Serializable {
 
@@ -30,16 +31,16 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "创建时间")
-	@Column(name = "create_time", nullable = true, length = 20)
-	private String createTime;
+	@Column(name = "create_time", nullable = true)
+	private java.util.Date createTime;
 
 	/**
 	 * 修改时间
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "修改时间")
-	@Column(name = "update_time", nullable = true, length = 20)
-	private String updateTime;
+	@Column(name = "update_time", nullable = true )
+	private java.util.Date updateTime;
 
 	/**
 	 * 所在城市
@@ -133,7 +134,7 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	 * 签约协议 可上传多个 ,号分割
 	 * default value: null
 	 */
-	@ApiModelProperty(value = " 签约协议 可上传多个 ,号分割")
+	@ApiModelProperty(value = "签约协议 可上传多个 ,号分割")
 	@Column(name = "member_signing_agreement", nullable = true, length = 50)
 	private String memberSigningAgreement;
 
@@ -149,7 +150,31 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	 * 所属团队
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "所属团队 （待开发）")
+	@ApiModelProperty(value = "所属团队")
 	@Column(name = "member_team", nullable = true, length = 20)
 	private Long memberTeam;
+
+	/**
+	 * 工作态度
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "工作态度")
+	@Column(name = "member_attitude", nullable = true, length = 10)
+	private String memberAttitude;
+
+	/**
+	 * 榜评
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "榜评")
+	@Column(name = "member_review", nullable = true, length = 50)
+	private String memberReview;
+
+	/**
+	 * 技能管理
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "技能管理")
+	@Column(name = "member_skill_management", nullable = true, length = 100)
+	private String memberSkillManagement;
 }

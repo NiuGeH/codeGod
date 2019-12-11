@@ -1,6 +1,6 @@
 package com.springbootjpa.codeGod.repository;
 
-import com.springbootjpa.codeGod.entity.MemberEntity;
+import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;

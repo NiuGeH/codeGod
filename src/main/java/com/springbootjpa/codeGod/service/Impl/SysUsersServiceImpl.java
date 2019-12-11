@@ -1,6 +1,6 @@
 package com.springbootjpa.codeGod.service.Impl;
 
-import com.springbootjpa.codeGod.entity.SysUsersEntity;
+import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
 import com.springbootjpa.codeGod.service.SysUsersService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;

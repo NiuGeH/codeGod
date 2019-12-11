@@ -1,6 +1,6 @@
 package com.springbootjpa.codeGod.shiro;
 
-import com.springbootjpa.codeGod.entity.SysUsersEntity;
+import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;

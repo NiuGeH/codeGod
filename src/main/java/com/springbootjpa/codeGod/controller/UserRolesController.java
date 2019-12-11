@@ -3,8 +3,8 @@ package com.springbootjpa.codeGod.controller;
 import com.springbootjpa.codeGod.common.AjaxResult;
 import com.springbootjpa.codeGod.common.AjaxUtils;
 import com.springbootjpa.codeGod.common.Func_T;
-import com.springbootjpa.codeGod.entity.SysRolesRermissionsEntity;
-import com.springbootjpa.codeGod.entity.SysUsersRolesEntity;
+import com.springbootjpa.codeGod.entity.sys.SysRolesRermissionsEntity;
+import com.springbootjpa.codeGod.entity.sys.SysUsersRolesEntity;
 import com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository;
 import com.springbootjpa.codeGod.repository.SysUsersRolesRepository;
 import com.springbootjpa.codeGod.utils.RedisUtils;
@@ -14,7 +14,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.RedisConnectionFailureException;
+//import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,7 +52,7 @@ public class UserRolesController {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                try {
+//                try {
                     Object one = redisUtils.get("one");
                     if(!(ObjectUtils.isEmpty(one))){
                         System.err.println("Redis");
@@ -65,11 +65,11 @@ public class UserRolesController {
                         redisUtils.set("one",byRoleId,20000);
                         return byRoleId;
                     }
-                }catch (RedisConnectionFailureException e){
-                    logger.error("Redis 异常");
-                    e.printStackTrace();
-                    return "Redis 异常";
-                }
+//                }catch (RedisConnectionFailureException e){
+//                    logger.error("Redis 异常");
+//                    e.printStackTrace();
+//                    return "Redis 异常";
+//                }
 
 //                Object  one = redisUtils.get("one");
 //                return byRoleId;

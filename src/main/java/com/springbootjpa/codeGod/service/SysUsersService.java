@@ -1,7 +1,7 @@
 package com.springbootjpa.codeGod.service;
 
 
-import com.springbootjpa.codeGod.entity.SysUsersEntity;
+import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
 import org.apache.shiro.subject.Subject;
 
 public interface SysUsersService {
