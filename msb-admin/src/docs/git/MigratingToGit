@@ -1,0 +1,18 @@
+# Git仓库间的迁移
+## 一、管理员迁移步骤
+### 1.本地任意指定一个目录执行
+git clone https://xxx.git --bare
+
+### 2.进入clone的根目录，推送所有的分支和对象到新的仓库地址
+
+cd xxx.git
+git push https://newxxx.git --all
+### 3.再执行推送所有的标签，迁移完成。
+
+git push https://newxxx.git --tags
+
+## 二、开发人员操作步骤
+### 1.开发人员仅需执行以下命令修改本地仓库远程指向
+git remote set-url origin https://newxxx.git
+
+

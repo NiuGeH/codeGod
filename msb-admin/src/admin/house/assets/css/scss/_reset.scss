@@ -1,0 +1,31 @@
+html, body, #app, #views { height: 100%; }
+
+html, body, div, span, label, object, iframe, p,
+h1, h2, h3, h4, h5, pre, code,
+a, em, img, strong,
+dl, dt, dd, ul, ol, li, form, button, input, textarea, select, fieldset, legend,
+table, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, footer, header, nav, section, time, audio, video
+{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font: 13px/1.5 Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", STXihei, STHeiti, "Microsoft YaHei", Heiti, SimSun, sans-serif;
+}
+
+a, input, select, textarea, button { outline: none; }
+
+input[type="button"], button { cursor: pointer; }
+
+span, label { display: inline-block; }
+
+ol, ul { list-style: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }

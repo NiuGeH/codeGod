@@ -1,0 +1,161 @@
+@import "../base/params";
+
+html, body, .main-ctx, .login-wrp{
+  height: 100%;
+}
+
+.el-popper .cur{
+  color: $main-dkcolor;
+  background-color: $main-bdcolor;
+}
+
+.login-ctx{
+  height: 100%;
+  background-color: $color-f5;
+  overflow: auto;
+  .login-banner{
+    background-color: $color-gf;
+    .lang-pick{
+      float: right;
+    }
+    .fros-icon-language{
+      font-size: 24px;
+      color: $main-dkcolor;
+      cursor: pointer;
+      text-align: center;
+      position: relative;
+      display: block;
+      margin-top: 36px;
+      margin-right: 24px;
+      .lang-text{
+        position: absolute;
+        display: block;
+        width: 100%;
+        font-size: 12px;
+        font-weight: bold;
+        margin-top: 5px;
+        top: 0;
+      }
+    }
+    .icon-logo{
+      margin-top: 20px;
+    }
+  }
+  .login-pannel-wrp{
+    height: 560px;
+    padding: 0;
+    flex: none;
+    background: url("/static/image/login/bg.jpg") no-repeat center;
+    background-size: cover;
+    .login-main{
+      width: 1280px;
+      height: 100%;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      .el-form-item{
+        .icon-user, .icon-password{
+          position: absolute;
+          z-index: 1;
+        }
+        .el-input{
+          input{
+            padding-left: 40px;
+          }
+        }
+      }
+      .el-button.login-button{
+        width: 100%;
+        margin-top: 25px;
+      }
+      .login-op{
+        text-align: right;
+        margin-top: 40px;
+        a{
+          text-decoration: none;
+          font-size: 14px;
+          display: inline-block;
+          color: $color-g6;
+          margin-left: 12px;
+          &:hover{
+            color: $main-dkcolor;
+          }
+        }
+      }
+    }
+    .login-pannel{
+      width: 400px;
+      height: 460px;
+      background-color: $color-gf;
+      position: absolute;
+      top: 50px;
+      right: 0px;
+      border-radius: 6px;
+      box-shadow: 0px 0px 20px 1px transparentize($color-g6, 0.8);
+      padding: 32px;
+      flex: none;
+      .login-title{
+        font-size: 24px;
+        color: $main-dkcolor;
+        margin-bottom: 32px;
+      }
+    }
+  }
+  .login-footer{
+    width: 1280px;
+    margin: 0 auto;
+    margin-top: 100px;
+    .login-friend-link{
+      padding: 12px 0;
+      border-top: 1px solid $color-gd;
+      border-bottom: 1px solid $color-gd;
+      overflow: hidden;
+      a{
+        display: inline-block;
+        padding: 0 15px;
+        position: relative;
+        &:first-child{
+          margin-left: -1px;
+        }
+        &:after{
+          content: '';
+          display: block;
+          height: 100%;
+          border-left: 1px solid $color-gd;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+  }
+  .company-info{
+    width: 1280px;
+    margin: 0 auto;
+    margin-top: 16px;
+    padding: 0 15px;
+    margin-bottom: 80px;
+  }
+}
+
+@media screen and (max-width:1280px){
+  .login-ctx{
+    .login-pannel-wrp{
+      .login-main{
+        width: 100%;
+        overflow: hidden;
+        .login-pannel{
+          right: auto;
+          left: 50%;
+          margin-left: -200px;
+        }
+      }
+    }
+    .login-footer{
+      width: 100%;
+    }
+    .company-info{
+      width: 100%;
+    }
+  }
+}

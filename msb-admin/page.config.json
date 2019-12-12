@@ -1,0 +1,27 @@
+{
+  "title": "Fros-UI管理界面",
+  "externals": {
+    "pdf": {
+      "type": "js",
+      "url": []
+    },
+    "amap": {
+      "type": "js",
+      "url": [
+        "https://webapi.amap.com/maps?v=1.4.13&key=caf5091bf8cb455d97072ba7340cfd08&plugin=AMap.ToolBar,Map3D,AMap.PolyEditor"
+      ]
+    },
+    "bmap": {
+      "type": "js",
+      "url": [
+        "https://api.map.baidu.com/api?v=3.0&ak=YMolUM5TF7Wgw5yM9dmZUMfx0HfDqtIo"
+      ]
+    },
+    "qmap": {
+      "type": "js",
+      "url": [
+        "https://map.qq.com/api/js?v=2.exp&key=WSCBZ-ZUEKX-V4R45-T5RQ4-BS6YH-WXFZN"
+      ]
+    }
+  }
+}

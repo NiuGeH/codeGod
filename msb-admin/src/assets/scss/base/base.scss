@@ -1,0 +1,77 @@
+@import "params";
+@import "mobile";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+html, body, button, input, select, textarea{
+  font-size: 14px;
+  color: $color-g6;
+  font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{
+  text-decoration: none;
+  color: $color-g6;
+  &:hover{
+    color: $main-dkcolor;
+  }
+}
+
+ul{
+  list-style: none;
+}
+
+img{
+  border: 0 none;
+}
+
+/** 常用样式 **/
+.clear {
+  zoom: 1;
+}
+.clear:after {
+  display: table;
+  content: "";
+  visibility: hidden;
+  clear: both;
+}
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.song{
+  font-family: "宋体";
+}
+
+.dsn{
+  display: none!important;
+}
+
+.bdt{
+  border-top: 1px solid $main-bdcolor;
+}
+
+.bdb{
+  border-bottom: 1px solid $main-bdcolor;
+}
+
+.el-menu-item.is-active{
+  color: $main-color!important;
+}
+
+/** element ui 主题颜色 **/
+/* 改变主题色变量 */
+$--color-primary: $main-dkcolor;
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";

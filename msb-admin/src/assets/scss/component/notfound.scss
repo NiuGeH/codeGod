@@ -1,0 +1,36 @@
+@import "../base/params";
+
+.com-page{
+  background-color: $color-gf;
+  padding: 32px;
+}
+
+.not-found-wrp{
+  position: relative;
+  top: 50%;
+  margin: 32px;
+  transform: translateY(-70%);
+}
+
+.not-found-img{
+  max-width: 480px;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.not-found-text{
+  text-align: center;
+  font-size: 18px;
+  margin-top: 12px;
+}
+
+.close-cur-page{
+  display: inline-block;
+  margin-left: 12px;
+  color: $main-dkcolor;
+  &:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
