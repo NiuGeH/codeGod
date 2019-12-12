@@ -1,0 +1,20 @@
+<template>
+  <el-col :span="8">
+    <el-input placeholder="请输入内容" v-model="input1" :disabled="true">
+    </el-input>
+  </el-col>
+</template>
+
+<script>
+export default {
+  name: 'Input2',
+  data () {
+    return {
+      input1: ''
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>

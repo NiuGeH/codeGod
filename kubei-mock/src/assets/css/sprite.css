@@ -1,0 +1,72 @@
+/*
+Icon classes can be used entirely standalone. They are named after their original file names.
+
+Example usage in HTML:
+
+`display: block` sprite:
+<div class="icon-home"></div>
+
+To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+
+// CSS
+.icon {
+  display: inline-block;
+}
+
+// HTML
+<i class="icon icon-home"></i>
+*/
+.icon-bell {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: 0px 0px;
+  width: 18px;
+  height: 18px;
+}
+.icon-ss {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: -28px 0px;
+  width: 24px;
+  height: 30px;
+}
+.icon-zk {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: -62px 0px;
+  width: 24px;
+  height: 30px;
+}
+.icon-password {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: -96px 0px;
+  width: 40px;
+  height: 40px;
+}
+.icon-user {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: -146px 0px;
+  width: 40px;
+  height: 40px;
+}
+.icon-yzk {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: -196px 0px;
+  width: 40px;
+  height: 40px;
+}
+.icon-wlogo {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: -246px 0px;
+  width: 50px;
+  height: 50px;
+}
+.icon-uilogo {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: -306px 0px;
+  width: 69px;
+  height: 28px;
+}
+.icon-logo {
+  background-image: url(../image/sprite/sprite.png);
+  background-position: -385px 0px;
+  width: 177px;
+  height: 60px;
+}

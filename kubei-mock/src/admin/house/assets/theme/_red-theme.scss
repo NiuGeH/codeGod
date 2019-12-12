@@ -1,0 +1,182 @@
+// red - theme
+//
+$themeBg: #95090a; // 背景
+
+// 登录界面
+$loginFontColor: #343463; // 登录页面字体颜色
+// end 登录界面
+
+$logoColor: #fff; // logo字体颜色
+
+$headerBg: #f00; // 顶部背景
+$headerColor: #fff; // 顶部字体颜色
+
+$footerBg: #f00; // 底部背景
+$footerColor: #fff; // 底部字体颜色
+
+$navBg: #aa0d0d; // 左侧菜单背景
+$navActiveBg: #95090a; // 菜单选中项背景
+$navColor: #fff; // 菜单默认字体颜色
+$navActiveColor: #fff; // 菜单选中项字体颜色
+
+$subNavBg: #95090a; // 二级菜单背景色
+$subNavColor: #fff; // 二级菜单字体颜色
+$subNavBorder: #ae1d1d; // 二级菜单分割线
+$subNavActiveBg: #820708; // 二级菜单选中背景色
+$subNavActiveColor: #fff; // 二级菜单选中背景色
+
+
+$bodyColor: #343463; // 内容字体颜色
+
+$sitemapColor: #343463; // 站点地图字体颜色
+$sitemapBorderColor: #dcdfe6; // 站点地图下边框颜色
+
+// element ui ===============================
+//
+$focusBorderColr: #820708;
+
+// select
+$selectedColor: #95090a;
+
+// btn primary
+$btnPrimaryBg: #95090a;
+$btnPrimaryColor: #fff;
+$btnPrimaryHoverBg: #820708;
+$btnPrimaryHoverColor: #fff;
+
+// table
+$tableHeaderBg: #f1f1f1; // 表格表头背景色
+$tableHeaderColor: #343463; // 表格表头字体颜色
+
+// end element ui ===============================
+
+
+#app.red-theme {
+
+    * {
+        transition: background .2s linear;
+    }
+
+    background: $themeBg;
+
+    .view-login {
+        border-radius: 3px;
+        background: rgba( 255, 255, 255, 1);
+        height: 270px;
+        padding: 20px 30px;
+
+        h1 {
+            color: $loginFontColor;
+        }
+
+        button {
+
+        }
+
+        .el-checkbox__label, .el-button--text {
+            color: $loginFontColor;
+        }
+
+        .el-checkbox__inner {
+            background-color: $loginFontColor;
+            border-color: $loginFontColor;
+        }
+    }
+
+    .hd {
+        background: $headerBg;
+        color: $headerColor;
+
+        padding: 0 10px;
+
+        .title a {
+            color: $logoColor;
+            text-decoration: none;
+        }
+
+        &-bar {
+            flex: 1;
+            text-align: right;
+        }
+    }
+
+    .bd {
+        color: $bodyColor;
+
+        // 站点地图
+        .component-sitemap {
+            border-bottom: 1px solid $sitemapBorderColor;
+            a, i {
+                color: $sitemapColor;
+            }
+        }
+    }
+
+    .nav {
+        background: $navBg;
+
+        li {
+            color: $navColor;
+            &.active {
+                background: $navActiveBg;
+                color: $navActiveColor;
+            }
+        }
+
+        .right {
+            border-right: 1px solid $subNavBorder;
+            background: $subNavBg;
+
+            li {
+                color: $subNavColor;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $subNavBorder;
+                }
+
+                &.active {
+                    background: $subNavActiveBg;
+                    color: $subNavActiveColor;
+                }
+            }
+        }
+    }
+
+    .ft {
+        background: $footerBg;
+        color: $footerColor;
+    }
+}
+
+body.red-theme {
+    // element ui 修改
+
+    // select
+    .el-select-dropdown__item { color: $bodyColor; }
+    .el-select .el-input.is-focus .el-input__inner, .el-select .el-input__inner:focus { border-color: $focusBorderColr; }
+    .el-select-dropdown__item.selected { color: $selectedColor !important; }
+
+    // input
+    .el-input.is-active .el-input__inner, .el-input__inner:focus { border-color: $focusBorderColr; }
+
+    // button
+    .el-button--primary {
+        background-color: $btnPrimaryBg;
+        border-color: $btnPrimaryColor;
+        &:hover, &:active, &:focus {
+            background-color: $btnPrimaryHoverBg;
+            border-color: $btnPrimaryHoverColor;
+        }
+    }
+
+    // table
+    .el-table {
+        .el-table__header-wrapper, .el-table__fixed-header-wrapper {
+            th, tr {
+                background: $tableHeaderBg;
+                color: $tableHeaderColor;
+                padding: 6px 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "title": "码神邦后台",
+    "externals":
+    {
+        "echarts":
+        {
+            "type": "js",
+            "url": [
+                "/static/js/map/echarts.min.js",
+                "/static/js/map/china.js"
+            ]
+        }
+    }
+}

@@ -1,0 +1,15 @@
+# Git 开发流程
+    开发人员在开始开发前应到配置管理员处申请开通制定git主仓库的账号和待开发项目的访问权限。
+## 1.拉取代码
+git clone https://xxxx.git
+==如仓库是https地址的，可在本地关闭ssl校验，口令如下：==
+git config --global http.sslVerify false
+## 2.新建分支
+    有两种方式新建分支，推荐采用第一种方式，避免远程仓库分支冲突。
+### （1）在远程新建分支，本地拉取后进行开发，远程建分支可采用git仓库的界面来基于某个主分支进行创建，创建之后使用以下口令进行拉取和切换分支
+git pull
+git branch -b dev-xxx origin/dev-xxx
+==推荐本地分支命名和远程分支保持一直，避免提交产生差错==
+### （2）在本地新建分支，然后推送到远程仓库
+git branch dev-xxx
+git push origin dev-xxx 

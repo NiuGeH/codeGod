@@ -1,0 +1,140 @@
+@import "../../../scss/base/params";
+@import "../../../scss/base/mixin";
+
+.el-table-collapse-table-wrp{
+  width: 100%;
+  overflow-x: auto;
+  background-color: $color-gf;
+  position: relative;
+  border-top: 1px solid $color-ge;
+}
+
+.el-table-collapse-table{
+  width: 100%;
+  overflow-x: auto;
+  background-color: rgba(255, 255, 255, 0);
+  &.fixed{
+    position: absolute;
+    overflow-x: hidden;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    pointer-events: none;
+    .el-table-collapse-fixed-wrp{
+      position: absolute;
+      left: 0;
+    }
+    &.left-shadow{
+      /*box-shadow: 0px -2px 14px -1px $color-gc;
+      border-right: 1px solid $color-ge;*/
+    }
+  }
+  &.fixed-right{
+    position: absolute;
+    overflow-x: hidden;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    pointer-events: none;
+    .collapse-ctx-placeholder{
+      border-left: 1px solid $color-ge;
+    }
+    .el-table-collapse-fixed-wrp{
+      position: absolute;
+      right: 0;
+    }
+    &.right-shadow{
+      /*border-left: 1px solid $color-ge;
+      box-shadow: 0px -2px 14px -1px $color-gc;*/
+    }
+  }
+  .el-table{
+    width: 100%;
+    table{
+      width: 100%;
+    }
+    .el-table__header{
+      width: 100%!important;
+    }
+  }
+  .el-collapse{
+    border-top: 0;
+    padding: 0 16px;
+    background-color: $color-gf;
+  }
+  .el-row{
+    overflow: hidden;
+    &.op-bg{
+      background-color: rgba(255, 255, 255, 0);
+    }
+  }
+  .el-col{
+    background-color: $color-gf;
+  }
+  .el-table-collapse-table-header, .el-table-collapse-table-body{
+    .el-row.el-table-collapse-table-row{
+      pointer-events: all;
+      height: 36px;
+      line-height: 36px;
+      white-space:nowrap;
+      font-size: 0;
+      border-bottom: 1px solid $color-ge;
+      &:first-child{
+        .el-col{
+          border-bottom: 0;
+        }
+      }
+      .el-col{
+        font-size: 14px;
+        padding: 0 12px;
+        border-right: 1px solid $color-ge;
+        display: inline-block;
+        float: unset;
+        border-bottom: 1px solid $color-ge;
+        vertical-align: top;
+        .table-text{
+          @include single-ellipsis;
+        }
+        &:last-child{
+          border-right: 0;
+        }
+        .el-button{
+          padding: 6px 0;
+        }
+      }
+    }
+  }
+  .el-table-collapse-table-body{
+    .el-row.el-table-collapse-table-row{
+      transition: .5s;
+      &.cur{
+        background-color: $main-ltcolor;
+        .el-col{
+          background-color: $main-ltcolor;
+        }
+      }
+    }
+  }
+  .collapse-ctx-placeholder{
+    border-bottom: 1px solid $color-ge;
+  }
+  .el-loading-mask{
+    border-bottom: 1px solid $color-ge;
+  }
+}
+
+.no-data{
+  min-height: 60px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}

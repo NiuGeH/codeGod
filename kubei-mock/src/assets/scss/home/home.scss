@@ -1,0 +1,46 @@
+@import "../base/params.scss";
+
+.home-page-intro{
+  background-color: $color-gf;
+  padding: 32px 0;
+  .home-page-header{
+    width: 640px;
+    margin: 0 auto;
+    display: flex;
+    .frame-intro{
+      padding-top: 20px;
+      .frame-main-title{
+        font-size: 30px;
+        color: $color-g0;
+      }
+      .frame-sub-title{
+        font-size: 26px;
+      }
+    }
+  }
+  .mhome-page-header {
+    width: 80%;
+    margin: 0 auto;
+    img{
+      display: block;
+      margin: 0 auto;
+    }
+    .frame-intro{
+      padding-top: 8px;
+      .frame-main-title{
+        font-size: 14px;
+        color: $color-g0;
+        text-align: center;
+      }
+    }
+  }
+  img {
+    display: block;
+  }
+}
+
+
+
+.com-table.mt{
+  margin-top: 16px;
+}

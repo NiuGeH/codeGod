@@ -1,0 +1,332 @@
+// default - theme
+
+$themeBg: #eef5fd; // 背景
+
+// 登录界面
+$loginFontColor: #343463; // 登录页面字体颜色
+// end 登录界面
+
+$logoColor: #4290BE; // logo字体颜色
+
+$headerBg: #fff; // 顶部背景
+$headerColor: #4291BE; // 顶部字体颜色
+
+$footerBg: #d8d8d8; // 底部背景
+$footerColor: #343463; // 底部字体颜色
+
+$navBg: #fff; // 左侧菜单背景
+$navActiveBg: #eef5fd; // 菜单选中项背景
+$navColor: #a4a4ae; // 菜单默认字体颜色
+$navActiveColor: #4d7bf3; // 菜单选中项字体颜色
+
+$subNavBg: #343463; // 二级菜单背景色
+$subNavColor: #fff; // 二级菜单字体颜色
+$subNavBorder: #2b2c55; // 二级菜单分割线
+$subNavActiveBg: #26274b; // 二级菜单选中背景色
+$subNavActiveColor: #fff; // 二级菜单选中背景色
+
+
+$bodyColor: #343463; // 内容字体颜色
+
+$sitemapColor: #343463; // 站点地图字体颜色
+$sitemapBorderColor: #dcdfe6; // 站点地图下边框颜色
+
+// element ui ===============================
+//
+$focusBorderColr: #26274b;
+
+// select
+$selectedColor: #26274b;
+
+// btn primary
+$btnDefaultBg: #fff;
+$btnDefaultColor: #4290BE;
+$btnDefaultBorderColor: #EFF0F8;
+$btnPrimaryBg: #4290BE;
+$btnPrimaryColor: #fff;
+$btnPrimaryHoverBg: #4290BE;
+$btnPrimaryHoverColor: #fff;
+
+// table
+$tableHeaderBg: #F8F9FB; // 表格表头背景色
+$tableHeaderColor: #333; // 表格表头字体颜色
+
+// end element ui ===============================
+
+// echarts 地图浮窗样式 ===============================
+$tooltipTopBg: #a7ccfa;
+$tooltipTopColor: #333;
+$tooltipBottomBg: #fff;
+$tooltipBottomColor: #333;
+// end echarts 地图浮窗样式 ===============================
+
+
+// 组件样式 ===============================
+// 站点地图
+$sitemapColor: #4290be;
+$sitemapLastColor: #666;
+
+// 表格筛选
+$tableFilterLabelColor: #666;
+
+// TABS
+$tabColor: #666;
+$tabActiveColor: #4290BE;
+
+// end 组件样式 ===============================
+
+#app.default-theme {
+
+    * {
+        transition: background .2s linear;
+    }
+
+    background: $themeBg;
+
+    .view-login {
+        border-radius: .03rem;
+        background: rgba( 255, 255, 255, 1);
+        height: 2.7rem;
+        padding: .2rem .3rem;
+
+        h1 {
+            color: $loginFontColor;
+        }
+
+        button {
+
+        }
+
+        .el-checkbox__label, .el-button--text {
+            color: $loginFontColor;
+        }
+
+        .el-checkbox__inner {
+            background-color: $loginFontColor;
+            border-color: $loginFontColor;
+        }
+    }
+
+    .links {
+        color: $bodyColor;
+    }
+
+    .hd {
+        background: $headerBg;
+        color: $headerColor;
+
+        padding: 0 .25rem;
+        position: relative;
+        z-index: 3;
+
+        .title a {
+            color: $logoColor;
+            text-decoration: none;
+        }
+
+        &-bar {
+            flex: 1;
+            text-align: right;
+        }
+    }
+
+    .bd {
+        color: $bodyColor;
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    .nav {
+        box-shadow: .07rem 0 .29rem 0 rgba(209, 209, 209, .35);
+        background: $navBg;
+        position: relative;
+        z-index: 2;
+
+        li {
+            color: $navColor;
+            &.active {
+                .text {
+                    background: $navActiveBg;
+                    color: $navActiveColor;
+                }
+
+                .children {
+                    li.active .child-text {
+                        color: $navActiveColor;
+                    }
+                }
+            }
+        }
+
+        .pull {
+            background: $navBg;
+            color: $navColor;
+            cursor: pointer;
+        }
+
+        .right {
+            border-right: 1px solid $subNavBorder;
+            background: $subNavBg;
+
+            li {
+                color: $subNavColor;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $subNavBorder;
+                }
+
+                &.active {
+                    background: $subNavActiveBg;
+                    color: $subNavActiveColor;
+                }
+            }
+        }
+    }
+
+    .ft {
+        background: $footerBg;
+        color: $footerColor;
+    }
+
+    // 组件样式 =========================================
+    .component {
+        // 菜单
+        &-nav {
+            background: $navBg;
+        }
+
+        // 站点地图
+        &-sitemap {
+            color: $sitemapColor;
+
+            a:last-child {
+                color: $sitemapLastColor;
+            }
+        }
+
+        // 表格搜索筛选
+        &-tablefilter {
+            .label {
+                color: $tableFilterLabelColor;
+            }
+        }
+
+        // TABS
+        &-tabs {
+            color: $tabColor;
+
+            .active {
+                color: $tabActiveColor;
+            }
+        }
+    }
+
+    // 组件样式 =========================================
+}
+
+body.default-theme {
+    // element ui 修改
+
+    // select
+    .el-select-dropdown__item { color: $bodyColor; }
+    .el-select .el-input.is-focus .el-input__inner, .el-select .el-input__inner:focus { border-color: $focusBorderColr; }
+    .el-select-dropdown__item.selected { color: $selectedColor !important; }
+
+    // input
+    .el-input.is-active .el-input__inner, .el-input__inner:focus { border-color: $focusBorderColr; }
+
+    // button
+    .el-button {
+        border-radius: .4rem;
+        height: .4rem;
+        //width: 1.04rem;
+
+        &-default {
+            background: $btnDefaultBg;
+            border-color: $btnDefaultColor;
+            border-color: $btnDefaultBorderColor;
+        }
+
+        &--primary {
+
+            background-color: $btnPrimaryBg;
+            border-color: $btnPrimaryColor;
+
+            &:hover, &:active, &:focus {
+                background-color: $btnPrimaryHoverBg;
+                border-color: $btnPrimaryHoverColor;
+            }
+        }
+    }
+
+    // table
+    .el-table {
+        .el-table__header-wrapper, .el-table__fixed-header-wrapper {
+            th, tr {
+                background: $tableHeaderBg;
+                color: $tableHeaderColor;
+                height: .49rem;
+                line-height: .49rem;
+                padding: .06rem 0;
+            }
+        }
+    }
+
+    // 日期
+    .el-date-editor {
+
+        width: 100%;
+
+        .el-range-separator {
+            padding: 0;
+            width: 7%;
+        }
+        .el-range-input {
+            width: 50%;
+        }
+    }
+
+    .custom-tooltip {
+        font-size: 0;
+        height: .75rem;
+        // overflow: hidden;
+
+        span {
+            display: block;
+            text-align: center;
+
+            &:nth-child(1) {
+                background: $tooltipTopBg;
+                color: $tooltipTopColor;
+                font-size: .19rem;
+                height: .29rem;
+                line-height: .29rem;
+                width: 1.26rem;
+            }
+
+            &:nth-child(2) {
+                background: $tooltipBottomBg;
+                color: $tooltipBottomColor;
+                font-size: .24rem;
+                font-weight: bold;
+                height: .46rem;
+                line-height: .46rem;
+                position: relative;
+                width: 1.26rem;
+
+                // &:after {
+                //     border: .1rem solid transparent;
+                //     border-right-color: #fff;
+                //     content: '';
+                //     height: 0;
+                //     left: -.2rem;
+                //     position: absolute;
+                //     width: 0;
+                // }
+            }
+        }
+    }
+}
