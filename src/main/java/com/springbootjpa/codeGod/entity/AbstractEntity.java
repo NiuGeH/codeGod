@@ -1,6 +1,7 @@
 package com.springbootjpa.codeGod.entity;
 
 import lombok.Data;
+import javax.persistence.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,4 +16,7 @@ public class AbstractEntity implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
+	@Transient
+    private String deCode;
 }

@@ -69,7 +69,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
 
         SysUsersEntity user = sysUsersRepository.findByUsername(username);
-        System.err.println(username);
+
         if (user == null) {
             return null;
         }

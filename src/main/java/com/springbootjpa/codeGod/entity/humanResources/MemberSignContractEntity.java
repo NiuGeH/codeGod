@@ -77,7 +77,7 @@ public class MemberSignContractEntity extends AbstractEntity implements Serializ
 	 */
 	@ApiModelProperty(value = "签约结果 0 未申请 1 等待审核 2 已签约 3 已拒绝")
 	@Column(name = "sigin_results", nullable = true, length = 20)
-	private String siginResults;
+	private Integer siginResults;
 
 	/**
 	 * 验证码 0 未过期 1已过期
@@ -85,7 +85,7 @@ public class MemberSignContractEntity extends AbstractEntity implements Serializ
 	 */
 	@ApiModelProperty(value = "验证码 0 未过期 1已过期")
 	@Column(name = "sigin_verification_code", nullable = true, length = 20)
-	private String siginVerificationCode;
+	private Integer siginVerificationCode;
 
 	/**
 	 * 协议 Id

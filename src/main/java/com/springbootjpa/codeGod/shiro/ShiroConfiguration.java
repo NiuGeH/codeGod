@@ -41,7 +41,14 @@ public class ShiroConfiguration {
         //防止登录成功之后才能下载favicon.ico
         filterChainDefinitionMap.put("/dist/**", "anon");
         filterChainDefinitionMap.put("/AppUser/**","anon");
-
+        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/loginHtml","anon");
+        //swagger2放权 Start -----------
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        //swagger2放权 end
         //权限判别
         filterChainDefinitionMap.put("/tex", "roles[\"user:create\"]");
 

@@ -73,7 +73,7 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
      */
     @ApiModelProperty(value = "结算方式 0天 1月 2季")
     @Column(name = "contract_close_way", nullable = true, length = 10)
-    private String contractCloseWay;
+    private Integer contractCloseWay;
 
     /**
      * 项目地址
@@ -89,7 +89,7 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
      */
     @ApiModelProperty(value = "是否驻场 0 驻场 1 远程")
     @Column(name = "contract_court", nullable = true, length = 20)
-    private String contractCourt;
+    private Integer contractCourt;
 
     /**
      * 合同 uploadfile ID

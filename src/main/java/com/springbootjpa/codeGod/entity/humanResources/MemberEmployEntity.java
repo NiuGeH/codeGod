@@ -118,7 +118,7 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
      */
     @ApiModelProperty(value = "状态 0 未处理 1已拒绝 2 已签合同")
     @Column(name = "employ_status", nullable = true, length = 20)
-    private String employStatus;
+    private Integer employStatus;
 
     /**
      * 处理人

@@ -31,12 +31,7 @@ public class RecordAspect {
     public Object before(ProceedingJoinPoint pjp) throws Throwable {
         Signature signature = pjp.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
-        String[] parameterNames = methodSignature.getParameterNames();
         Object[] obj = pjp.getArgs();
-        for (int i = 0; i < parameterNames.length; i++) {
-            System.out.println(parameterNames[i]);
-            if(parameterNames[i].equals("deCode")){
-                if(obj[i].equals("Y") || obj[i].equals("y")){
                     for (int j = 0; j < obj.length; j++) {
                         if(obj[j] instanceof String){
                             if (obj[j].equals("y") || obj[j].equals("Y")){
@@ -44,9 +39,6 @@ public class RecordAspect {
                             }
                             obj[j] = aesUtils.deCode(obj[j].toString(), AjaxUtils.RSA_PUBLICAKEY);
                         }
-                    }
-                }
-            }
 
         }
 

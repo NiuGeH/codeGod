@@ -1,23 +1,27 @@
 package com.springbootjpa.codeGod.controller;
 
+import com.google.gson.Gson;
 import com.springbootjpa.codeGod.common.AjaxResult;
 import com.springbootjpa.codeGod.common.AjaxUtils;
 import com.springbootjpa.codeGod.common.Func_T;
-import com.springbootjpa.codeGod.entity.sys.SysRolesRermissionsEntity;
-import com.springbootjpa.codeGod.entity.sys.SysUsersRolesEntity;
+import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
+import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
 import com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository;
 import com.springbootjpa.codeGod.repository.SysUsersRolesRepository;
 import com.springbootjpa.codeGod.utils.RedisUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Api("登录/修改")
 @Controller
 @RequestMapping("/")
 public class UserRolesController {
@@ -42,62 +47,74 @@ public class UserRolesController {
     @Autowired
     private SysRolesRermissionsRepository sysRolesRermissionsRepository;
 
-    private  Map<String, Object> keyMapVal = new HashMap<String, Object>();
+    private Map<String, Object> keyMapVal = new HashMap<String, Object>();
 
 
-
-    @RequestMapping("tex")
+    @PostMapping("/modifyPwd")
     @ResponseBody
-    public AjaxResult tex(){
+    @ApiOperation(value = "后台管理员修改密码接口", httpMethod = "POST", notes = "后台管理员修改密码接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", required = true ,value = "后台管理员id",paramType = "query"),
+            @ApiImplicitParam(name = "password", required = true ,value = "原密码",paramType = "query"),
+            @ApiImplicitParam(name = "newPwd", required = true ,value = "新密码",paramType = "query")
+    })
+    public AjaxResult modifyPwd( SysUsersEntity entity) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-//                try {
-                    Object one = redisUtils.get("one");
-                    if(!(ObjectUtils.isEmpty(one))){
-                        System.err.println("Redis");
-                        return one;
-                    }else{
-                        System.err.println("No    Redis");
-                        List<SysUsersRolesEntity> all = sysUsersRolesRepository.findAll();
-                        SysUsersRolesEntity sysUsersRolesEntity = all.get(0);
-                        List<SysRolesRermissionsEntity> byRoleId = sysRolesRermissionsRepository.findByRoleId(sysUsersRolesEntity.getRoleId());
-                        redisUtils.set("one",byRoleId,20000);
-                        return byRoleId;
-                    }
-//                }catch (RedisConnectionFailureException e){
-//                    logger.error("Redis 异常");
-//                    e.printStackTrace();
-//                    return "Redis 异常";
-//                }
 
-//                Object  one = redisUtils.get("one");
-//                return byRoleId;
+                return null;
             }
         });
     }
 
     @RequestMapping("/loginHtml")
-    public ModelAndView loginHtml(HttpServletRequest request){
-        ModelAndView modelAndView = new ModelAndView("login.html");
+    public ModelAndView loginHtml(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView("login");
         return modelAndView;
     }
 
-    @PostMapping("login")
-    public String login(String username,String password,HttpServletRequest request){
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
-        Subject subject = SecurityUtils.getSubject();
-        try{
-            // 开始认证，这一步会跳到我们自定义的 Realm 中
-            subject.login(token);
-            request.getSession().setAttribute("user", username);
-            return "success";
-        }catch(Exception e){
-            e.printStackTrace();
-            request.getSession().setAttribute("user", username);
-            request.setAttribute("error", "用户名或密码错误！");
-            return "login";
-        }
+    @PostMapping(value = "/login", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "后台登录接口", httpMethod = "POST", notes = "后台登录接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{\n" +
+                    "\"username\":\"test1\",\n" +
+                    "\"password\":\"123\"\n" +
+                    "}", example = "sda", required = true, paramType = "body"),
+            @ApiImplicitParam(name = "sysUsersEntity", value = "实体", paramType = "body"),
+    })
+    public AjaxResult login(@RequestBody String sysUsersEntity, HttpServletRequest request) {
+
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                System.out.println(sysUsersEntity);
+                Gson g = new Gson();
+                SysUsersEntity sysUsersEntity1 = g.fromJson(sysUsersEntity, SysUsersEntity.class);
+                String username = sysUsersEntity1.getUsername();
+                String password = sysUsersEntity1.getPassword();
+                System.out.println(username);
+                System.out.println(password);
+                UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+                Subject subject = SecurityUtils.getSubject();
+                try {
+                    subject.login(token);
+                    SysUsersEntity ent = (SysUsersEntity) subject.getPrincipal();
+                    request.getSession().setAttribute("user", username);
+                    logger.info("用户登录成功: " + ent.toString());
+                    ent.setPassword("");
+                    return ent;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    request.getSession().setAttribute("user", username);
+                    request.setAttribute("error", "用户名或密码错误！");
+                    logger.info("用户名或密码错误" + this.getClass());
+                    throw new Exception("用户名或密码错误");
+                }
+
+            }
+        });
 
     }
 

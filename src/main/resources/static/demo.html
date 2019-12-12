@@ -43,8 +43,10 @@
 
 
     $(function () {
-        // console.log(encrypt("123456123456","MI97JSJfjwIDAQAB"));
-        // console.log(decrypt("O0bzd4mnP8i1j3fMEszMtxREXronQWtPXIq03CxwimkTv4mlEgBqh+GIq/ZRtHJxiQwDi901vvw7nB0anizbKDm/9y0aDHZJhpaFsJpkU1zFQuBRC8x2DKj6od0SlMbMg+0buQregZQP9B1+o0ADw/PWGvCG16OEvEQq2aZy6THY5BbeVz9Ph2oefuVN2P78dTp/sjkZlGw8x0DMRG1tqlB/pULrWSIALOKOCjYn1qJpd/6+y/jjFgfFiBY1FwKBxGQ0dVx3PgT3mcHF7Cj2b7a52qWjP33oLMSb6swlq1oguqd7rpfcYk/naEmW5i9EFDfj0z5xpH1H51XwOAxi8f51ddczwsiZpPYOJa9zN4nk2oTmSMTfuNo4z7FZGpbKOmbdACWiynuDSaiOmzn29i45evypn1zeJl2aARqItnqjUXl10mQkChyIQII7Mme/s9gfZaeneoJfweEFWW6LxQ==","MI97JSJfjwIDAQAB"));
+        console.log(encrypt("{ \"username\":\"test1\", \"password\":\"123\" }\n" +
+            "\n","MI97JSJfjwIDAQAB"));
+        console.log(encrypt("123456","MI97JSJfjwIDAQAB"));
+        console.log(decrypt("ByTQHYvfbg7nDb/PTRyaXk79ZOamWG5SwTX1JLewjE0=","MI97JSJfjwIDAQAB"));
         $.post("/codeGod/AppUser/login",{
             "deCode":"y",
             "mb":encrypt("123456123456","MI97JSJfjwIDAQAB"),
@@ -54,6 +56,14 @@
             console.log(dat.zhangsan);
 
         })
+        // debugger
+        //
+        // $.post("/login",{
+        //     "username":'test1',
+        //     "password":'123456'
+        // },function (data) {
+        //     console.log(data);
+        // })
     })
 </script>
 </html>
