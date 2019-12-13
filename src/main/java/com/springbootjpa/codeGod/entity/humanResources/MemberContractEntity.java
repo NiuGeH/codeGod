@@ -101,4 +101,12 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
     @JoinColumn(name = "contract_pact")
     @NotFound(action = NotFoundAction.IGNORE)
     private UploadFile contractPact;
+
+    /**
+     * 结算人数
+     */
+    @ApiModelProperty(value = "结算人数")
+    @Column(name = "contract_number",nullable = true,length = 20)
+    private Integer contractNumber;
+
 }

@@ -1,5 +1,6 @@
 package com.springbootjpa.codeGod.service.baseService.Impl;
 
+import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
 import com.springbootjpa.codeGod.repository.SysUsersRepository;
 import com.springbootjpa.codeGod.service.baseService.SysUsersService;
@@ -36,7 +37,7 @@ public class SysUsersServiceImpl implements SysUsersService {
     public boolean updatePwd(SysUsersEntity sysUsersEntity) {
         Optional<SysUsersEntity> byId = sysUsersRepository.findById(sysUsersEntity.getId());
         if(ObjectUtils.isEmpty(byId)){
-            throw new NullPointerException("该管理员不存在");
+            throw new CodeGodRunTimExcetion("该管理员不存在",this.getClass());
         }else {
             SysUsersEntity jpaEnt = byId.orElse(null);
             assert jpaEnt != null;
@@ -45,7 +46,7 @@ public class SysUsersServiceImpl implements SysUsersService {
                 sysUsersRepository.save(jpaEnt);
                 return true;
             }else{
-                throw new RuntimeException("原密码不正确");
+                throw new CodeGodRunTimExcetion("原密码不正确",this.getClass());
             }
         }
 //        return false;

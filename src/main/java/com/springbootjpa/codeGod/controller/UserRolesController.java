@@ -1,6 +1,7 @@
 package com.springbootjpa.codeGod.controller;
 
 import com.google.gson.Gson;
+import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.AjaxResult;
 import com.springbootjpa.codeGod.common.AjaxUtils;
 import com.springbootjpa.codeGod.common.Func_T;
@@ -63,11 +64,11 @@ public class UserRolesController {
             public Object invoke() throws Exception {
                 SysUsersEntity sysUsersEntity = g.fromJson(entity, SysUsersEntity.class);
                 if(ObjectUtils.isEmpty(sysUsersEntity.getId())){
-                    throw new NullPointerException("Id为空");
+                        throw new CodeGodException("Id为空",this.getClass());
                 }else if(ObjectUtils.isEmpty(sysUsersEntity.getPassword())){
-                    throw new NullPointerException("原密码为空");
+                    throw new CodeGodException("原密码为空",this.getClass());
                 }else if(ObjectUtils.isEmpty(sysUsersEntity.getNewPwd())){
-                    throw new NullPointerException("新密码为空");
+                    throw new CodeGodException("新密码为空",this.getClass());
                 }else{
                     sysUsersService.updatePwd(sysUsersEntity);
                 }
