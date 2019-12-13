@@ -7,5 +7,5 @@ import org.apache.shiro.subject.Subject;
 public interface SysUsersService {
     Subject login(SysUsersEntity sysUsersEntity);
 
-    boolean updatePwd(Long userId);
+    boolean updatePwd(SysUsersEntity sysUsersEntity);
 }

@@ -8,8 +8,10 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -31,8 +33,23 @@ public class SysUsersServiceImpl implements SysUsersService {
     }
 
     @Override
-    public boolean updatePwd(Long userId) {
-//        sysUsersRepository.findById();
-        return false;
+    public boolean updatePwd(SysUsersEntity sysUsersEntity) {
+        Optional<SysUsersEntity> byId = sysUsersRepository.findById(sysUsersEntity.getId());
+        if(ObjectUtils.isEmpty(byId)){
+            throw new NullPointerException("该管理员不存在");
+        }else {
+            SysUsersEntity jpaEnt = byId.orElse(null);
+            assert jpaEnt != null;
+            if(sysUsersEntity.getPassword().equals(jpaEnt.getPassword())){
+                jpaEnt.setPassword(sysUsersEntity.getNewPwd());
+                sysUsersRepository.save(jpaEnt);
+                return true;
+            }else{
+                throw new RuntimeException("原密码不正确");
+            }
+        }
+//        return false;
     }
+
+
 }

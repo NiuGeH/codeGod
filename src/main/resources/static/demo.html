@@ -43,8 +43,11 @@
 
 
     $(function () {
-        console.log(encrypt("{ \"username\":\"test1\", \"password\":\"123\" }\n" +
-            "\n","MI97JSJfjwIDAQAB"));
+        console.log(encrypt("{\n" +
+            "    \"id\":\"2\",\n" +
+            "    \"newPwd\":\"1234\",\n" +
+            "    \"password\":\"1234\"\n" +
+            "}","MI97JSJfjwIDAQAB"));
         console.log(encrypt("123456","MI97JSJfjwIDAQAB"));
         console.log(decrypt("ByTQHYvfbg7nDb/PTRyaXk79ZOamWG5SwTX1JLewjE0=","MI97JSJfjwIDAQAB"));
         $.post("/codeGod/AppUser/login",{

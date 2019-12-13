@@ -8,6 +8,7 @@ import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
 import com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository;
 import com.springbootjpa.codeGod.repository.SysUsersRolesRepository;
+import com.springbootjpa.codeGod.service.baseService.SysUsersService;
 import com.springbootjpa.codeGod.utils.RedisUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,32 +40,38 @@ import java.util.Map;
 public class UserRolesController {
     private static Logger logger = LoggerFactory.getLogger(UserRolesController.class);
 
-    @Resource
-    RedisUtils redisUtils = new RedisUtils();
+    private Gson g  = new Gson();
 
     @Autowired
-    private SysUsersRolesRepository sysUsersRolesRepository;
-
-    @Autowired
-    private SysRolesRermissionsRepository sysRolesRermissionsRepository;
-
-    private Map<String, Object> keyMapVal = new HashMap<String, Object>();
+    private SysUsersService sysUsersService;
 
 
     @PostMapping("/modifyPwd")
     @ResponseBody
     @ApiOperation(value = "后台管理员修改密码接口", httpMethod = "POST", notes = "后台管理员修改密码接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", required = true ,value = "后台管理员id",paramType = "query"),
-            @ApiImplicitParam(name = "password", required = true ,value = "原密码",paramType = "query"),
-            @ApiImplicitParam(name = "newPwd", required = true ,value = "新密码",paramType = "query")
+            @ApiImplicitParam(name = "entity", required = true ,value = "{\n" +
+                    "    \"id\":\"2\",\n" +
+                    "    \"newPwd\":\"1234\",\n" +
+                    "    \"password\":\"1234\"\n" +
+                    "}",paramType = "body")
+
     })
-    public AjaxResult modifyPwd( SysUsersEntity entity) {
+    public AjaxResult modifyPwd(@RequestBody String entity) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-
-                return null;
+                SysUsersEntity sysUsersEntity = g.fromJson(entity, SysUsersEntity.class);
+                if(ObjectUtils.isEmpty(sysUsersEntity.getId())){
+                    throw new NullPointerException("Id为空");
+                }else if(ObjectUtils.isEmpty(sysUsersEntity.getPassword())){
+                    throw new NullPointerException("原密码为空");
+                }else if(ObjectUtils.isEmpty(sysUsersEntity.getNewPwd())){
+                    throw new NullPointerException("新密码为空");
+                }else{
+                    sysUsersService.updatePwd(sysUsersEntity);
+                }
+                return "success";
             }
         });
     }
@@ -90,7 +98,6 @@ public class UserRolesController {
             @Override
             public Object invoke() throws Exception {
                 System.out.println(sysUsersEntity);
-                Gson g = new Gson();
                 SysUsersEntity sysUsersEntity1 = g.fromJson(sysUsersEntity, SysUsersEntity.class);
                 String username = sysUsersEntity1.getUsername();
                 String password = sysUsersEntity1.getPassword();
