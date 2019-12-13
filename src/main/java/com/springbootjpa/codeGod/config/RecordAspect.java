@@ -30,13 +30,10 @@ public class RecordAspect {
     @Around("excudeService()")
     public Object before(ProceedingJoinPoint pjp) throws Throwable {
         Signature signature = pjp.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
         Object[] obj = pjp.getArgs();
                     for (int j = 0; j < obj.length; j++) {
                         if(obj[j] instanceof String){
-                            if (obj[j].equals("y") || obj[j].equals("Y")){
-                                continue;
-                            }
+                            System.out.println(obj[j].toString());
                             obj[j] = aesUtils.deCode(obj[j].toString(), AjaxUtils.RSA_PUBLICAKEY);
                         }
 

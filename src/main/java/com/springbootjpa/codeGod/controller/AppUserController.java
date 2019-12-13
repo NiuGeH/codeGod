@@ -36,7 +36,7 @@ public class AppUserController extends InitBinderController {
     @PostMapping(value = "login")
     @ResponseBody
     //POST 必须大写
-    @ApiOperation(value = "登录接口" , httpMethod = "POST" , notes = "说明")
+//    @ApiOperation(value = "登录接口" , httpMethod = "POST" , notes = "说明")
     @ApiImplicitParams({
             //参数介绍 方便前端测试
             //POST(dataForm) paramType必须为query

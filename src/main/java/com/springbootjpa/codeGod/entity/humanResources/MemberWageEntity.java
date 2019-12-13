@@ -134,4 +134,9 @@ public class MemberWageEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "wage_payment_credentials")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private UploadFile wagePaymentCredentials;
+
+
+	@ApiModelProperty(value = "工作天数")
+	@Column(name = "wage_number_days")
+	private Integer wageNumberDays;
 }

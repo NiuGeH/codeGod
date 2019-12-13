@@ -1,6 +1,7 @@
 package com.springbootjpa.codeGod.controller;
 
 import com.google.gson.Gson;
+import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.AjaxResult;
 import com.springbootjpa.codeGod.common.AjaxUtils;
 import com.springbootjpa.codeGod.common.Func_T;
@@ -29,12 +30,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api("登录/修改")
+@Api(description = "后台人员Controller")
 @Controller
 @RequestMapping("/")
 public class UserRolesController {
@@ -57,17 +59,18 @@ public class UserRolesController {
                     "}",paramType = "body")
 
     })
-    public AjaxResult modifyPwd(@RequestBody String entity) {
+    public AjaxResult<Object> modifyPwd(@RequestBody String entity) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
+                logger.info("URL:/modifyPwd 请求参数: "+entity);
                 SysUsersEntity sysUsersEntity = g.fromJson(entity, SysUsersEntity.class);
                 if(ObjectUtils.isEmpty(sysUsersEntity.getId())){
-                    throw new NullPointerException("Id为空");
+                    throw new CodeGodException("Id为空",this.getClass());
                 }else if(ObjectUtils.isEmpty(sysUsersEntity.getPassword())){
-                    throw new NullPointerException("原密码为空");
+                    throw new CodeGodException("原密码为空",this.getClass());
                 }else if(ObjectUtils.isEmpty(sysUsersEntity.getNewPwd())){
-                    throw new NullPointerException("新密码为空");
+                    throw new CodeGodException("新密码为空",this.getClass());
                 }else{
                     sysUsersService.updatePwd(sysUsersEntity);
                 }
@@ -76,48 +79,40 @@ public class UserRolesController {
         });
     }
 
-    @RequestMapping("/loginHtml")
-    public ModelAndView loginHtml(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("login");
-        return modelAndView;
-    }
 
     @PostMapping(value = "/login", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "后台登录接口", httpMethod = "POST", notes = "后台登录接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "json", value = "{\n" +
-                    "\"username\":\"test1\",\n" +
-                    "\"password\":\"123\"\n" +
-                    "}", example = "sda", required = true, paramType = "body"),
-            @ApiImplicitParam(name = "sysUsersEntity", value = "实体", paramType = "body"),
+            @ApiImplicitParam(name = "sysUsersEntity", value = "SBmoyfl5sAaTxhvOhsM4xscKPCJNuiqCOZ3iMJnxiRpB53R347reSUKJfXSIo3tb \n{ \"username\":\"test1\", \"password\":\"123\" }",required = true, paramType = "body")
     })
-    public AjaxResult login(@RequestBody String sysUsersEntity, HttpServletRequest request) {
+    public AjaxResult<Object> login(@RequestBody String sysUsersEntity, HttpServletRequest request) {
 
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                System.out.println(sysUsersEntity);
+                logger.info("URL:/login 请求参数: "+sysUsersEntity);
                 SysUsersEntity sysUsersEntity1 = g.fromJson(sysUsersEntity, SysUsersEntity.class);
                 String username = sysUsersEntity1.getUsername();
                 String password = sysUsersEntity1.getPassword();
-                System.out.println(username);
-                System.out.println(password);
                 UsernamePasswordToken token = new UsernamePasswordToken(username, password);
                 Subject subject = SecurityUtils.getSubject();
                 try {
                     subject.login(token);
                     SysUsersEntity ent = (SysUsersEntity) subject.getPrincipal();
                     request.getSession().setAttribute("user", username);
+                    Cookie[] cookies = request.getCookies();
+                    for (Cookie cookie : cookies) {
+                        System.out.println(cookie.getName()+"  "+cookie.getValue());
+                    }
                     logger.info("用户登录成功: " + ent.toString());
                     ent.setPassword("");
                     return ent;
                 } catch (Exception e) {
-                    e.printStackTrace();
+
                     request.getSession().setAttribute("user", username);
                     request.setAttribute("error", "用户名或密码错误！");
-                    logger.info("用户名或密码错误" + this.getClass());
-                    throw new Exception("用户名或密码错误");
+                    throw new CodeGodException("用户名或密码错误",this.getClass());
                 }
 
             }

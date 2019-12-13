@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  * Ajax工具类
  */
 @PropertySource({"classpath:application.properties","classpath:application-dev.properties"})
-@Controller
+@Component
 public class AjaxUtils {
 
     public static String RSA_PUBLICAKEY ;
@@ -35,7 +36,6 @@ public class AjaxUtils {
      * @param <T>
      * @return
      */
-    @RequestMapping("/")
     public static <T> AjaxResult<T> process(Func_T<T> action) {
         AjaxResult<T> ajaxResult = new AjaxResult<T>();
         ajaxResult.setSuccess(false);

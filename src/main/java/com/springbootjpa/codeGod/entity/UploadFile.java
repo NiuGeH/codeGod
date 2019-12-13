@@ -1,5 +1,7 @@
 package com.springbootjpa.codeGod.entity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -17,6 +19,7 @@ public class UploadFile extends AbstractEntity {
     /**
      * 文件路径，包含完整的相对路径，前面带/，后面带后缀名
      */
+    @ApiModelProperty(value = "文件路径")
     @Column(name = "file_url")
     private String fileUrl;
 

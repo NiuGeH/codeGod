@@ -17,6 +17,5 @@ public class AbstractEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-	@Transient
-    private String deCode;
+
 }

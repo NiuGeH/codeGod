@@ -34,7 +34,7 @@ public class SysUsersServiceImpl implements SysUsersService {
     }
 
     @Override
-    public boolean updatePwd(SysUsersEntity sysUsersEntity) {
+    public void updatePwd(SysUsersEntity sysUsersEntity) {
         Optional<SysUsersEntity> byId = sysUsersRepository.findById(sysUsersEntity.getId());
         if(ObjectUtils.isEmpty(byId)){
             throw new CodeGodRunTimExcetion("该管理员不存在",this.getClass());
@@ -44,7 +44,7 @@ public class SysUsersServiceImpl implements SysUsersService {
             if(sysUsersEntity.getPassword().equals(jpaEnt.getPassword())){
                 jpaEnt.setPassword(sysUsersEntity.getNewPwd());
                 sysUsersRepository.save(jpaEnt);
-                return true;
+
             }else{
                 throw new CodeGodRunTimExcetion("原密码不正确",this.getClass());
             }
