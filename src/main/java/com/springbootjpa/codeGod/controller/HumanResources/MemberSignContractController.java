@@ -3,7 +3,7 @@ package com.springbootjpa.codeGod.controller.HumanResources;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
-import com.springbootjpa.codeGod.service.baseService.Impl.BaseDataDirctionaryServiceImpl;
+import com.springbootjpa.codeGod.utils.SaveFileUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,11 +14,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 @Api(description = "推荐签约审核Controller")
@@ -73,4 +75,31 @@ public class MemberSignContractController extends MemberBase {
             }
         });
     }
+
+    @ApiOperation("测试文件上传接口")
+    @RequestMapping("/doForm")
+    @ResponseBody
+    public AjaxResult<Object> doForm(String competition,String name,String age,@RequestParam("files") MultipartFile[] files,HttpServletRequest request){
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                System.out.println(competition);
+                System.out.println(name);
+                System.out.println(age);
+                if(files!=null&&files.length>0){
+                    //循环获取file数组中得文件
+                    for(int i = 0;i<files.length;i++){
+                        MultipartFile file = files[i];
+                        //保存文件
+                        if(!(ObjectUtils.isEmpty(file))){
+                            saveFileUtils.saveFile(file,request);
+                        }
+                    }
+                }
+                return "null";
+            }
+        });
+    }
+
+
 }

@@ -27,6 +27,7 @@ public class AjaxUtils {
     public void setUrl(String RSA_PUBLICAKEY) {
         AjaxUtils.RSA_PUBLICAKEY = RSA_PUBLICAKEY;
     }
+
     private static AesUtils aesUtils = new AesUtils();
 
     /**

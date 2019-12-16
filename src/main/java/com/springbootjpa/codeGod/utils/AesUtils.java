@@ -95,7 +95,7 @@ public class AesUtils {
         System.out.println(mi97JSJfjwIDAQAB);
         //解密
         System.out.println(aesUtils.deCode(
-                "z8xf5ljf/xo0Eq9uhK8nZE01ZbNbBBcJCk6fbEKsp9TSuXYyOpzfy5shjkZGWpRi"
+                "R1FLQ8OfvVfEvuza0YYoSb5B1Lz5ml0H8CvzCmnBvTRc5lnayNDod0Me76j3FDE5Zt4aFEY0zB6+VC/4NeJwD3v8uMsTnWmapisvQpbOj4Y="
                 ,"MI97JSJfjwIDAQAB"));
 
         byte[] bytes = DigestUtils.md5Digest("123456".getBytes());

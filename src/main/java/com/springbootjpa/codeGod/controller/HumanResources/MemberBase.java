@@ -7,6 +7,7 @@ import com.springbootjpa.codeGod.service.baseService.Impl.BaseDataDirctionarySer
 import com.springbootjpa.codeGod.service.humanResourcesService.MemberPrivacyService;
 import com.springbootjpa.codeGod.service.humanResourcesService.MemberService;
 import com.springbootjpa.codeGod.service.humanResourcesService.MemberSignContractService;
+import com.springbootjpa.codeGod.utils.SaveFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,6 @@ public class MemberBase {
     @Autowired
     protected BaseDataDirctionaryService baseDataDirctionaryService;
 
-
+    @Autowired
+    protected SaveFileUtils saveFileUtils;
 }

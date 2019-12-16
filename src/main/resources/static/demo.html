@@ -5,9 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-
+<img src="http://localhost:8888/image/20191214/jpg/25f13e0e-71c8-45b7-937f-8584a37a5ca4.jpg">
+<a href="http://localhost:8888/files/20191214/xlsx/a7a44ebe-4720-4185-ae78-4116aa194927.xlsx">asd</a>
+<form method="post" enctype="multipart/form-data" id="uploadForm"
+      action="/codeGod/SignContract/doForm">
+    作品名称：<input type="text" name="name" id="name"><br>
+    参赛年份：<input type="text" name="year" id="year"><br>
+    参加竞赛：<select name="competition" id="competition">
+    <option value="请选择">请选择</option>
+</select><br>
+    源文件上传:<input type="file" name="files" id="file1"><br>
+    展示文件上传:<input type="file" name="files" id="file2"><br>
+    附件上传:<input type="file" name="files" id="file3"><br>
+    <input type="submit" id="sub" value="提交">
+</form>
 </body>
 <script src="js/jquery-1.7.2.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="ASE/ASE.js"></script>
 <script>
     /*****************************************************
@@ -19,8 +33,8 @@
      * @return 加密密文
      ****************************************************/
 
-    function encrypt(content, key){
-        var sKey = CryptoJS.enc.Utf8.parse(key);
+    function encrypt(content){
+        var sKey = CryptoJS.enc.Utf8.parse("MI97JSJfjwIDAQAB");
         var sContent = CryptoJS.enc.Utf8.parse(content);
         var encrypted = CryptoJS.AES.encrypt(sContent, sKey, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
         return encrypted.toString();
@@ -43,22 +57,37 @@
 
 
     $(function () {
-        console.log(encrypt("{\n" +
-            "    \"id\":\"3\",\n" +
-            "    \"newPwd\":\"123\",\n" +
-            "    \"password\":\"123\"\n" +
-            "}","MI97JSJfjwIDAQAB"));
-        console.log(encrypt("123456","MI97JSJfjwIDAQAB"));
-        console.log(decrypt("ByTQHYvfbg7nDb/PTRyaXk79ZOamWG5SwTX1JLewjE0=","MI97JSJfjwIDAQAB"));
-        $.post("/codeGod/AppUser/login",{
-            "deCode":"y",
-            "mb":encrypt("123456123456","MI97JSJfjwIDAQAB"),
-            "Obj":encrypt("zhangsansiwhu","MI97JSJfjwIDAQAB")
-        },function (data) {
-            var dat = JSON.parse(decrypt(data.data,"MI97JSJfjwIDAQAB"));
-            console.log(dat.zhangsan);
+        var sd = decrypt("5LK1ac+DIHQIdlF7az9vIF8+oAj017z5RiOarugVsBd2ejwlU2jiAd%2F57A47u86m=","MI97JSJfjwIDAQAB");
+        console.log(sd);
+        var dat = {username:'123',password:12312};
+        console.log(encrypt(JSON.stringify(dat)));
+        $.ajax({
+            url:'/codeGod/login',
+            type:'POST',
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:encrypt(JSON.stringify(dat)),
+            success:function(data, status){
+                console.log(data);
+            }
+        });
 
-        })
+        // $("#sub").click(function () {
+        //     let formData = new FormData()
+        //     formData.append('name', $("#name").val())
+        //     formData.append('age', $("#age").val())
+        //     formData.append('file', $("input[name='file']"))
+        //     let config = {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        //         }
+        //     };
+        //     this.$http.post('/myupload', formData, config).then(function (res) {
+        //         if (res.status === 2000) {
+        //             /*这里做处理*/
+        //         }
+        //     })
+        // });
         // debugger
         //
         // $.post("/login",{
