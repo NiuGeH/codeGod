@@ -5,9 +5,11 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.DigestUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 
 /*****************************************************
  * AES加密解密工具
@@ -85,5 +87,20 @@ public class AesUtils {
         }
     }
 
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        AesUtils aesUtils = new AesUtils();
+        //加密
+        String mi97JSJfjwIDAQAB = aesUtils.enCode("{'page':'1','rows':'5'}", "MI97JSJfjwIDAQAB");
+        System.out.println(aesUtils.enCode("{'username':'Teacher', 'password':'1253' }", "MI97JSJfjwIDAQAB"));
+        System.out.println(mi97JSJfjwIDAQAB);
+        //解密
+        System.out.println(aesUtils.deCode(
+                "R1FLQ8OfvVfEvuza0YYoSb5B1Lz5ml0H8CvzCmnBvTRc5lnayNDod0Me76j3FDE5Zt4aFEY0zB6+VC/4NeJwD3v8uMsTnWmapisvQpbOj4Y="
+                ,"MI97JSJfjwIDAQAB"));
+
+        byte[] bytes = DigestUtils.md5Digest("123456".getBytes());
+        String s = new String(bytes);
+        System.out.println(s);
+    }
 
 }

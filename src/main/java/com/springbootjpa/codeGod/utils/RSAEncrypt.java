@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class RSAEncrypt {
     private static Map<Integer, String> keyMap = new HashMap<Integer, String>();  //用于封装随机产生的公钥与私钥
-//    public static void main(String[] args) throws Exception {
+//    public static void main(String[] args) throws codeException {
 //        //生成公钥和私钥
 //        genKeyPair();
 //        //加密字符串

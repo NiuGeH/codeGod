@@ -52,7 +52,7 @@ public class FileBase64Util {
 //            System.out.println(base64Code);
 //            decoderBase64File(base64Code, "/Users/Crazy/Desktop/zyb.png");
 //            toFile(base64Code, "/Users/Crazy/Desktop/zyb.txt");
-//        } catch (Exception e) {
+//        } catch (codeException e) {
 //            e.printStackTrace();
 //        }
 //    }

@@ -14,41 +14,43 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.thymeleaf.util.ArrayUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 
 @Aspect
 @Configuration
 public class RecordAspect {
     private static Logger logger = LoggerFactory.getLogger(RecordAspect.class);
+
     // 定义切点Pointcut
     @Pointcut("execution(* com.springbootjpa.codeGod.*controller..*.*(..))")
     public void excudeService() {
     }
 
     private AesUtils aesUtils = new AesUtils();
+
     @Around("excudeService()")
     public Object before(ProceedingJoinPoint pjp) throws Throwable {
-        Signature signature = pjp.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
-        String[] parameterNames = methodSignature.getParameterNames();
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        String contentType = request.getContentType();
+        System.out.println("请求头为 "+contentType);
         Object[] obj = pjp.getArgs();
-        for (int i = 0; i < parameterNames.length; i++) {
-            System.out.println(parameterNames[i]);
-            if(parameterNames[i].equals("deCode")){
-                if(obj[i].equals("Y") || obj[i].equals("y")){
-                    for (int j = 0; j < obj.length; j++) {
-                        if(obj[j] instanceof String){
-                            if (obj[j].equals("y") || obj[j].equals("Y")){
-                                continue;
-                            }
-                            obj[j] = aesUtils.deCode(obj[j].toString(), AjaxUtils.RSA_PUBLICAKEY);
-                        }
-                    }
+//        if (contentType.equals("application/json")) {
+            Signature signature = pjp.getSignature();
+            for (int j = 0; j < obj.length; j++) {
+                if (obj[j] instanceof String) {
+                    System.out.println(obj[j].toString());
+                    obj[j] = aesUtils.deCode(obj[j].toString(), AjaxUtils.RSA_PUBLICAKEY);
                 }
-            }
 
-        }
+            }
+//        }
+
 
 
         return pjp.proceed(obj);

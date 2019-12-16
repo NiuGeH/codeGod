@@ -1,9 +1,9 @@
 package com.springbootjpa.codeGod.shiro;
 
 
-import com.springbootjpa.codeGod.entity.SysRolesRermissionsEntity;
-import com.springbootjpa.codeGod.entity.SysUsersEntity;
-import com.springbootjpa.codeGod.entity.SysUsersRolesEntity;
+import com.springbootjpa.codeGod.entity.sys.SysRolesRermissionsEntity;
+import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
+import com.springbootjpa.codeGod.entity.sys.SysUsersRolesEntity;
 import com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository;
 import com.springbootjpa.codeGod.repository.SysUsersRepository;
 import com.springbootjpa.codeGod.repository.SysUsersRolesRepository;
@@ -69,7 +69,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
 
         SysUsersEntity user = sysUsersRepository.findByUsername(username);
-        System.err.println(username);
+
         if (user == null) {
             return null;
         }

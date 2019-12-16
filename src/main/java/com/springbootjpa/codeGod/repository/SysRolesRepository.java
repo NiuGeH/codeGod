@@ -1,6 +1,6 @@
 package com.springbootjpa.codeGod.repository;
 
-import com.springbootjpa.codeGod.entity.SysRolesEntity;
+import com.springbootjpa.codeGod.entity.sys.SysRolesEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
