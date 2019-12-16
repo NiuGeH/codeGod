@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.entity.projectmanager;
 
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
+import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import lombok.Data;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -47,7 +49,7 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "发布时间")
 	@Column(name = "demand_deliver_time", nullable = true)
-	private java.util.Date demandDeliverTime;
+	private Date demandDeliverTime;
 
 	/**
 	 * 项目ID
@@ -99,9 +101,10 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	 * 设计文档
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "设计文档")
-	@Column(name = "demand_design_document", nullable = true, length = 11)
-	private Integer demandDesignDocument;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "demand_design_document_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile uploadFile;
 
 	/**
 	 * 项目地址

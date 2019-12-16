@@ -36,7 +36,7 @@ public class PmApplicationEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_manager_id")
+	@JoinColumn(name = "demand_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PmDemandEntity pmDemandEntity;
 
