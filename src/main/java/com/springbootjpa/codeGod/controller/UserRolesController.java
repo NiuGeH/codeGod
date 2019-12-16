@@ -101,15 +101,15 @@ public class UserRolesController {
                     subject.login(token);
                     SysUsersEntity ent = (SysUsersEntity) subject.getPrincipal();
                     request.getSession().setAttribute("user", username);
-                    Cookie[] cookies = request.getCookies();
-                    for (Cookie cookie : cookies) {
-                        System.out.println(cookie.getName()+"  "+cookie.getValue());
-                    }
+//                    Cookie[] cookies = request.getCookies();
+//                    for (Cookie cookie : cookies) {
+//                        System.out.println(cookie.getName()+"  "+cookie.getValue());
+//                    }
                     logger.info("用户登录成功: " + ent.toString());
                     ent.setPassword("");
                     return ent;
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                     request.getSession().setAttribute("user", username);
                     request.setAttribute("error", "用户名或密码错误！");
                     throw new CodeGodException("用户名或密码错误",this.getClass());

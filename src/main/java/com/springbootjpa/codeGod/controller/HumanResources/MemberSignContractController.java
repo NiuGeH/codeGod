@@ -77,7 +77,7 @@ public class MemberSignContractController extends MemberBase {
     }
 
     @ApiOperation("测试文件上传接口")
-    @RequestMapping("/doForm")
+    @PostMapping("/doForm")
     @ResponseBody
     public AjaxResult<Object> doForm(String competition,String name,String age,@RequestParam("files") MultipartFile[] files,HttpServletRequest request){
         return AjaxUtils.process(new Func_T<Object>() {

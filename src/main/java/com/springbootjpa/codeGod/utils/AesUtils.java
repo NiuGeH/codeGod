@@ -91,7 +91,7 @@ public class AesUtils {
         AesUtils aesUtils = new AesUtils();
         //加密
         String mi97JSJfjwIDAQAB = aesUtils.enCode("{'page':'1','rows':'5'}", "MI97JSJfjwIDAQAB");
-        System.out.println(aesUtils.enCode("{'page':'1','rows':'5','validationCode':'0','siginEnd':'0'}", "MI97JSJfjwIDAQAB"));
+        System.out.println(aesUtils.enCode("{'username':'Teacher', 'password':'1253' }", "MI97JSJfjwIDAQAB"));
         System.out.println(mi97JSJfjwIDAQAB);
         //解密
         System.out.println(aesUtils.deCode(

@@ -26,7 +26,7 @@ public class MemberController extends MemberBase {
 
     @PostMapping(value = "/doPage", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    @ApiOperation(value = "查询用户基础信息", httpMethod = "POST", notes = "")
+    @ApiOperation(value = "查询用户基础信息", httpMethod = "POST", notes = "查询用户基础信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json",
                     value = "{'page':'1','rows':'5'}",required = true, paramType = "body")
