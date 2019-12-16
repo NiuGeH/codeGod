@@ -5,13 +5,14 @@ let API = {
     //'118.24.219.198:18089': 'http://118.24.219.198:18083/iotcoldchainware',
 
     // 本地环境
-    'localhost:8081': 'http://192.168.3.44:8087/iotcoldchainware',
+    //'117.78.37.58:8000': 'http://117.78.37.58:8000/codeGod/',
+    'localhost:8081': 'http://192.168.3.10:8000/codeGod/',
     
     // 测试环境
-    '152.136.37.175:18087':'http://152.136.37.175:8087/iotcoldchainware',
+    //'152.136.37.175:18087':'http://152.136.37.175:8087/iotcoldchainware',
 
-    // 我的ip, 斌的服务器
-    '192.168.3.34:8081': 'http://118.24.219.198:18083/iotcoldchainware'
+    // 我的ip, 服务器
+    '192.168.3.31': 'http://192.168.3.10:8000/codeGod/'
 };
 
 // 登录页面地址
@@ -23,10 +24,10 @@ let LOGIN = {
     '152.136.37.175:18087':'http://152.136.37.175:8585/iotplatform/login',
 
     // 本地环境
-    'localhost:8081':'http://62.234.164.69:8585/iotplatform/login',
+    'localhost:8081':'http://117.78.37.58:8000/codeGod/login',
 
-    // 我的ip, 斌的服务器
-    '192.168.3.34:8081': 'http://62.234.164.69:8585/iotplatform/login'
+    // 本地联调的服务器
+    '192.168.3.10': 'http://192.168.3.10:8000/codeGod/login'
 };
 
 let ROOT, URL = API[ location.host ];

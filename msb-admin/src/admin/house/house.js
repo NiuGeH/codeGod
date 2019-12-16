@@ -17,6 +17,9 @@ import './private/api';
 import './private/verify';
 //加密
 import './private/crypto';
+//
+import VueCookies from 'vue-cookies';
+Vue.use(VueCookies);
 
 // if(config.isMock) {
 //     let mockPlugin = require('../../mock/index');

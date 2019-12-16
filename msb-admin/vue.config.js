@@ -146,7 +146,8 @@ module.exports = {
         port: buildConfig.port,
         proxy: {
             '/api': {
-                target: 'http://117.78.37.58:8000/codeGod/',
+                //target: 'http://117.78.37.58:8000/codeGod/',
+                target: 'http://192.168.3.10:8000/codeGod/',
                 ws: true,
                 changeOrigin: true,
                 pathRewrite: {

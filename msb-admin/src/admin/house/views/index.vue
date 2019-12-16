@@ -3,7 +3,7 @@
         <header class="hd">
             <h1 class="title">
                 <i class="iconfont icon-liebiao"></i>
-                <router-link to="/view/Home">Sinotrans IOT</router-link>
+                <router-link to="/view/Home">码神邦后台管理系统</router-link>
             </h1>
             <div class="hd-bar">
                 <ul class="hd-nav">
