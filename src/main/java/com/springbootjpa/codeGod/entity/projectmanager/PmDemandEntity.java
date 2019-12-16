@@ -69,7 +69,7 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	//@ApiModelProperty(value = "客户ID")
 	//@Column(name = "custom_id", nullable = true, length = 20)
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_privacy_id")
+	@JoinColumn(name = "custom_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private MemberPrivacyEntity memberPrivacyEntity;
 
@@ -129,7 +129,8 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "需求状态")
 	@Column(name = "demand_status", nullable = true, length = 11)
 	private Integer demandStatus;
-
+	@Transient
+	private String demandStatus1;
 	/**
 	 * 拒绝原因
 	 * default value: null
@@ -143,7 +144,7 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	 * default value: null
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "product_manager_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private MemberEntity memberEntity;
 }
