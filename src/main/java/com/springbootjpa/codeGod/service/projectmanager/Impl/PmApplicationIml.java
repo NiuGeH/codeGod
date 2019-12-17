@@ -26,8 +26,12 @@ import java.util.List;
 public class PmApplicationIml implements PmApplicationService {
     @Autowired
     private PmApplicationentityRepository pmApplicationentityRepository;
+    /*
+     * @Param    demandId 需求ID
+     * @return   返回报名该需求产品经理
+     */
     @Override
-    public Page<PmApplicationService> doPageByDemandId(Pageable pageable, Long demandId) {
+    public Page<PmApplicationEntity> doPage(Pageable pageable, Long demandId) {
         Specification sp = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -38,7 +42,6 @@ public class PmApplicationIml implements PmApplicationService {
                 return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
             }
         };
-
-        return null;
+        return pmApplicationentityRepository.findAll(sp,pageable);
     }
 }

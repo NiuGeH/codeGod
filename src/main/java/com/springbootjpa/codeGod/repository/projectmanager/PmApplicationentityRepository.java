@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PmApplicationentityRepository extends JpaSpecificationExecutor<PmApplicationEntity>, PagingAndSortingRepository<PmApplicationEntity, Long>, JpaRepository<PmApplicationEntity, Long> {
-    @Query(value = "",nativeQuery = true)
-    Page<PmApplicationService> doPageByDemandId(Pageable pageable, Long demandId);
+
 
 }
