@@ -35,7 +35,7 @@ public class OperationCaseEntity extends AbstractEntity implements Serializable 
 	private String caseOrder;
 
 	/**
-	 * 是否显示：0不显示，1显示
+	 * 是否显示：0显示，1不显示
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "是否显示：0显示，1不显示")

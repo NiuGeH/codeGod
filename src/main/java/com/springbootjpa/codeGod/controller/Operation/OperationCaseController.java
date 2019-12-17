@@ -83,7 +83,7 @@ public class OperationCaseController extends OperationBase {
     })
     public PageResult<OperationCaseEntity> doPage(@RequestBody String json) throws CodeGodException {
         log.info("URL:/case/findAllCase 请求参数：" + json);
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        Sort sort = new Sort(Sort.Direction.ASC, "caseOrder");
         PageRequestParam pages = null;
         try{
             pages = gson.fromJson(json, PageRequestParam.class);
