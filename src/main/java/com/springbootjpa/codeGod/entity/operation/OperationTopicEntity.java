@@ -8,7 +8,9 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 栏目列表
@@ -32,16 +34,18 @@ public class OperationTopicEntity extends AbstractEntity implements Serializable
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "栏目排序")
-	@Column(name = "order", nullable = true, length = 100)
-	private String order;
+	@Column(name = "topic_order", nullable = true, length = 100)
+	private String topicOrder;
 
 	/**
-	 * 是否显示：0不显示，1显示
+	 * 是否显示：0显示，1不显示
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "是否显示：0不显示，1显示")
+	@ApiModelProperty(value = "是否显示：0显示，1不显示")
 	@Column(name = "display", nullable = true, length = 2)
 	private Integer display;
+	@Transient
+	private String displayStr;
 
 	/**
 	 * 创建时间
@@ -49,15 +53,7 @@ public class OperationTopicEntity extends AbstractEntity implements Serializable
 	 */
 	@ApiModelProperty(value = "创建时间")
 	@Column(name = "create_time", nullable = true)
-	private String createTime;
-
-	/**
-	 * 创建用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "创建用户")
-	@Column(name = "create_user", nullable = true, length = 255)
-	private String createUser;
+	private Date createTime;
 
 	/**
 	 * 更新时间
@@ -65,13 +61,6 @@ public class OperationTopicEntity extends AbstractEntity implements Serializable
 	 */
 	@ApiModelProperty(value = "更新时间")
 	@Column(name = "modify_time", nullable = true)
-	private String modifyTime;
+	private Date modifyTime;
 
-	/**
-	 * 更新用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "更新用户")
-	@Column(name = "modify_user", nullable = true, length = 255)
-	private String modifyUser;
 }

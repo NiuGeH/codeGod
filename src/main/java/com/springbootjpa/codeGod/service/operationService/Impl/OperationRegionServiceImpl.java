@@ -89,7 +89,7 @@ public class OperationRegionServiceImpl implements OperationRegionService {
         city.setModifyTime(now);
         log.info("城市修改后：" + city.toString());
 
-        //保存修改后的案例
+        //保存修改后的城市
         operationRegionRepository.save(city);
 
         return city;

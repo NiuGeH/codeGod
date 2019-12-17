@@ -92,8 +92,8 @@ public class OperationRegionController extends OperationBase{
         }
         return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<OperationRegionEntity>>() {
             @Override
-            public Page<OperationRegionEntity> invoke(Pageable pages) throws Exception {
-                Page<OperationRegionEntity> all = operationRegionService.findAll(pages);
+            public Page<OperationRegionEntity> invoke(Pageable page) throws Exception {
+                Page<OperationRegionEntity> all = operationRegionService.findAll(page);
                 for (OperationRegionEntity operationRegionEntity:all) {
                     log.info("城市分页：" + operationRegionEntity.toString());
                 }

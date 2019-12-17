@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.controller.Operation;
 import com.google.gson.Gson;
 import com.springbootjpa.codeGod.service.operationService.OperationCaseService;
 import com.springbootjpa.codeGod.service.operationService.OperationRegionService;
+import com.springbootjpa.codeGod.service.operationService.OperationTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,5 +23,8 @@ public class OperationBase {
 
     @Autowired
     protected OperationRegionService operationRegionService;
+
+    @Autowired
+    protected OperationTopicService operationTopicService;
 
 }
