@@ -4,6 +4,7 @@ import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.controller.HumanResources.MemberSignContractController;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.UploadFile;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ public class SaveFileUtils {
                 if (!fileDir.exists()) {
                     fileDir.mkdir();// 创建文件根目录
                 }
-                BaseDataDictionaryEntity bd = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(fileOldName[fileOldName.length-1], "upload_file.file_type");
+                BaseDataDictionaryEntity bd = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(fileOldName[fileOldName.length-1], DataBaseFinal.UPLOADFILE_FILETYPE);
                 if (!(ObjectUtils.isEmpty(bd))) {
                     File file_type = new File(fileDir.getPath() + File.separator + bd.getDataKey());
                     if (!file_type.exists()) {
@@ -55,7 +56,7 @@ public class SaveFileUtils {
                     // 转存文件
                     FileUtils.copyInputStreamToFile(file.getInputStream(), new File(filePath));
                     UploadFile uploadFile = new UploadFile();
-                    uploadFile.setDisplayName(fileOldName[0]);
+                    uploadFile.setDisplayName(file.getOriginalFilename());
                     uploadFile.setCreateTime(DateTimeUtils.getNowTimeNormalString());
                     uploadFile.setFileUrl(nowDay + File.separator + fileOldName[fileOldName.length-1] + File.separator + flieName);
                     return uploadFile;

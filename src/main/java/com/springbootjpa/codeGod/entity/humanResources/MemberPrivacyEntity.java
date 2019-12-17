@@ -72,22 +72,7 @@ public class MemberPrivacyEntity extends AbstractEntity implements Serializable 
 	@ApiModelProperty(value = "联系地址")
 	@Column(name = "member_contact_address", nullable = true, length = 50)
 	private String memberContactAddress;
-
-	/**
-	 * 远程报价
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "远程报价")
-	@Column(name = "member_long_range_price", nullable = true, length = 30)
-	private String memberLongRangePrice;
-
-	/**
-	 * 驻场报价
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "驻场报价")
-	@Column(name = "member_stationing_price", nullable = true, length = 30)
-	private String memberStationingPrice;
+	
 
 	/**
 	 * 提现账户
@@ -123,6 +108,26 @@ public class MemberPrivacyEntity extends AbstractEntity implements Serializable 
 	@ApiModelProperty(value = "身份证号")
 	@Column(name = "member_cardno", nullable = true, length = 30)
 	private String memberCardno;
+
+	/**
+	 * 身份证正面
+	 */
+	@ApiModelProperty(value = "身份证正面")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_card_front")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile memberCardFront;
+
+
+	/**
+	 * 身份证背面
+	 */
+	@ApiModelProperty(value = "身份证背面")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_card_reverse_side")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile memberCardReverseSide;
+
 
 	/**
 	 * 个人资料 可上传多个 用,号隔开 就是upload_file 的主键

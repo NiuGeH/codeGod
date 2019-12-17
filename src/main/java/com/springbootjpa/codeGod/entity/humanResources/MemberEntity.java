@@ -142,7 +142,7 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	 * 签约状态 0 拒绝 1 已签约
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "签约状态 0 拒绝 1 已签约")
+	@ApiModelProperty(value = "签约结果 0 未申请 1 等待审核 2 已签约 3 已拒绝")
 	@Column(name = "member_signing_status", nullable = true, length = 4)
 	private Integer memberSigningStatus;
 
@@ -177,4 +177,18 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "技能管理")
 	@Column(name = "member_skill_management", nullable = true, length = 100)
 	private String memberSkillManagement;
+
+	/**
+	 * 远程开发报价
+	 */
+	@ApiModelProperty(value = "远程开发报价")
+	@Column(name = "member_long_range" , nullable = true , length = 40)
+	private String memberLongRange;
+
+	/**
+	 * 驻场开发报价
+	 */
+	@ApiModelProperty(value = "驻场开发报价")
+	@Column(name = "member_on_site_development" , nullable = true , length = 40)
+	private String memberOnSiteDevelopment;
 }

@@ -5,7 +5,10 @@ import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.UploadFile;
+import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
+import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
 import com.springbootjpa.codeGod.utils.SaveFileUtils;
 import io.swagger.annotations.Api;
@@ -45,9 +48,9 @@ public class MemberSignContractController extends MemberBase {
             public Object invoke() throws Exception {
                 HashMap<String ,Object > hashMap = new HashMap<>();
                 hashMap.put("sigin_results",baseDataDirctionaryService.
-                        findByColumNameRetrunDirctionaryAryList("member_sign_contract.sigin_results"));
+                        findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBERSIGNCONTRACT_SIGIN_RESULTS));
                 hashMap.put("siginVerificationCode",baseDataDirctionaryService.
-                        findByColumNameRetrunDirctionaryAryList("member_sign_contract.sigin_verification_code"));
+                        findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBERSIGNCONTRACT_SIGNVERIFICATIONCODE));
                 return hashMap;
             }
         });
@@ -59,7 +62,7 @@ public class MemberSignContractController extends MemberBase {
     @ApiOperation(value = "签约审核分页", httpMethod = "POST", notes = "签约审核分页 validationCode==验证码   siginEnd==签约结果")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5','validationCode':'0','siginEnd':'0'}" +
-                    "\n0Gj755mNLsrxeUhCgPQWXifaadNdDJ/aErVrKppFraf5PzZw9o71f8w2zno1JYu8tG4f5V2Kyz069vMa9ESpww=="
+                    ""
                     ,required = true, paramType = "body")
     })
     public PageResult<MemberSignContractEntity> doPage(@RequestBody String json) throws CodeGodException {
@@ -112,18 +115,29 @@ public class MemberSignContractController extends MemberBase {
     }
 
     @ApiOperation(value = "签约设置保存接口" , notes = "")
-    @PostMapping("/doSaveSgin")
+    @PostMapping(value = "/doSaveSgin", headers = "content-type=multipart/form-data")
     @ResponseBody
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "memberSignContractEntity" , required = true , paramType = "prams")
+//            @ApiImplicitParam(name = "memberSignContractEntity" , required = true , paramType = "prams")
+            @ApiImplicitParam(name = "memberPhotoFileMultipartFile" ,  paramType = "formData",value = "形象照"),
+            @ApiImplicitParam(name = "memberPhotoHeadPortraitMultipartFile" , paramType = "formData",value = "头像"),
+            @ApiImplicitParam(name = "memberPersonalDataMultipartFile" ,  paramType = "formData",value = "个人资料（可多个）"),
+            @ApiImplicitParam(name = "memberCardFrontMultipartFile" ,  paramType = "formData",value = "身份证正面"),
+            @ApiImplicitParam(name = "memberCardReverseSideMultipartFile" , paramType = "formData",value = "身份证反面"),
+            @ApiImplicitParam(name = "siginAgreementMultipartFile" ,  paramType = "formData",value = "签约协议（可多个）"),
+
     })
-    public AjaxResult<Object> doSaveSgin(MemberSignContractEntity memberSignContractEntity){
+    public AjaxResult<Object> doSaveSgin(MemberSignContractEntity memberSignContractEntity, MemberEntity memberEntity, MemberPrivacyEntity memberPrivacyEntity,
+                                         @RequestParam("memberPhotoFileMultipartFile") MultipartFile memberPhotoFileMultipartFile, @RequestParam("memberPhotoHeadPortraitMultipartFile") MultipartFile memberPhotoHeadPortraitMultipartFile,
+                                         @RequestParam("memberPersonalDataMultipartFile") MultipartFile[] memberPersonalDataMultipartFile, @RequestParam("memberCardFrontMultipartFile") MultipartFile memberCardFrontMultipartFile,
+                                         @RequestParam("memberCardReverseSideMultipartFile") MultipartFile memberCardReverseSideMultipartFile, @RequestParam("siginAgreementMultipartFile") MultipartFile[] siginAgreementMultipartFile
+            , HttpServletRequest request){
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
+                logger.info("URL:/SignContract/doSaveSgin 请求参数为: 用户签约 信息："+memberSignContractEntity.toString() +"  用户私密信息表数据:"+memberPrivacyEntity.toString() + " 用户基本信息："+memberEntity.toString());
+                MemberSignContractEntity entity = memberSignContractService.signSetting(memberSignContractEntity, memberEntity, memberPrivacyEntity, memberPhotoFileMultipartFile, memberPhotoHeadPortraitMultipartFile, memberPersonalDataMultipartFile, memberCardFrontMultipartFile, memberCardReverseSideMultipartFile, siginAgreementMultipartFile, request);
 
-                System.out.println(memberSignContractEntity);
-                
                 return memberSignContractEntity;
             }
         });

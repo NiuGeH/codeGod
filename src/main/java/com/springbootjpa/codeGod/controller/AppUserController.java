@@ -4,6 +4,7 @@ import com.springbootjpa.codeGod.common.AjaxResult;
 import com.springbootjpa.codeGod.common.AjaxUtils;
 import com.springbootjpa.codeGod.common.Func_T;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public class AppUserController extends SysBase{
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                List<BaseDataDictionaryEntity> byColumNameRetrunDirctionaryAryList = baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList("member.member_display");
+                List<BaseDataDictionaryEntity> byColumNameRetrunDirctionaryAryList = baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERDISPLAY);
                 System.out.println(byColumNameRetrunDirctionaryAryList.toString());
                 return byColumNameRetrunDirctionaryAryList;
             }
