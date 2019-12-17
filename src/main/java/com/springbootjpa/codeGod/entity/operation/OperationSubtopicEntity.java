@@ -9,6 +9,7 @@ import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 子栏目列表
@@ -43,8 +44,8 @@ public class OperationSubtopicEntity extends AbstractEntity implements Serializa
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "子栏目排序")
-	@Column(name = "order", nullable = true, length = 100)
-	private String order;
+	@Column(name = "subtopic_order", nullable = true, length = 100)
+	private String subtopicOrder;
 
 	/**
 	 * 内容
@@ -63,20 +64,20 @@ public class OperationSubtopicEntity extends AbstractEntity implements Serializa
 	private String url;
 
 	/**
+	 * 跳转url：0不可以，1可以
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "跳转url：0不可以，1可以")
+	@Column(name = "url_state", nullable = true, length = 2)
+	private Integer urlState;
+
+	/**
 	 * 创建时间
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "创建时间")
 	@Column(name = "create_time", nullable = true)
-	private String createTime;
-
-	/**
-	 * 创建用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "创建用户")
-	@Column(name = "create_user", nullable = true, length = 255)
-	private String createUser;
+	private Date createTime;
 
 	/**
 	 * 更新时间
@@ -84,13 +85,6 @@ public class OperationSubtopicEntity extends AbstractEntity implements Serializa
 	 */
 	@ApiModelProperty(value = "更新时间")
 	@Column(name = "modify_time", nullable = true)
-	private String modifyTime;
+	private Date modifyTime;
 
-	/**
-	 * 更新用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "更新用户")
-	@Column(name = "modify_user", nullable = true, length = 255)
-	private String modifyUser;
 }

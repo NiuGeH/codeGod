@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.service.operationService.Impl;
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationTopicEntity;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationTopicRepository;
 import com.springbootjpa.codeGod.service.operationService.OperationTopicService;
@@ -106,7 +107,7 @@ public class OperationTopicServiceImpl implements OperationTopicService {
         List<OperationTopicEntity> list = new ArrayList<>();
         if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
             for(OperationTopicEntity operationTopicEntity : all){
-                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTopicEntity.getDisplay().toString(), "operation_topic.display");
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTopicEntity.getDisplay().toString(), DataBaseFinal.OPERATIONTOPIC_DISPLAY);
                 operationTopicEntity.setDisplayStr(bdd.getDataValue());
                 list.add(operationTopicEntity);
             }

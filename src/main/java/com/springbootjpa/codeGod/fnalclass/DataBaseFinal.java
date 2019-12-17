@@ -10,4 +10,10 @@ public class DataBaseFinal {
 
     public static final String UPLOADFILE_FILETYPE = "upload_file.file_type";
 
+    public static final String OPERATIONCASE_DISPLAY = "operation_case.display";
+
+    public static final String OPERATIONREGION_DISPLAY = "operation_region.display";
+
+    public static final String OPERATIONTOPIC_DISPLAY = "operation_topic.display";
+
 }

@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.service.operationService.Impl;
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationCaseEntity;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationCaseRepository;
 import com.springbootjpa.codeGod.service.operationService.OperationCaseService;
@@ -107,7 +108,7 @@ public class OperationCaseServiceImpl implements OperationCaseService {
         List<OperationCaseEntity> list = new ArrayList<>();
         if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
             for(OperationCaseEntity operationCaseEntity : all){
-                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationCaseEntity.getDisplay().toString(), "operation_case.display");
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationCaseEntity.getDisplay().toString(), DataBaseFinal.OPERATIONCASE_DISPLAY);
                 operationCaseEntity.setDisplayStr(bdd.getDataValue());
                 list.add(operationCaseEntity);
             }

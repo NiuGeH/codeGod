@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.service.operationService.Impl;
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationRegionRepository;
 import com.springbootjpa.codeGod.service.operationService.OperationRegionService;
@@ -106,7 +107,7 @@ public class OperationRegionServiceImpl implements OperationRegionService {
         List<OperationRegionEntity> list = new ArrayList<>();
         if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
             for(OperationRegionEntity operationRegionEntity : all){
-                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationRegionEntity.getDisplay().toString(), "operation_region.display");
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationRegionEntity.getDisplay().toString(), DataBaseFinal.OPERATIONREGION_DISPLAY);
                 operationRegionEntity.setDisplayStr(bdd.getDataValue());
                 list.add(operationRegionEntity);
             }
