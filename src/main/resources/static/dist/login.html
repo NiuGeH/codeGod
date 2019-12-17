@@ -5,24 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-<img src="http://localhost:8888/files/20191214/jpg/08757f9d-afa0-4140-94d0-b7320aa46d95.jpg">
-<a href="http://localhost:8888/files/dl/20191214/xlsx/a7a44ebe-4720-4185-ae78-4116aa194927.xlsx?filename=123.xlsx">asd</a>
-<form method="post" enctype="multipart/form-data" id="uploadForm"
-      action="/codeGod/SignContract/doForm">
-    作品名称：<input type="text" name="name" id="name"><br>
-    参赛年份：<input type="text" name="year" id="year"><br>
-    参加竞赛：<select name="competition" id="competition">
-    <option value="请选择">请选择</option>
-</select><br>
-    源文件上传:<input type="file" name="files" id="file1"><br>
-    展示文件上传:<input type="file" name="files" id="file2"><br>
-    附件上传:<input type="file" name="files" id="file3"><br>
-    <input type="submit" id="sub" value="提交">
-</form>
+    <input type="text" value="" id="name">
+    <input type="text" value="" id="pwd">
+    <button id="btn" >ssss</button>
+
+    <h1>
+        修改密码
+    </h1>
+
+    原密码：    <input type="text" id="usname">
+    新密码：    <input type="text" id="upwd">
+
+    <input type="button" id="mdpwd" value="修改">
 </body>
 <script src="js/jquery-1.7.2.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="ASE/ASE.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     /*****************************************************
      * AES加密
@@ -57,20 +55,40 @@
 
 
     $(function () {
-        var sd = decrypt("5LK1ac+DIHQIdlF7az9vIF8+oAj017z5RiOarugVsBd2ejwlU2jiAd%2F57A47u86m=","MI97JSJfjwIDAQAB");
-        console.log(sd);
-        var dat = {username:'123',password:12312};
-        console.log(encrypt(JSON.stringify(dat)));
-        $.ajax({
-            url:'/codeGod/login',
-            type:'POST',
-            dataType:'json',
-            contentType:'application/json;charset=UTF-8',
-            data:encrypt(JSON.stringify(dat)),
-            success:function(data, status){
-                console.log(data);
-            }
+        // var sd = decrypt("5LK1ac+DIHQIdlF7az9vIF8+oAj017z5RiOarugVsBd2ejwlU2jiAd%2F57A47u86m=","MI97JSJfjwIDAQAB");
+        // console.log(sd);
+        console.log(getSessionId());
+        $("#btn").click(function () {
+            var dat = {username:$("#name").val(),password:$("#pwd").val()};
+            console.log(encrypt(JSON.stringify(dat)));
+            $.ajax({
+                url:'/codeGod/login',
+                type:'POST',
+                dataType:'json',
+                contentType:'application/json;charset=UTF-8',
+                data:encrypt(JSON.stringify(dat)),
+                success:function(data, status){
+                    console.log(data);
+                }
+            });
         });
+
+        $("#mdpwd").click(function () {
+            let usname = $("#usname").val();
+            let mdpwd = $("#upwd").val();
+            let dataaa = {id : 1 , newPwd : usname , password: mdpwd}
+            $.ajax({
+                url:'/codeGod/modifyPwd',
+                type:'POST',
+                dataType:'json',
+                contentType:'application/json;charset=UTF-8',
+                data:encrypt(JSON.stringify(dataaa)),
+                success:function(data, status){
+                    console.log(data);
+                }
+            });
+        });
+
 
         // $("#sub").click(function () {
         //     let formData = new FormData()
@@ -97,5 +115,23 @@
         //     console.log(data);
         // })
     })
+    function getSessionId(){
+        var c_name = 'JSESSIONID';
+        if(document.cookie.length>0){
+            c_start=document.cookie.indexOf(c_name + "=");
+            if(c_start!=-1){
+                c_start=c_start + c_name.length+1;
+                c_end=document.cookie.indexOf(";",c_start);
+                if(c_end==-1) c_end=document.cookie.length;
+                return unescape(document.cookie.substring(c_start,c_end));
+            }else{
+                //手动从后台传来sessionid
+                var JSESSIONID = $('#JSESSIONID').val();
+                return JSESSIONID;
+            }
+        }else{
+            console.log('123123');
+        }
+    }
 </script>
 </html>

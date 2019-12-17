@@ -151,4 +151,21 @@ public class UploadFile extends AbstractEntity {
         this.fileFrom = fileFrom;
     }
 
+
+    @Override
+    public String toString() {
+        return "UploadFile{" +
+                "displayName='" + displayName + '\'' +
+                ", fileUrl='" + fileUrl + '\'' +
+                ", relatedKey='" + relatedKey + '\'' +
+                ", createUser='" + createUser + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", updateUser='" + updateUser + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", fileType=" + fileType +
+                ", useType=" + useType +
+                ", fileFrom=" + fileFrom +
+                ", id=" + id +
+                '}';
+    }
 }

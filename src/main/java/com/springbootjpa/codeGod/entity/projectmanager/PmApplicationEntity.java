@@ -22,14 +22,14 @@ import javax.persistence.*;
 @Table(name = "pm_application")
 public class PmApplicationEntity extends AbstractEntity implements Serializable {
 
-	/**
-	 * 产品经理ID
-	 * default value: null
-	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_manager_id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	private MemberEntity memberEntity;
+//	/**
+//	 * 产品经理ID
+//	 * default value: null
+//	 */
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "project_manager_id")
+//	@NotFound(action = NotFoundAction.IGNORE)
+//	private MemberEntity memberEntity;
 
 	/**
 	 * 需求ID demand_id

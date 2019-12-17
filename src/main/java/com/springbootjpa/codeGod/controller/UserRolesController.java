@@ -18,6 +18,8 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.servlet.ShiroHttpSession;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,16 +101,22 @@ public class UserRolesController {
                 UsernamePasswordToken token = new UsernamePasswordToken(username, password);
                 Subject subject = SecurityUtils.getSubject();
                 try {
+                    HashMap<String ,Object> hashMap = new HashMap<>();
                     subject.login(token);
                     SysUsersEntity ent = (SysUsersEntity) subject.getPrincipal();
                     request.getSession().setAttribute("user", username);
+                    String id = request.getSession().getId();
+                    hashMap.put("JSESSIONID",id);
+//                    System.out.println(jsessionid.toString());
 //                    Cookie[] cookies = request.getCookies();
 //                    for (Cookie cookie : cookies) {
-//                        System.out.println(cookie.getName()+"  "+cookie.getValue());
+//                        System.out.println(cookie.getName() +" : "+cookie.getValue());
+//                        hashMap.put(cookie.getName(),cookie.getValue());
 //                    }
                     logger.info("用户登录成功: " + ent.toString());
                     ent.setPassword("");
-                    return ent;
+                    hashMap.put("user",ent);
+                    return hashMap;
                 } catch (Exception e) {
                     e.printStackTrace();
                     request.getSession().setAttribute("user", username);

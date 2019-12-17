@@ -80,12 +80,24 @@ public class MemberSignContractEntity extends AbstractEntity implements Serializ
 	private Integer siginResults;
 
 	/**
+	 * 签约结果返回数据
+	 */
+	@Transient
+	private String siginResultsData;
+
+	/**
 	 * 验证码 0 未过期 1已过期
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "验证码 0 未过期 1已过期")
 	@Column(name = "sigin_verification_code", nullable = true, length = 20)
 	private Integer siginVerificationCode;
+
+	/**
+	 * 验证码 是否过期返回数据
+	 */
+	@Transient
+	private String siginVerificationCodeData;
 
 	/**
 	 * 协议 Id

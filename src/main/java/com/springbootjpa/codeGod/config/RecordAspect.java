@@ -38,18 +38,18 @@ public class RecordAspect {
     public Object before(ProceedingJoinPoint pjp) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         String contentType = request.getContentType();
-        System.out.println("请求头为 "+contentType);
+//        System.out.println("请求头为 "+contentType);
         Object[] obj = pjp.getArgs();
-//        if (contentType.equals("application/json")) {
-            Signature signature = pjp.getSignature();
+        if (contentType.equals("application/json")) {
+//            Signature signature = pjp.getSignature();
             for (int j = 0; j < obj.length; j++) {
                 if (obj[j] instanceof String) {
-                    System.out.println(obj[j].toString());
+//                    System.out.println(obj[j].toString());
                     obj[j] = aesUtils.deCode(obj[j].toString(), AjaxUtils.RSA_PUBLICAKEY);
                 }
 
             }
-//        }
+        }
 
 
 

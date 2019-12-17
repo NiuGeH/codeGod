@@ -9,4 +9,5 @@ public interface MemberSignContractService {
 
     Page<MemberSignContractEntity> doPageByValidationCodeAndSiginEnd(Pageable pageable,Integer validationCode,Integer siginEnd);
 
+    void byIdDelMemberSignContract(Long id);
 }

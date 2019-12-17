@@ -43,6 +43,7 @@ public class AjaxUtils {
         try {
             T result = action.invoke();
             String s = JSONUtils.beanToJson(result);
+            //上线或前后端连调时放开
             result = (T)aesUtils.enCode(s,RSA_PUBLICAKEY);
 //            System.out.println(result.toString());
             ajaxResult.setSuccess(true);
@@ -76,7 +77,8 @@ public class AjaxUtils {
                 pageResult.setRowsPublic("");
             } else {
                 pageResult.setRows(pageList.getContent());
-                pageResult.setRowsPublic(aesUtils.enCode(JSONUtils.beanToJson(pageResult.getRows()),RSA_PUBLICAKEY));
+                //加密 上线或前后端对调放开
+//                pageResult.setRowsPublic(aesUtils.enCode(JSONUtils.beanToJson(pageResult.getRows()),RSA_PUBLICAKEY));
             }
             if (pageResult.getRecords() % page.getRows() == 0) {
                 pageResult.setTotal(pageResult.getRecords() / page.getRows());
@@ -89,7 +91,8 @@ public class AjaxUtils {
             pageResult.setTotal(0l);
             e.printStackTrace();
         }
-        pageResult.setRows(new ArrayList<>());
+        //上线或测试放开
+//        pageResult.setRows(new ArrayList<>());
         return pageResult;
     }
 }
