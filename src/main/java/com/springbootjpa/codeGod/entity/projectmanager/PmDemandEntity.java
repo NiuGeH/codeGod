@@ -73,13 +73,6 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private MemberPrivacyEntity memberPrivacyEntity;
 
-	/**
-	 * 开发预算
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "开发预算")
-	@Column(name = "demand_budget", nullable = true )
-	private Double demandBudget;
 
 	/**
 	 * 需求描述
@@ -89,38 +82,9 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	@Column(name = "demand_describe", nullable = true, length = 255)
 	private String demandDescribe;
 
-	/**
-	 * 交付时限
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "交付时限")
-	@Column(name = "demand_delivery_time", nullable = true)
-	private java.util.Date demandDeliveryTime;
 
-	/**
-	 * 设计文档
-	 * default value: null
-	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "demand_design_document_id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	private UploadFile uploadFile;
 
-	/**
-	 * 项目地址
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "项目地址")
-	@Column(name = "demand_adderss", nullable = true, length = 11)
-	private Integer demandAdderss;
 
-	/**
-	 * 开发方式
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "开发方式")
-	@Column(name = "demand_development_model", nullable = true, length = 11)
-	private Integer demandDevelopmentModel;
 
 	/**
 	 * 需求状态
@@ -147,4 +111,25 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "product_manager_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private MemberEntity memberEntity;
+
+	@Transient
+	private Long productManagerId;
+
+	@Override
+	public String toString() {
+		return "PmDemandEntity{" +
+				"id='"+ id + '\'' +
+				",demandPublisher='" + demandPublisher + '\'' +
+				", demandContactInformation='" + demandContactInformation + '\'' +
+				", demandDeliverTime=" + demandDeliverTime +
+				", pmTeamEntity=" + pmTeamEntity +
+				", memberPrivacyEntity=" + memberPrivacyEntity +
+				", demandDescribe='" + demandDescribe + '\'' +
+				", demandStatus=" + demandStatus +
+				", demandStatus1='" + demandStatus1 + '\'' +
+				", demandRefusalCause='" + demandRefusalCause + '\'' +
+				", memberEntity=" + memberEntity +
+				", productManagerId=" + productManagerId +
+				'}';
+	}
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -23,6 +24,11 @@ public class PmDemandServiceIml implements PmDemandService {
     @Autowired
     private BaseDataDictionaryentityRepository baseDataDictionaryentityRepository;
 
+    /**
+     * 查询需求列表
+     * @param pageable 分页参数
+     * @return 返回需求
+     */
     @Override
     public Page<PmDemandEntity> findAll(Pageable pageable) {
         Page<PmDemandEntity> all = pmDemandentityRepository.findAll(pageable);
@@ -34,8 +40,40 @@ public class PmDemandServiceIml implements PmDemandService {
         }
         return new PageImpl<PmDemandEntity>(list, pageable,list.size());
     }
+
+    /**
+     * 拒单
+     * @param demandRefusalCause 拒单原因
+     * @param id    需求编号
+     * @return   影响行数
+     */
     @Override
     public int updateDemand(String demandRefusalCause, Long id) {
         return pmDemandentityRepository.updateDemand(demandRefusalCause, id);
+    }
+    /**
+     * 设置产品经理
+     * @param productManagerId 产品经理编号
+     * @param id    需求编号
+     * @return  是否成功
+     */
+    @Override
+    public boolean settingProjectManager(Long productManagerId, Long id) {
+        boolean falg = false;
+        int i = pmDemandentityRepository.settingProjectManager(productManagerId, id);
+        if(i>0){
+            falg = true;
+        }
+        return falg;
+    }
+    /**
+     * 根据ID查询单个需求
+     * @param id
+     * @return 单个对象
+     */
+    @Override
+    public PmDemandEntity findOne(Long id) {
+        Optional<PmDemandEntity> byId = pmDemandentityRepository.findById(id);
+        return byId.get();
     }
 }

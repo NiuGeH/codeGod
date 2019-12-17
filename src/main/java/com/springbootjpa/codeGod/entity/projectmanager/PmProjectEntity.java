@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.entity.projectmanager;
 
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
+import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import lombok.Data;
@@ -33,6 +34,8 @@ public class PmProjectEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "product_manager_Id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private MemberEntity memberEntity;
+	@Transient
+	private Long productManagerId;
 
 	/**
 	 * 关联需求编号
@@ -43,6 +46,8 @@ public class PmProjectEntity extends AbstractEntity implements Serializable {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PmDemandEntity pmDemandEntity;
 
+	@Transient
+	private Long demandId;
 	/**
 	 * 客户ID
 	 * default value: null
@@ -52,6 +57,8 @@ public class PmProjectEntity extends AbstractEntity implements Serializable {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private MemberPrivacyEntity memberPrivacyEntity;
 
+	@Transient
+	private Long customId;
 	/**
 	 * 项目名称
 	 * default value: null
@@ -67,6 +74,8 @@ public class PmProjectEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "项目状态")
 	@Column(name = "project_status", nullable = true, length = 11)
 	private Integer projectStatus;
+	@Transient
+	private String projectStatus1;
 
 	/**
 	 * 备注
@@ -123,4 +132,51 @@ public class PmProjectEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "密码")
 	@Column(name = "project_password", nullable = true, length = 11)
 	private Integer projectPassword;
+
+
+	/**
+	 * 交付时限
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "交付时限")
+	@Column(name = "project_delivery_time", nullable = true)
+	private java.util.Date projectDeliveryTime;
+
+
+	/**
+	 * 项目地址
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "项目地址")
+	@Column(name = "project_adderss", nullable = true, length = 255)
+	private String projectAdderss;
+
+	/**
+	 * 开发预算
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "开发预算")
+	@Column(name = "project_budget", nullable = true )
+	private Double projectBudget;
+
+	/**
+	 * 开发方式
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "开发方式")
+	@Column(name = "project_development_model", nullable = true, length = 11)
+	private Integer projectDevelopmentModel;
+
+
+
+	/**
+	 * 需求文档
+	 * default value: null
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_design_document_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile uploadFile;
+
+
 }
