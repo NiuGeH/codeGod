@@ -45,8 +45,6 @@ public class MemberSignContractServiceImpl implements MemberSignContractService 
             @Override
             public Predicate toPredicate(Root<MemberSignContractEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
 //                Predicate p2 = criteriaBuilder.like(root.get("nickName"),"%zhang%");
-                System.out.println(validationCode+ "va");
-                System.out.println(siginEnd+ "sign");
                 Predicate preValida = !ObjectUtils.isEmpty(validationCode) ?  criteriaBuilder.equal(root.get("siginVerificationCode"),validationCode) : criteriaBuilder.like(root.get("siginJobs"),"%");
                 Predicate preSigin = !ObjectUtils.isEmpty(siginEnd) ? criteriaBuilder.equal(root.get("siginResults"),siginEnd) : criteriaBuilder.like(root.get("siginJobs"),"%");
                 return criteriaBuilder.and(preValida,preSigin);

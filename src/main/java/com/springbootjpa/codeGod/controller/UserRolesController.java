@@ -10,6 +10,7 @@ import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
 import com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository;
 import com.springbootjpa.codeGod.repository.SysUsersRolesRepository;
 import com.springbootjpa.codeGod.service.baseService.SysUsersService;
+import com.springbootjpa.codeGod.utils.AesUtils;
 import com.springbootjpa.codeGod.utils.RedisUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -42,14 +43,9 @@ import java.util.Map;
 @Api(description = "后台人员Controller")
 @Controller
 @RequestMapping("/")
-public class UserRolesController {
-    private static Logger logger = LoggerFactory.getLogger(UserRolesController.class);
+public class UserRolesController extends SysBase{
 
-    private Gson g  = new Gson();
-
-    @Autowired
-    private SysUsersService sysUsersService;
-
+    protected static Logger logger = LoggerFactory.getLogger(UserRolesController.class);
 
     @PostMapping("/modifyPwd")
     @ResponseBody
@@ -66,8 +62,9 @@ public class UserRolesController {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                logger.info("URL:/modifyPwd 请求参数: "+entity);
-                SysUsersEntity sysUsersEntity = g.fromJson(entity, SysUsersEntity.class);
+                String deCode = aesUtils.deCode(entity, AjaxUtils.RSA_PUBLICAKEY);
+                logger.info("URL:/modifyPwd 请求参数: "+deCode);
+                SysUsersEntity sysUsersEntity = g.fromJson(deCode, SysUsersEntity.class);
                 if(ObjectUtils.isEmpty(sysUsersEntity.getId())){
                     throw new CodeGodException("Id为空",this.getClass());
                 }else if(ObjectUtils.isEmpty(sysUsersEntity.getPassword())){
@@ -77,11 +74,10 @@ public class UserRolesController {
                 }else{
                     sysUsersService.updatePwd(sysUsersEntity);
                 }
-                return "success";
+                return aesUtils.enCode(g.toJson("success"),AjaxUtils.RSA_PUBLICAKEY);
             }
         });
     }
-
 
     @PostMapping(value = "/login", produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -94,8 +90,9 @@ public class UserRolesController {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                logger.info("URL:/login 请求参数: "+sysUsersEntity);
-                SysUsersEntity sysUsersEntity1 = g.fromJson(sysUsersEntity, SysUsersEntity.class);
+                String deCodeEnt =  aesUtils.deCode(sysUsersEntity, AjaxUtils.RSA_PUBLICAKEY);
+                logger.info("URL:/login 请求参数: "+deCodeEnt);
+                SysUsersEntity sysUsersEntity1 = g.fromJson(deCodeEnt, SysUsersEntity.class);
                 String username = sysUsersEntity1.getUsername();
                 String password = sysUsersEntity1.getPassword();
                 UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -116,7 +113,7 @@ public class UserRolesController {
                     logger.info("用户登录成功: " + ent.toString());
                     ent.setPassword("");
                     hashMap.put("user",ent);
-                    return hashMap;
+                    return aesUtils.enCode(g.toJson(hashMap),AjaxUtils.RSA_PUBLICAKEY);
                 } catch (Exception e) {
                     e.printStackTrace();
                     request.getSession().setAttribute("user", username);

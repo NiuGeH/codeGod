@@ -44,7 +44,7 @@ public class AjaxUtils {
             T result = action.invoke();
             String s = JSONUtils.beanToJson(result);
             //上线或前后端连调时放开
-            result = (T)aesUtils.enCode(s,RSA_PUBLICAKEY);
+//            result = (T)aesUtils.enCode(s,RSA_PUBLICAKEY);
 //            System.out.println(result.toString());
             ajaxResult.setSuccess(true);
             ajaxResult.setCode(200);

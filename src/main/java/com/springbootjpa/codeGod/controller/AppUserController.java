@@ -4,9 +4,7 @@ import com.springbootjpa.codeGod.common.AjaxResult;
 import com.springbootjpa.codeGod.common.AjaxUtils;
 import com.springbootjpa.codeGod.common.Func_T;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
-import com.springbootjpa.codeGod.repository.SysUsersRolesRepository;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
-import com.springbootjpa.codeGod.utils.RedisUtils;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,23 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 @RequestMapping("/AppUser")
-public class AppUserController extends InitBinderController {
+public class AppUserController extends SysBase{
     private static Logger logger = LoggerFactory.getLogger(UserRolesController.class);
 
 
-    @Resource
-    RedisUtils redisUtils = new RedisUtils();
 
-    @Autowired
-    private SysUsersRolesRepository sysUsersRolesRepository;
 
     @PostMapping(value = "login")
     @ResponseBody
@@ -54,8 +46,7 @@ public class AppUserController extends InitBinderController {
         });
     }
 
-    @Autowired
-    private BaseDataDirctionaryService baseDataDirctionaryService;
+
 
     @RequestMapping("/findDataTest")
     @ResponseBody

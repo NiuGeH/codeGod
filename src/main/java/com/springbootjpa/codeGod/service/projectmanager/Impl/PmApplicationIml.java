@@ -1,14 +1,10 @@
 package com.springbootjpa.codeGod.service.projectmanager.Impl;
 
-import com.alibaba.druid.sql.PagerUtils;
 import com.alibaba.druid.util.StringUtils;
-import com.springbootjpa.codeGod.common.PageRequestParam;
-import com.springbootjpa.codeGod.entity.projectmanager.PmApplicationEntity;
 import com.springbootjpa.codeGod.repository.projectmanager.PmApplicationentityRepository;
 import com.springbootjpa.codeGod.service.projectmanager.PmApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -31,7 +27,7 @@ public class PmApplicationIml implements PmApplicationService {
      * @return   返回报名该需求产品经理
      */
     @Override
-    public Page<PmApplicationEntity> doPage(Pageable pageable, Long demandId) {
+    public Page doPage(Pageable pageable, Long demandId) {
         Specification sp = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {

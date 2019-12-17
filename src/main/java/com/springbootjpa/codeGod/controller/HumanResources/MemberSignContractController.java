@@ -145,7 +145,7 @@ public class MemberSignContractController extends MemberBase {
                         MultipartFile file = files[i];
                         //保存文件
                         if(!(ObjectUtils.isEmpty(file)) && file.getSize() != 0){
-                            saveFileUtils.saveFile(file, request);
+                            System.out.println(saveFileUtils.saveFile(file, request));
 //                            UploadFile save = uploadFileRepository.save(uploadFile);
 //                            System.out.println(save.toString());
                         }

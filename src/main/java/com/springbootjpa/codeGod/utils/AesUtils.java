@@ -91,11 +91,11 @@ public class AesUtils {
         AesUtils aesUtils = new AesUtils();
         //加密
 //        String mi97JSJfjwIDAQAB = aesUtils.enCode("{'page':'1','rows':'5'}", "MI97JSJfjwIDAQAB");
-        System.out.println(aesUtils.enCode("{'id':'1'}", "MI97JSJfjwIDAQAB"));
+        System.out.println(aesUtils.enCode("{ \"id\":\"1\", \"newPwd\":\"123\", \"password\":\"123\" }", "MI97JSJfjwIDAQAB"));
 //        System.out.println(mi97JSJfjwIDAQAB);
         //解密
         System.out.println(aesUtils.deCode(
-                "2uM5gkH1eWJUy5/9e9C7VQ=="
+                "nbyISVr/oDKgVVQ2UKLuzgqAQHNgPtEuKX1YYrIxa/W63xnazvk6FcCcTLtRgmcJir/lt/ZQGl01lbsBKwcX84IEYc6M0W39i1v50buf+wOvjPgelqEqqPtV4a14VWalccbDGzNBIJbrVG3I3q4F1yDtmu52ACv4UJWtDVa/r+YMjkwx6elTSDi9ieXnLy0B"
                 ,"MI97JSJfjwIDAQAB"));
 
         byte[] bytes = DigestUtils.md5Digest("123456".getBytes());
