@@ -1,23 +1,18 @@
 package com.springbootjpa.codeGod.controller.HumanResources;
 
-import com.google.gson.Gson;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
-import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
-import com.springbootjpa.codeGod.repository.UploadFileRepository;
-import com.springbootjpa.codeGod.utils.SaveFileUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,10 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 @Api(description = "推荐签约审核Controller")
 @RequestMapping("/SignContract")
@@ -114,20 +107,66 @@ public class MemberSignContractController extends MemberBase {
         });
     }
 
-    @ApiOperation(value = "签约设置保存接口" , notes = "")
-    @PostMapping(value = "/doSaveSgin", headers = "content-type=multipart/form-data")
+    @ApiOperation(value = "签约设置 回显用户pc端填写的数据" , httpMethod = "POST" , notes =
+            "signEnt  签约实体类  \n  memberType  用户类型  \n  memberSigningPost  签约岗位  \n  memberSigningMode  签约方式" +
+                    "  \n  memberMedal  勋章  \n  memberStationing  是否驻场  \n  memberStatus  当前状态  \n  memberSigningStatus  签约状态")
+    @PostMapping(value = "/saveSignEcho", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiImplicitParams({
-//            @ApiImplicitParam(name = "memberSignContractEntity" , required = true , paramType = "prams")
+            @ApiImplicitParam(name = "signId" , paramType = "body" ,required = true, value = "签约审核Id  \n  {signId:'2'}")
+    })
+    public AjaxResult<HashMap<String,Object>> saveSignEcho(@RequestBody String signId){
+        return AjaxUtils.process(new Func_T<HashMap<String, Object>>() {
+            @Override
+            public HashMap<String, Object> invoke() throws Exception {
+                logger.info("URL:/SignContract/signId 请求参数为: "+signId);
+                HashMap<String,String> hashMap1 = gson.fromJson(signId, HashMap.class);
+                String signId1 = hashMap1.get("signId");
+                HashMap<String , Object> hashMap = new HashMap<>();
+                Optional<MemberSignContractEntity> byId = memberSignContractentityRepository.findById(Long.valueOf(signId1));
+                if(ObjectUtils.isEmpty(byId)){
+                    throw new CodeGodException("signId 不存在", this.getClass());
+                }else{
+                    MemberSignContractEntity entity = byId.get();
+                    //获取签约审核中生成的MemberId
+                    MemberEntity memberEndId = entity.getMemberEndId();
+                    //根据生成的 Member 然后查找私人信息表
+                    memberEndId.setMemberPrivacyEntity(memberPrivacyentityRepository.findAllByMemberId(memberEndId.getId()));
+                    hashMap.put("signEnt",entity);
+                    hashMap.put("memberType",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERTYPE));
+                    hashMap.put("memberSigningPost",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGPOST));
+                    hashMap.put("memberSigningMode",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGMODE));
+                    hashMap.put("memberMedal", operationMedalRepository.findAllByState(0));
+                    hashMap.put("memberStationing", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSTATIONING));
+                    hashMap.put("memberStatus",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSTATUS));
+                    hashMap.put("memberDisplay",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERDISPLAY));
+                    hashMap.put("memberSigningStatus",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGSTATUS));
+                }
+                return hashMap;
+            }
+        });
+    }
+
+    @ApiOperation(value = "签约设置保存接口" , notes = "id >>> memberSignId  \n  memberMobile >>> 手机号  \n  memberPwd >>> 登录密码  \n  nickName >>> 昵称  \n" +
+            "memberRealName >>> 姓名  \n  memberEmail >>> 邮箱  \n  memberQq >>> QQ  \n  memberWechat >>> 微信  \n  memebrCity >>> 所在城市  \n  memberContactAddress >>> 联系地址 " +
+            "  \n  memberWord >>> 关键词  \n  memberLongRange >>> 远程开发报价  \n  memberOnSiteDevelopment >>> 驻场开发报价  \n memberCashWithdrawal >>> 提现账户  \n " +
+            "memberIntroduce >>> 个人账户  \n  memberType >>> 用户类型  \n  memberCardno >>> 身份证号  \n  memberSigningPost >>> 签约岗位  \n  memberSigningMode >>> 签约方式  \n" +
+            "memberMedal >>> 勋章  \n  memberStationing >>> 是否驻场  \n  memberStatus >>> 当前状态  \n  memberDisplay >>> 公开显示  \n  memberSigningStatus >>> 签约状态 ")
+    @PostMapping(value = "/doSaveSign", headers = "content-type=multipart/form-data")
+    @ResponseBody
+    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "memberSignContractEntity" , required = false , paramType = "formData"),
+//            @ApiImplicitParam(name = "memberPrivacyEntity" , required = false , paramType = "formData"),
+//            @ApiImplicitParam(name = "memberEntity" , required = false , paramType = "formData"),
             @ApiImplicitParam(name = "memberPhotoFileMultipartFile" ,  paramType = "formData",value = "形象照"),
             @ApiImplicitParam(name = "memberPhotoHeadPortraitMultipartFile" , paramType = "formData",value = "头像"),
             @ApiImplicitParam(name = "memberPersonalDataMultipartFile" ,  paramType = "formData",value = "个人资料（可多个）"),
             @ApiImplicitParam(name = "memberCardFrontMultipartFile" ,  paramType = "formData",value = "身份证正面"),
             @ApiImplicitParam(name = "memberCardReverseSideMultipartFile" , paramType = "formData",value = "身份证反面"),
-            @ApiImplicitParam(name = "siginAgreementMultipartFile" ,  paramType = "formData",value = "签约协议（可多个）"),
+            @ApiImplicitParam(name = "siginAgreementMultipartFile" ,  paramType = "formData",value = "签约协议（可多个）")
 
     })
-    public AjaxResult<Object> doSaveSgin(MemberSignContractEntity memberSignContractEntity, MemberEntity memberEntity, MemberPrivacyEntity memberPrivacyEntity,
+    public AjaxResult<Object> doSaveSgin(MemberSignContractEntity memberSignContractEntity, MemberEntity memberEntity,MemberPrivacyEntity memberPrivacyEntity,
                                          @RequestParam("memberPhotoFileMultipartFile") MultipartFile memberPhotoFileMultipartFile, @RequestParam("memberPhotoHeadPortraitMultipartFile") MultipartFile memberPhotoHeadPortraitMultipartFile,
                                          @RequestParam("memberPersonalDataMultipartFile") MultipartFile[] memberPersonalDataMultipartFile, @RequestParam("memberCardFrontMultipartFile") MultipartFile memberCardFrontMultipartFile,
                                          @RequestParam("memberCardReverseSideMultipartFile") MultipartFile memberCardReverseSideMultipartFile, @RequestParam("siginAgreementMultipartFile") MultipartFile[] siginAgreementMultipartFile

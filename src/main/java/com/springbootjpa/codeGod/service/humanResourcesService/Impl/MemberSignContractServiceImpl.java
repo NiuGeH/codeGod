@@ -77,7 +77,21 @@ public class MemberSignContractServiceImpl implements MemberSignContractService 
                                                 MultipartFile memberPhotoFileMultipartFile, MultipartFile memberPhotoHeadPortraitMultipartFile, MultipartFile[] memberPersonalDataMultipartFile,
                                                 MultipartFile memberCardFrontMultipartFile, MultipartFile memberCardReverseSideMultipartFile, MultipartFile[] siginAgreementMultipartFile,
                                                 HttpServletRequest request) {
-        
+        if(ObjectUtils.isEmpty(memberSignContractEntity.getSiginResults())){
+            throw new CodeGodRunTimExcetion("该申请不是待审核状态",this.getClass());
+        }
+        if(memberSignContractEntity.getSiginResults() == 1){
+            Optional<MemberSignContractEntity> byId = memberSignContractentityRepository.findById(memberSignContractEntity.getId());
+            if(ObjectUtils.isEmpty(byId)){
+                throw new CodeGodRunTimExcetion("MemberSignContract 的 Id 不存在" , this.getClass());
+            }else{
+                MemberSignContractEntity entity = byId.get();
+                //如果是待审核状态，此时用户已经在pc前端申请过了 所有 MemberSignContract 中的 memberEndId 是用户申请的信息
+//                entity.
+            }
+        }else{
+            throw new CodeGodRunTimExcetion("该申请不是待审核状态",this.getClass());
+        }
         return null;
     }
 

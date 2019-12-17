@@ -16,4 +16,15 @@ public class DataBaseFinal {
 
     public static final String OPERATIONTOPIC_DISPLAY = "operation_topic.display";
 
+    public static final String MEMBER_MEMBERTYPE = "member.member_type";
+
+    public static final String MEMBER_MEMBERSIGNINGPOST = "member.member_signing_post";
+
+    public static final String MEMBER_MEMBERSIGNINGMODE = "member.member_signing_mode";
+
+    public static final String MEMBER_MEMBERSTATIONING = "member.member_stationing";
+
+    public static final String MEMBER_MEMBERSTATUS = "member.member_status";
+
+    public static final String MEMBER_MEMBERSIGNINGSTATUS = "member.member_signing_status";
 }

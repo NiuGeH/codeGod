@@ -1,7 +1,10 @@
 package com.springbootjpa.codeGod.controller.HumanResources;
 
 import com.google.gson.Gson;
+import com.springbootjpa.codeGod.repository.HumanResources.MemberPrivacyentityRepository;
+import com.springbootjpa.codeGod.repository.HumanResources.MemberSignContractentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
+import com.springbootjpa.codeGod.repository.Operation.OperationMedalRepository;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
 import com.springbootjpa.codeGod.service.baseService.Impl.BaseDataDirctionaryServiceImpl;
 import com.springbootjpa.codeGod.service.humanResourcesService.MemberPrivacyService;
@@ -32,4 +35,13 @@ public class MemberBase {
 
     @Autowired
     protected SaveFileUtils saveFileUtils;
+
+    @Autowired
+    protected MemberSignContractentityRepository memberSignContractentityRepository;
+
+    @Autowired
+    protected OperationMedalRepository operationMedalRepository;
+
+    @Autowired
+    protected MemberPrivacyentityRepository memberPrivacyentityRepository;
 }

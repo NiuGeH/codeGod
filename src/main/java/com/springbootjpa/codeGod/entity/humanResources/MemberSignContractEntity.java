@@ -29,7 +29,7 @@ public class MemberSignContractEntity extends AbstractEntity implements Serializ
 	@ApiModelProperty(value = "推荐人")
 //	@Column(name = "member_id", nullable = false, length = 20)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "member_referrer_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private MemberEntity memberId;
 

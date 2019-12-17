@@ -1,11 +1,13 @@
 package com.springbootjpa.codeGod.entity.humanResources;
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationMedalEntity;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -106,6 +108,10 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	@Column(name = "member_medal", nullable = true, length = 40)
 	private String memberMedal;
 
+	@ApiModelProperty(value = "勋章 实体类集合")
+	@Transient
+	private List<OperationMedalEntity> memberMedalList;
+
 	/**
 	 * 是否驻场
 	 * default value: null
@@ -191,4 +197,12 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "驻场开发报价")
 	@Column(name = "member_on_site_development" , nullable = true , length = 40)
 	private String memberOnSiteDevelopment;
+
+	/**
+	 * 私密信息表
+	 */
+	@ApiModelProperty(value = "私密信息表")
+	@Transient
+	private MemberPrivacyEntity memberPrivacyEntity;
+
 }

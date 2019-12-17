@@ -10,6 +10,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -27,11 +28,11 @@ public class MemberPrivacyEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "关联的用户")
-//	@Column(name = "member_id", nullable = false, length = 20)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	private MemberEntity memberId;
+	@Column(name = "member_id", nullable = false, length = 20)
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "member_id")
+//	@NotFound(action = NotFoundAction.IGNORE)
+	private Long memberId;
 
 	/**
 	 * 真实姓名
@@ -136,6 +137,10 @@ public class MemberPrivacyEntity extends AbstractEntity implements Serializable 
 	@ApiModelProperty(value = "个人资料 可上传多个 用,号隔开 就是upload_file 的主键")
 	@Column(name = "member_personal_data", nullable = true, length = 50)
 	private String memberPersonalData;
+
+	@ApiModelProperty(value = "个人资料uploadFile 集合")
+	@Transient
+	private List<UploadFile> memberPersonalDataList ;
 
 	/**
 	 * 登录密码
