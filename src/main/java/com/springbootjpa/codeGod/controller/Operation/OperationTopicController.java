@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +47,8 @@ public class OperationTopicController extends OperationBase {
 
             @Override
             public Object invoke() throws Exception {
-                OperationTopicEntity topic = operationTopicService.addTopic(String.valueOf(hashMap.get("topicName")), String.valueOf(hashMap.get("topicOrder")), Integer.valueOf(hashMap.get("display")));
+                OperationTopicEntity topic = operationTopicService.addTopic(String.valueOf(hashMap.get("topicName")), String.valueOf(hashMap.get("topicOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return topic;
             }
         });
@@ -69,7 +71,8 @@ public class OperationTopicController extends OperationBase {
 
             @Override
             public Object invoke() throws Exception {
-                OperationTopicEntity topic = operationTopicService.updateTopic(String.valueOf(hashMap.get("oldTopicName")), String.valueOf(hashMap.get("newTopicName")), String.valueOf(hashMap.get("topicOrder")), Integer.valueOf(hashMap.get("display")));
+                OperationTopicEntity topic = operationTopicService.updateTopic(String.valueOf(hashMap.get("oldTopicName")), String.valueOf(hashMap.get("newTopicName")), String.valueOf(hashMap.get("topicOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return topic;
             }
         });

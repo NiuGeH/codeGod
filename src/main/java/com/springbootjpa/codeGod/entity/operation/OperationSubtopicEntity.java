@@ -67,7 +67,7 @@ public class OperationSubtopicEntity extends AbstractEntity implements Serializa
 	 * 跳转url：0不可以，1可以
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "跳转url：0不可以，1可以")
+	@ApiModelProperty(value = "是否跳转url：0不可以，1可以")
 	@Column(name = "url_state", nullable = true, length = 2)
 	private Integer urlState;
 

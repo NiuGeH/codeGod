@@ -1,13 +1,11 @@
-package com.springbootjpa.codeGod.controller;
+package com.springbootjpa.codeGod.controller.Operation;
 
 import com.springbootjpa.codeGod.common.AjaxResult;
 import com.springbootjpa.codeGod.common.AjaxUtils;
 import com.springbootjpa.codeGod.common.Func_T;
 import com.springbootjpa.codeGod.entity.operation.OperationMedalEntity;
-import com.springbootjpa.codeGod.repository.Operation.OperationMedalRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +16,7 @@ import java.util.List;
 @Api("后台勋章管理 接口")
 @Controller
 @RequestMapping("/operationController")
-public class OperationMedalController {
-
-    @Autowired
-    protected OperationMedalRepository operationMedalRepository;
+public class OperationMedalController extends OperationBase {
 
     @PostMapping
     @ResponseBody
