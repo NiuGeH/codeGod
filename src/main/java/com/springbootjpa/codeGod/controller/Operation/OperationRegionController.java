@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class OperationRegionController extends OperationBase{
 
     @PostMapping(value = "/addCity", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "添加城市", httpMethod = "POST", notes = "cityName/城市名称 cityOrder/城市排序 display/是否显示，0显示，1不显示")
+    @ApiOperation(value = "添加城市", httpMethod = "POST", notes = "cityName/城市名称 cityOrder/城市排序 display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -47,7 +47,9 @@ public class OperationRegionController extends OperationBase{
 
             @Override
             public Object invoke() throws Exception {
-                OperationRegionEntity city = operationRegionService.addCity(String.valueOf(hashMap.get("cityName")), String.valueOf(hashMap.get("cityOrder")),
+                OperationRegionEntity city = operationRegionService.addCity(
+                        String.valueOf(hashMap.get("cityName")),
+                        String.valueOf(hashMap.get("cityOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return city;
             }
@@ -56,11 +58,11 @@ public class OperationRegionController extends OperationBase{
 
 
     @PostMapping(value = "/updateCity", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改城市", httpMethod = "POST", notes = "oldCityName/城市原名称 newCityName/城市新名称 cityOrder/城市排序 display/是否显示，0显示，1不显示")
+    @ApiOperation(value = "修改城市", httpMethod = "POST", notes = "id/城市id newCityName/城市新名称 cityOrder/城市排序 display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
-                    value = "{'oldCityName':'重庆','newCityName':'重庆','cityOrder':'1','display':'0'}",
+                    value = "{'id':'1','newCityName':'重庆','cityOrder':'1','display':'0'}",
                     required = true,
                     paramType = "body")
     })
@@ -71,7 +73,10 @@ public class OperationRegionController extends OperationBase{
 
             @Override
             public Object invoke() throws Exception {
-                OperationRegionEntity city = operationRegionService.updateCity(String.valueOf(hashMap.get("oldCityName")), String.valueOf(hashMap.get("newCityName")), String.valueOf(hashMap.get("cityOrder")),
+                OperationRegionEntity city = operationRegionService.updateCity(
+                        ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
+                        String.valueOf(hashMap.get("newCityName")),
+                        String.valueOf(hashMap.get("cityOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return city;
             }

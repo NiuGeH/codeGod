@@ -23,13 +23,13 @@ public interface OperationRegionService {
 
     /**
      * 修改城市
-     * @param oldName 城市原名称
+     * @param id 城市id
      * @param newName 城市新名称
      * @param order 城市排序编号
      * @param display 是否显示，0显示，1不显示
      * @return
      */
-    OperationRegionEntity updateCity(String oldName, String newName, String order, Integer display);
+    OperationRegionEntity updateCity(Long id, String newName, String order, Integer display);
 
     /**
      * 城市分页

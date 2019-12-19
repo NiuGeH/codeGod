@@ -49,8 +49,12 @@ public class OperationSubtopicController extends OperationBase {
 
             @Override
             public Object invoke() throws Exception {
-                OperationSubtopicEntity subtopic = operationSubtopicService.addSubtopic(String.valueOf(hashMap.get("subtopicName")), String.valueOf(hashMap.get("subtopicOrder")),
-                        ObjectUtils.isEmpty(hashMap.get("topicId")) ? null : Long.valueOf(hashMap.get("topicId")), String.valueOf(hashMap.get("content")), String.valueOf(hashMap.get("url")),
+                OperationSubtopicEntity subtopic = operationSubtopicService.addSubtopic(
+                        String.valueOf(hashMap.get("subtopicName")),
+                        String.valueOf(hashMap.get("subtopicOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("topicId")) ? null : Long.valueOf(hashMap.get("topicId")),
+                        String.valueOf(hashMap.get("content")),
+                        String.valueOf(hashMap.get("url")),
                         ObjectUtils.isEmpty(hashMap.get("urlState")) ? null : Integer.valueOf(hashMap.get("urlState")));
                 return subtopic;
             }
@@ -58,11 +62,11 @@ public class OperationSubtopicController extends OperationBase {
     }
 
     @PostMapping(value = "/updateSubtopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改子栏目", httpMethod = "POST", notes = "oldName/子栏目原名称 newName/子栏目新名称 subtopicOrder/子栏目排序 topicId/所属栏目id content/内容 url/跳转路径 urlState/是否跳转，0不可以，1可以")
+    @ApiOperation(value = "修改子栏目", httpMethod = "POST", notes = "id/子栏目id newName/子栏目新名称 subtopicOrder/子栏目排序 topicId/所属栏目id content/内容 url/跳转路径 urlState/是否跳转，0不可以，1可以")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
-                    value = "{'oldName':'码神简介','newName':'码神简介','subtopicOrder':'1','topicId':'1','content':'神一样的存在','url':'','urlState':'0'}",
+                    value = "{'id':'1','newName':'码神简介','subtopicOrder':'1','topicId':'1','content':'神一样的存在','url':'','urlState':''}",
                     required = true,
                     paramType = "body")
     })
@@ -73,8 +77,13 @@ public class OperationSubtopicController extends OperationBase {
 
             @Override
             public Object invoke() throws Exception {
-                OperationSubtopicEntity subtopic = operationSubtopicService.updateSubtopic(String.valueOf(hashMap.get("oldName")), String.valueOf(hashMap.get("newName")), String.valueOf(hashMap.get("subtopicOrder")),
-                        ObjectUtils.isEmpty(hashMap.get("topicId")) ? null : Long.valueOf(hashMap.get("topicId")), String.valueOf(hashMap.get("content")), String.valueOf(hashMap.get("url")),
+                OperationSubtopicEntity subtopic = operationSubtopicService.updateSubtopic(
+                        ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
+                        String.valueOf(hashMap.get("newName")),
+                        String.valueOf(hashMap.get("subtopicOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("topicId")) ? null : Long.valueOf(hashMap.get("topicId")),
+                        String.valueOf(hashMap.get("content")),
+                        String.valueOf(hashMap.get("url")),
                         ObjectUtils.isEmpty(hashMap.get("urlState")) ? null : Integer.valueOf(hashMap.get("urlState")));
                 return subtopic;
             }

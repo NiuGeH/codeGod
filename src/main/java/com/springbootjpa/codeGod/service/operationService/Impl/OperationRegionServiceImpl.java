@@ -69,16 +69,16 @@ public class OperationRegionServiceImpl implements OperationRegionService {
 
     /**
      * 修改城市
-     * @param oldName 城市原名称
+     * @param id 城市id
      * @param newName 城市新名称
      * @param order 城市排序编号
      * @param display 是否显示，0显示，1不显示
      * @return
      */
     @Override
-    public OperationRegionEntity updateCity(String oldName, String newName, String order, Integer display) {
+    public OperationRegionEntity updateCity(Long id, String newName, String order, Integer display) {
         //查询需要修改的城市
-        OperationRegionEntity city = operationRegionRepository.findByCityName(oldName);
+        OperationRegionEntity city = operationRegionRepository.getOne(id);
         log.info("城市修改前：" + city.toString());
 
         //修改该城市属性

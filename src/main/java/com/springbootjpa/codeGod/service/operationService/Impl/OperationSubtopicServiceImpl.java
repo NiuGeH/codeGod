@@ -83,7 +83,7 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
 
     /**
      * 修改子栏目
-     * @param oldName 子栏目原名称
+     * @param id 子栏目id
      * @param newName 子栏目新名称
      * @param order 子栏目排序编号
      * @param topicId 所属栏目id
@@ -93,9 +93,9 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
      * @return
      */
     @Override
-    public OperationSubtopicEntity updateSubtopic(String oldName, String newName, String order, Long topicId, String content, String url, Integer urlState) {
+    public OperationSubtopicEntity updateSubtopic(Long id, String newName, String order, Long topicId, String content, String url, Integer urlState) {
         //查询需要修改的子栏目
-        OperationSubtopicEntity subtopic = operationSubtopicRepository.findBySubtopicNameAndTopicId(oldName,topicId);
+        OperationSubtopicEntity subtopic = operationSubtopicRepository.getOne(id);
         log.info("子栏目修改前：" + subtopic.toString());
 
         //修改子栏目属性

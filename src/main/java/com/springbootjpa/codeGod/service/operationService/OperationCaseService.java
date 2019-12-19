@@ -23,13 +23,13 @@ public interface OperationCaseService {
 
     /**
      * 修改案例类型
-     * @param oldName 案例原名称
+     * @param id 案例id
      * @param newName 案例新名称
      * @param order 案例排序编号
      * @param display 是否显示，0显示，1不显示
      * @return
      */
-    OperationCaseEntity updateCase(String oldName, String newName, String order, Integer display);
+    OperationCaseEntity updateCase(Long id, String newName, String order, Integer display);
 
     /**
      * 案例类型分页

@@ -26,7 +26,7 @@ public interface OperationSubtopicService  {
 
     /**
      * 修改子栏目
-     * @param oldName 子栏目原名称
+     * @param id 子栏目id
      * @param newName 子栏目新名称
      * @param order 子栏目排序编号
      * @param topicId 所属栏目id
@@ -35,7 +35,7 @@ public interface OperationSubtopicService  {
      * @param urlState 是否跳转url：0不可以，1可以
      * @return
      */
-    OperationSubtopicEntity updateSubtopic(String oldName, String newName, String order, Long topicId, String content, String url, Integer urlState);
+    OperationSubtopicEntity updateSubtopic(Long id, String newName, String order, Long topicId, String content, String url, Integer urlState);
 
     /**
      * 子栏目分页

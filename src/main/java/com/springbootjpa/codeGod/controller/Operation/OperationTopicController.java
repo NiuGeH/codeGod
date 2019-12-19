@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class OperationTopicController extends OperationBase {
 
     @PostMapping(value = "/addTopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "添加栏目", httpMethod = "POST", notes = "topicName/栏目名称 topicOrder/栏目排序 display/是否显示，0显示，1不显示")
+    @ApiOperation(value = "添加栏目", httpMethod = "POST", notes = "topicName/栏目名称 topicOrder/栏目排序 display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -56,11 +56,11 @@ public class OperationTopicController extends OperationBase {
 
 
     @PostMapping(value = "/updateTopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改栏目", httpMethod = "POST", notes = "oldTopicName/栏目原名称 newTopicName/栏目新名称 topicOrder/栏目排序 display/是否显示，0显示，1不显示")
+    @ApiOperation(value = "修改栏目", httpMethod = "POST", notes = "id/栏目id newTopicName/栏目新名称 topicOrder/栏目排序 display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
-                    value = "{'oldTopicName':'关于我们','newTopicName':'关于我们','topicOrder':'1','display':'0'}",
+                    value = "{'id':'1','newTopicName':'关于我们','topicOrder':'1','display':'0'}",
                     required = true,
                     paramType = "body")
     })
@@ -71,7 +71,10 @@ public class OperationTopicController extends OperationBase {
 
             @Override
             public Object invoke() throws Exception {
-                OperationTopicEntity topic = operationTopicService.updateTopic(String.valueOf(hashMap.get("oldTopicName")), String.valueOf(hashMap.get("newTopicName")), String.valueOf(hashMap.get("topicOrder")),
+                OperationTopicEntity topic = operationTopicService.updateTopic(
+                        ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
+                        String.valueOf(hashMap.get("newTopicName")),
+                        String.valueOf(hashMap.get("topicOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return topic;
             }

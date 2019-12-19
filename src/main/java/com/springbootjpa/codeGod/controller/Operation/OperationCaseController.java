@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class OperationCaseController extends OperationBase {
 
     @PostMapping(value = "/addCase", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "添加案例类型", httpMethod = "POST", notes = "caseName/案例名称 caseOrder/案例排序 display/是否显示，0显示，1不显示")
+    @ApiOperation(value = "添加案例类型", httpMethod = "POST", notes = "caseName/案例名称 caseOrder/案例排序 display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -47,7 +47,9 @@ public class OperationCaseController extends OperationBase {
 
             @Override
             public Object invoke() throws Exception {
-                OperationCaseEntity caseEntity = operationCaseService.addCase(String.valueOf(hashMap.get("caseName")), String.valueOf(hashMap.get("caseOrder")),
+                OperationCaseEntity caseEntity = operationCaseService.addCase(
+                        String.valueOf(hashMap.get("caseName")),
+                        String.valueOf(hashMap.get("caseOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return caseEntity;
             }
@@ -56,11 +58,11 @@ public class OperationCaseController extends OperationBase {
 
 
     @PostMapping(value = "/updateCase", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改案例类型", httpMethod = "POST", notes = "oldCaseName/案例原名称 newCaseName/案例新名称 caseOrder/案例排序 display/是否显示，0显示，1不显示")
+    @ApiOperation(value = "修改案例类型", httpMethod = "POST", notes = "id/案例id newCaseName/案例新名称 caseOrder/案例排序 display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
-                    value = "{'oldCaseName':'社交','newCaseName':'社交1','caseOrder':'5','display':'0'}",
+                    value = "{'id':'5','newCaseName':'社交1','caseOrder':'5','display':'0'}",
                     required = true,
                     paramType = "body")
     })
@@ -71,7 +73,10 @@ public class OperationCaseController extends OperationBase {
 
             @Override
             public Object invoke() throws Exception {
-                OperationCaseEntity caseEntity = operationCaseService.updateCase(String.valueOf(hashMap.get("oldCaseName")), String.valueOf(hashMap.get("newCaseName")), String.valueOf(hashMap.get("caseOrder")),
+                OperationCaseEntity caseEntity = operationCaseService.updateCase(
+                        ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
+                        String.valueOf(hashMap.get("newCaseName")),
+                        String.valueOf(hashMap.get("caseOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return caseEntity;
             }

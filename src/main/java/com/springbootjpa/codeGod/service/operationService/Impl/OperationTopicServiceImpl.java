@@ -69,16 +69,16 @@ public class OperationTopicServiceImpl implements OperationTopicService {
 
     /**
      * 修改栏目
-     * @param oldName 栏目原名称
+     * @param id 栏目id
      * @param newName 栏目新名称
      * @param order 栏目排序编号
      * @param display 是否显示，0显示，1不显示
      * @return
      */
     @Override
-    public OperationTopicEntity updateTopic(String oldName, String newName, String order, Integer display) {
+    public OperationTopicEntity updateTopic(Long id, String newName, String order, Integer display) {
         //查询需要修改的栏目
-        OperationTopicEntity topic = operationTopicRepository.findByTopicName(oldName);
+        OperationTopicEntity topic = operationTopicRepository.getOne(id);
         log.info("栏目修改前：" + topic.toString());
 
         //修改该栏目属性

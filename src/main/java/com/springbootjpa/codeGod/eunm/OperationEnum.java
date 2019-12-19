@@ -1,17 +1,24 @@
 package com.springbootjpa.codeGod.eunm;
 
 public enum OperationEnum {
+
     //所有删除 冻结 都用这个 0正常  1删除
-    OPERATIONMEDAL_STATE_ZC("正常",0)
-    ,OPERATIONMEDAL_STATE_SC("删除",1);
+    OPERATIONMEDAL_STATE_ZC("正常",0),
+    OPERATIONMEDAL_STATE_SC("删除",1),
+    //所有是否显示 0是1否
+    OPERATION_DISPLAY_YES("是",0),
+    OPERATION_DISPLAY_NO("否",1);
+
     // 成员变量
     private String name;
     private int index;
+
     // 构造方法
     private OperationEnum(String name, int index) {
         this.name = name;
         this.index = index;
     }
+
     // 普通方法
     public static String getName(int index) {
         for (OperationEnum c : OperationEnum.values()) {
@@ -21,6 +28,7 @@ public enum OperationEnum {
         }
         return null;
     }
+
     // get set 方法
     public String getName() {
         return name;

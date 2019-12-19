@@ -70,16 +70,16 @@ public class OperationCaseServiceImpl implements OperationCaseService {
 
     /**
      * 修改案例类型
-     * @param oldName 案例原名称
+     * @param id 案例id
      * @param newName 案例新名称
      * @param order 案例排序编号
      * @param display 是否显示，0显示，1不显示
      * @return
      */
     @Override
-    public OperationCaseEntity updateCase(String oldName, String newName, String order, Integer display) {
+    public OperationCaseEntity updateCase(Long id, String newName, String order, Integer display) {
         //查询需要修改的案例类型
-        OperationCaseEntity caseEntity = operationCaseRepository.findByCaseName(oldName);
+        OperationCaseEntity caseEntity = operationCaseRepository.getOne(id);
         log.info("案例类型修改前：" + caseEntity.toString());
 
         //修改该案例类型属性
