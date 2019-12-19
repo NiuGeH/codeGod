@@ -22,7 +22,7 @@ public interface OperationSubtopicService  {
      * @param urlState 是否跳转url：0不可以，1可以
      * @return
      */
-    OperationSubtopicEntity addSubtopic(String name, String order, Long topicId, String content, String url, Integer urlState);
+    OperationSubtopicEntity addSubtopic(String name, Long order, Long topicId, String content, String url, Integer urlState);
 
     /**
      * 修改子栏目
@@ -35,7 +35,7 @@ public interface OperationSubtopicService  {
      * @param urlState 是否跳转url：0不可以，1可以
      * @return
      */
-    OperationSubtopicEntity updateSubtopic(Long id, String newName, String order, Long topicId, String content, String url, Integer urlState);
+    OperationSubtopicEntity updateSubtopic(Long id, String newName, Long order, Long topicId, String content, String url, Integer urlState);
 
     /**
      * 子栏目分页

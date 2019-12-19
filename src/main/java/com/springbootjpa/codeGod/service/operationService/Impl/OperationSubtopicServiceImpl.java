@@ -56,7 +56,7 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
      * @return
      */
     @Override
-    public OperationSubtopicEntity addSubtopic(String name, String order, Long topicId, String content, String url, Integer urlState) {
+    public OperationSubtopicEntity addSubtopic(String name, Long order, Long topicId, String content, String url, Integer urlState) {
         //判断该子栏目在所属栏目下是否存在
         OperationSubtopicEntity subtopicEntity = operationSubtopicRepository.findBySubtopicNameAndTopicId(name,topicId);
         if(!ObjectUtils.isEmpty(subtopicEntity)){
@@ -93,7 +93,7 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
      * @return
      */
     @Override
-    public OperationSubtopicEntity updateSubtopic(Long id, String newName, String order, Long topicId, String content, String url, Integer urlState) {
+    public OperationSubtopicEntity updateSubtopic(Long id, String newName, Long order, Long topicId, String content, String url, Integer urlState) {
         //查询需要修改的子栏目
         OperationSubtopicEntity subtopic = operationSubtopicRepository.getOne(id);
         log.info("子栏目修改前：" + subtopic.toString());

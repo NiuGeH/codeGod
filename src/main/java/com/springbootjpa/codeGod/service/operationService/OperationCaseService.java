@@ -19,7 +19,7 @@ public interface OperationCaseService {
      * @param display 是否显示，0显示，1不显示
      * @return
      */
-    OperationCaseEntity addCase(String name, String order, Integer display);
+    OperationCaseEntity addCase(String name, Long order, Integer display);
 
     /**
      * 修改案例类型
@@ -29,7 +29,7 @@ public interface OperationCaseService {
      * @param display 是否显示，0显示，1不显示
      * @return
      */
-    OperationCaseEntity updateCase(Long id, String newName, String order, Integer display);
+    OperationCaseEntity updateCase(Long id, String newName, Long order, Integer display);
 
     /**
      * 案例类型分页

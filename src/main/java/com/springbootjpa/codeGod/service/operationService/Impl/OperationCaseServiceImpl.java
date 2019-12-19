@@ -46,7 +46,7 @@ public class OperationCaseServiceImpl implements OperationCaseService {
      * @return
      */
     @Override
-    public OperationCaseEntity addCase(String name, String order, Integer display) {
+    public OperationCaseEntity addCase(String name, Long order, Integer display) {
 
         //判断类型是否已存在
         OperationCaseEntity ce = operationCaseRepository.findByCaseName(name);
@@ -77,7 +77,7 @@ public class OperationCaseServiceImpl implements OperationCaseService {
      * @return
      */
     @Override
-    public OperationCaseEntity updateCase(Long id, String newName, String order, Integer display) {
+    public OperationCaseEntity updateCase(Long id, String newName, Long order, Integer display) {
         //查询需要修改的案例类型
         OperationCaseEntity caseEntity = operationCaseRepository.getOne(id);
         log.info("案例类型修改前：" + caseEntity.toString());

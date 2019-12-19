@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class OperationRegionController extends OperationBase{
 
     @PostMapping(value = "/addCity", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "添加城市", httpMethod = "POST", notes = "cityName/城市名称 cityOrder/城市排序 display/是否显示，0是，1否")
+    @ApiOperation(value = "添加城市", httpMethod = "POST", notes = "cityName/城市名称  \n  cityOrder/城市排序  \n  display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -49,7 +49,7 @@ public class OperationRegionController extends OperationBase{
             public Object invoke() throws Exception {
                 OperationRegionEntity city = operationRegionService.addCity(
                         String.valueOf(hashMap.get("cityName")),
-                        String.valueOf(hashMap.get("cityOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("cityOrder")) ? null : Long.valueOf(hashMap.get("cityOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return city;
             }
@@ -58,7 +58,7 @@ public class OperationRegionController extends OperationBase{
 
 
     @PostMapping(value = "/updateCity", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改城市", httpMethod = "POST", notes = "id/城市id newCityName/城市新名称 cityOrder/城市排序 display/是否显示，0是，1否")
+    @ApiOperation(value = "修改城市", httpMethod = "POST", notes = "id/城市id  \n  newCityName/城市新名称  \n  cityOrder/城市排序  \n  display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -76,7 +76,7 @@ public class OperationRegionController extends OperationBase{
                 OperationRegionEntity city = operationRegionService.updateCity(
                         ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
                         String.valueOf(hashMap.get("newCityName")),
-                        String.valueOf(hashMap.get("cityOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("cityOrder")) ? null : Long.valueOf(hashMap.get("cityOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return city;
             }
@@ -85,7 +85,7 @@ public class OperationRegionController extends OperationBase{
 
 
     @PostMapping(value = "/findAllCity", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "城市分页", httpMethod = "POST", notes = "page/当前页 rows/每页记录数")
+    @ApiOperation(value = "城市分页", httpMethod = "POST", notes = "page/当前页  \n  rows/每页记录数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5'}", required = true, paramType = "body")
     })

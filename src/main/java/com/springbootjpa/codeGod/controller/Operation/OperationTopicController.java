@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class OperationTopicController extends OperationBase {
 
     @PostMapping(value = "/addTopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "添加栏目", httpMethod = "POST", notes = "topicName/栏目名称 topicOrder/栏目排序 display/是否显示，0是，1否")
+    @ApiOperation(value = "添加栏目", httpMethod = "POST", notes = "topicName/栏目名称  \n  topicOrder/栏目排序  \n  display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -47,7 +47,9 @@ public class OperationTopicController extends OperationBase {
 
             @Override
             public Object invoke() throws Exception {
-                OperationTopicEntity topic = operationTopicService.addTopic(String.valueOf(hashMap.get("topicName")), String.valueOf(hashMap.get("topicOrder")),
+                OperationTopicEntity topic = operationTopicService.addTopic(
+                        String.valueOf(hashMap.get("topicName")),
+                        ObjectUtils.isEmpty(hashMap.get("topicOrder")) ? null : Long.valueOf(hashMap.get("topicOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return topic;
             }
@@ -56,7 +58,7 @@ public class OperationTopicController extends OperationBase {
 
 
     @PostMapping(value = "/updateTopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改栏目", httpMethod = "POST", notes = "id/栏目id newTopicName/栏目新名称 topicOrder/栏目排序 display/是否显示，0是，1否")
+    @ApiOperation(value = "修改栏目", httpMethod = "POST", notes = "id/栏目id  \n  newTopicName/栏目新名称  \n  topicOrder/栏目排序  \n  display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -74,7 +76,7 @@ public class OperationTopicController extends OperationBase {
                 OperationTopicEntity topic = operationTopicService.updateTopic(
                         ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
                         String.valueOf(hashMap.get("newTopicName")),
-                        String.valueOf(hashMap.get("topicOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("topicOrder")) ? null : Long.valueOf(hashMap.get("topicOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return topic;
             }
@@ -83,7 +85,7 @@ public class OperationTopicController extends OperationBase {
 
 
     @PostMapping(value = "/findAllTopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "栏目分页", httpMethod = "POST", notes = "page/当前页 rows/每页记录数")
+    @ApiOperation(value = "栏目分页", httpMethod = "POST", notes = "page/当前页  \n  rows/每页记录数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5'}", required = true, paramType = "body")
     })

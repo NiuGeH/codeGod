@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 新闻列表
@@ -44,10 +45,10 @@ public class OperationNewsEntity extends AbstractEntity implements Serializable 
 	private Long views;
 
 	/**
-	 * 是否首页显示：0不显示，1显示
+	 * 是否首页显示：0显示，1不显示
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "是否首页显示：0不显示，1显示")
+	@ApiModelProperty(value = "是否首页显示：0显示，1不显示")
 	@Column(name = "display", nullable = true, length = 2)
 	private Integer display;
 
@@ -65,15 +66,8 @@ public class OperationNewsEntity extends AbstractEntity implements Serializable 
 	 */
 	@ApiModelProperty(value = "创建时间")
 	@Column(name = "create_time", nullable = true)
-	private String createTime;
+	private Date createTime;
 
-	/**
-	 * 创建用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "创建用户")
-	@Column(name = "create_user", nullable = true, length = 255)
-	private String createUser;
 
 	/**
 	 * 更新时间
@@ -81,13 +75,6 @@ public class OperationNewsEntity extends AbstractEntity implements Serializable 
 	 */
 	@ApiModelProperty(value = "更新时间")
 	@Column(name = "modify_time", nullable = true)
-	private String modifyTime;
+	private Date modifyTime;
 
-	/**
-	 * 更新用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "更新用户")
-	@Column(name = "modify_user", nullable = true, length = 255)
-	private String modifyUser;
 }

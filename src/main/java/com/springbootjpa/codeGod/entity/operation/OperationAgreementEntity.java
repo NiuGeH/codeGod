@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 文案协议列表
@@ -41,15 +42,8 @@ public class OperationAgreementEntity extends AbstractEntity implements Serializ
 	 */
 	@ApiModelProperty(value = "创建时间")
 	@Column(name = "create_time", nullable = true)
-	private java.util.Date createTime;
+	private Date createTime;
 
-	/**
-	 * 创建用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "创建用户")
-	@Column(name = "create_user", nullable = true, length = 255)
-	private String createUser;
 
 	/**
 	 * 更新时间
@@ -57,13 +51,6 @@ public class OperationAgreementEntity extends AbstractEntity implements Serializ
 	 */
 	@ApiModelProperty(value = "更新时间")
 	@Column(name = "modify_time", nullable = true)
-	private java.util.Date modifyTime;
+	private Date modifyTime;
 
-	/**
-	 * 更新用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "更新用户")
-	@Column(name = "modify_user", nullable = true, length = 255)
-	private String modifyUser;
 }

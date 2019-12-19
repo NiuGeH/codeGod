@@ -34,8 +34,8 @@ public class OperationRegionEntity extends AbstractEntity implements Serializabl
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "城市排序")
-	@Column(name = "city_order", nullable = true, length = 100)
-	private String cityOrder;
+	@Column(name = "city_order", nullable = true)
+	private Long cityOrder;
 
 	/**
 	 * 是否显示：0显示，1不显示

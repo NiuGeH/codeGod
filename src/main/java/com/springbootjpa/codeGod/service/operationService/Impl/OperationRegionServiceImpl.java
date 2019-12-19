@@ -46,7 +46,7 @@ public class OperationRegionServiceImpl implements OperationRegionService {
      * @return
      */
     @Override
-    public OperationRegionEntity addCity(String name, String order, Integer display) {
+    public OperationRegionEntity addCity(String name, Long order, Integer display) {
         //判断城市是否已存在
         OperationRegionEntity ce = operationRegionRepository.findByCityName(name);
         if(!ObjectUtils.isEmpty(ce)){
@@ -76,7 +76,7 @@ public class OperationRegionServiceImpl implements OperationRegionService {
      * @return
      */
     @Override
-    public OperationRegionEntity updateCity(Long id, String newName, String order, Integer display) {
+    public OperationRegionEntity updateCity(Long id, String newName, Long order, Integer display) {
         //查询需要修改的城市
         OperationRegionEntity city = operationRegionRepository.getOne(id);
         log.info("城市修改前：" + city.toString());

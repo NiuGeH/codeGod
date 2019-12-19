@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class OperationCaseController extends OperationBase {
 
     @PostMapping(value = "/addCase", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "添加案例类型", httpMethod = "POST", notes = "caseName/案例名称 caseOrder/案例排序 display/是否显示，0是，1否")
+    @ApiOperation(value = "添加案例类型", httpMethod = "POST", notes = "caseName/案例名称  \n  caseOrder/案例排序  \n  display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -49,7 +49,7 @@ public class OperationCaseController extends OperationBase {
             public Object invoke() throws Exception {
                 OperationCaseEntity caseEntity = operationCaseService.addCase(
                         String.valueOf(hashMap.get("caseName")),
-                        String.valueOf(hashMap.get("caseOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("caseOrder")) ? null : Long.valueOf(hashMap.get("caseOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return caseEntity;
             }
@@ -58,7 +58,7 @@ public class OperationCaseController extends OperationBase {
 
 
     @PostMapping(value = "/updateCase", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改案例类型", httpMethod = "POST", notes = "id/案例id newCaseName/案例新名称 caseOrder/案例排序 display/是否显示，0是，1否")
+    @ApiOperation(value = "修改案例类型", httpMethod = "POST", notes = "id/案例id newCaseName/案例新名称  \n  caseOrder/案例排序  \n  display/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -76,7 +76,7 @@ public class OperationCaseController extends OperationBase {
                 OperationCaseEntity caseEntity = operationCaseService.updateCase(
                         ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
                         String.valueOf(hashMap.get("newCaseName")),
-                        String.valueOf(hashMap.get("caseOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("caseOrder")) ? null : Long.valueOf(hashMap.get("caseOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
                 return caseEntity;
             }
@@ -85,7 +85,7 @@ public class OperationCaseController extends OperationBase {
 
 
     @PostMapping(value = "/findAllCase", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "案例类型分页", httpMethod = "POST", notes = "page/当前页 rows/每页记录数")
+    @ApiOperation(value = "案例类型分页", httpMethod = "POST", notes = "page/当前页  \n  rows/每页记录数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5'}", required = true, paramType = "body")
     })

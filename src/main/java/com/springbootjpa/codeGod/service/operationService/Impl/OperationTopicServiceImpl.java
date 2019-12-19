@@ -46,7 +46,7 @@ public class OperationTopicServiceImpl implements OperationTopicService {
      * @return
      */
     @Override
-    public OperationTopicEntity addTopic(String name, String order, Integer display) {
+    public OperationTopicEntity addTopic(String name, Long order, Integer display) {
         //判断栏目是否已存在
         OperationTopicEntity te = operationTopicRepository.findByTopicName(name);
         if(!ObjectUtils.isEmpty(te)){
@@ -76,7 +76,7 @@ public class OperationTopicServiceImpl implements OperationTopicService {
      * @return
      */
     @Override
-    public OperationTopicEntity updateTopic(Long id, String newName, String order, Integer display) {
+    public OperationTopicEntity updateTopic(Long id, String newName, Long order, Integer display) {
         //查询需要修改的栏目
         OperationTopicEntity topic = operationTopicRepository.getOne(id);
         log.info("栏目修改前：" + topic.toString());

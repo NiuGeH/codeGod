@@ -93,12 +93,12 @@ public class MemberServiceImpl implements MemberService {
         hashMap.put("memberType",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERTYPE));
         hashMap.put("memberSigningPost",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGPOST));
         hashMap.put("memberSigningMode",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGMODE));
-        hashMap.put("memberMedal", operationMedalRepository.findAllByState(OperationEnum.OPERATIONMEDAL_STATE_ZC.getIndex()));
+        hashMap.put("memberMedal", operationMedalRepository.findAllByState(OperationEnum.OPERATION_STATE_ZC.getIndex()));
         hashMap.put("memberStationing", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSTATIONING));
         hashMap.put("memberStatus",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSTATUS));
         hashMap.put("memberDisplay",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERDISPLAY));
         hashMap.put("memberSigningStatus",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGSTATUS));
-        hashMap.put("memberTeam", operationTeamRepository.findAllByState(OperationEnum.OPERATIONMEDAL_STATE_ZC.getIndex()));
+        hashMap.put("memberTeam", operationTeamRepository.findAllByState(OperationEnum.OPERATION_STATE_ZC.getIndex()));
 //        hashMap.put("")
         return hashMap;
     }

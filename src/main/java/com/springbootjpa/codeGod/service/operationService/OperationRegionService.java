@@ -19,7 +19,7 @@ public interface OperationRegionService {
      * @param display 是否显示，0显示，1不显示
      * @return
      */
-    OperationRegionEntity addCity(String name, String order, Integer display);
+    OperationRegionEntity addCity(String name, Long order, Integer display);
 
     /**
      * 修改城市
@@ -29,7 +29,7 @@ public interface OperationRegionService {
      * @param display 是否显示，0显示，1不显示
      * @return
      */
-    OperationRegionEntity updateCity(Long id, String newName, String order, Integer display);
+    OperationRegionEntity updateCity(Long id, String newName, Long order, Integer display);
 
     /**
      * 城市分页

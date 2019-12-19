@@ -10,6 +10,7 @@ import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 资源类型列表
@@ -52,14 +53,14 @@ public class OperationResourceEntity extends AbstractEntity implements Serializa
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "资源排序")
-	@Column(name = "order", nullable = true, length = 100)
-	private String order;
+	@Column(name = "resource_order", nullable = true)
+	private Long resourceOrder;
 
 	/**
-	 * 是否显示：0不显示，1显示
+	 * 是否显示：0显示，1不显示
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "是否显示：0不显示，1显示")
+	@ApiModelProperty(value = "是否显示：0显示，1不显示")
 	@Column(name = "display", nullable = true, length = 2)
 	private Integer display;
 
@@ -69,15 +70,7 @@ public class OperationResourceEntity extends AbstractEntity implements Serializa
 	 */
 	@ApiModelProperty(value = "创建时间")
 	@Column(name = "create_time", nullable = true)
-	private String createTime;
-
-	/**
-	 * 创建用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "创建用户")
-	@Column(name = "create_user", nullable = true, length = 255)
-	private String createUser;
+	private Date createTime;
 
 	/**
 	 * 更新时间
@@ -85,13 +78,6 @@ public class OperationResourceEntity extends AbstractEntity implements Serializa
 	 */
 	@ApiModelProperty(value = "更新时间")
 	@Column(name = "modify_time", nullable = true)
-	private String modifyTime;
+	private Date modifyTime;
 
-	/**
-	 * 更新用户
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "更新用户")
-	@Column(name = "modify_user", nullable = true, length = 255)
-	private String modifyUser;
 }

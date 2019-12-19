@@ -45,7 +45,7 @@ public class OperationSubtopicEntity extends AbstractEntity implements Serializa
 	 */
 	@ApiModelProperty(value = "子栏目排序")
 	@Column(name = "subtopic_order", nullable = true, length = 100)
-	private String subtopicOrder;
+	private Long subtopicOrder;
 
 	/**
 	 * 内容

@@ -31,8 +31,8 @@ public class OperationCaseEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "案例排序")
-	@Column(name = "case_order", nullable = true, length = 100)
-	private String caseOrder;
+	@Column(name = "case_order", nullable = true)
+	private Long caseOrder;
 
 	/**
 	 * 是否显示：0显示，1不显示

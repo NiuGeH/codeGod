@@ -3,8 +3,8 @@ package com.springbootjpa.codeGod.eunm;
 public enum OperationEnum {
 
     //所有删除 冻结 都用这个 0正常  1删除
-    OPERATIONMEDAL_STATE_ZC("正常",0),
-    OPERATIONMEDAL_STATE_SC("删除",1),
+    OPERATION_STATE_ZC("正常",0),
+    OPERATION_STATE_SC("删除",1),
     //所有是否显示 0是1否
     OPERATION_DISPLAY_YES("是",0),
     OPERATION_DISPLAY_NO("否",1);

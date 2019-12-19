@@ -35,7 +35,7 @@ public class OperationTopicEntity extends AbstractEntity implements Serializable
 	 */
 	@ApiModelProperty(value = "栏目排序")
 	@Column(name = "topic_order", nullable = true, length = 100)
-	private String topicOrder;
+	private Long topicOrder;
 
 	/**
 	 * 是否显示：0显示，1不显示

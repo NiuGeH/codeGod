@@ -14,4 +14,6 @@ public interface OperationMedalRepository extends JpaSpecificationExecutor<Opera
      * @return List<OperationMedalEntity>
      */
     List<OperationMedalEntity> findAllByState(Integer state);
+
+    OperationMedalEntity findByMedalName(String medalName);
 }

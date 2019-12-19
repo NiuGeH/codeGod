@@ -34,7 +34,7 @@ import java.util.List;
 public class OperationSubtopicController extends OperationBase {
 
     @PostMapping(value = "/addSubtopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "添加子栏目", httpMethod = "POST", notes = "subtopicName/子栏目名称 subtopicOrder/子栏目排序 topicId/所属栏目id content/内容 url/跳转路径 urlState/是否跳转，0不可以，1可以")
+    @ApiOperation(value = "添加子栏目", httpMethod = "POST", notes = "subtopicName/子栏目名称  \n  subtopicOrder/子栏目排序  \n  topicId/所属栏目id  \n  content/内容  \n  url/跳转路径  \n  urlState/是否跳转，0不可以，1可以")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -51,7 +51,7 @@ public class OperationSubtopicController extends OperationBase {
             public Object invoke() throws Exception {
                 OperationSubtopicEntity subtopic = operationSubtopicService.addSubtopic(
                         String.valueOf(hashMap.get("subtopicName")),
-                        String.valueOf(hashMap.get("subtopicOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("subtopicOrder")) ? null : Long.valueOf(hashMap.get("subtopicOrder")),
                         ObjectUtils.isEmpty(hashMap.get("topicId")) ? null : Long.valueOf(hashMap.get("topicId")),
                         String.valueOf(hashMap.get("content")),
                         String.valueOf(hashMap.get("url")),
@@ -62,7 +62,7 @@ public class OperationSubtopicController extends OperationBase {
     }
 
     @PostMapping(value = "/updateSubtopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改子栏目", httpMethod = "POST", notes = "id/子栏目id newName/子栏目新名称 subtopicOrder/子栏目排序 topicId/所属栏目id content/内容 url/跳转路径 urlState/是否跳转，0不可以，1可以")
+    @ApiOperation(value = "修改子栏目", httpMethod = "POST", notes = "id/子栏目id  \n  newName/子栏目新名称  \n  subtopicOrder/子栏目排序  \n  topicId/所属栏目id  \n  content/内容  \n  url/跳转路径  \n  urlState/是否跳转，0不可以，1可以")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
@@ -80,7 +80,7 @@ public class OperationSubtopicController extends OperationBase {
                 OperationSubtopicEntity subtopic = operationSubtopicService.updateSubtopic(
                         ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
                         String.valueOf(hashMap.get("newName")),
-                        String.valueOf(hashMap.get("subtopicOrder")),
+                        ObjectUtils.isEmpty(hashMap.get("subtopicOrder")) ? null : Long.valueOf(hashMap.get("subtopicOrder")),
                         ObjectUtils.isEmpty(hashMap.get("topicId")) ? null : Long.valueOf(hashMap.get("topicId")),
                         String.valueOf(hashMap.get("content")),
                         String.valueOf(hashMap.get("url")),
@@ -91,7 +91,7 @@ public class OperationSubtopicController extends OperationBase {
     }
 
     @PostMapping(value = "/findSubtopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "子栏目分页", httpMethod = "POST", notes = "page/当前页 rows/每页记录数 topicId/所属栏目id")
+    @ApiOperation(value = "子栏目分页", httpMethod = "POST", notes = "page/当前页  \n  rows/每页记录数  \n  topicId/所属栏目id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5','topicId':'1'}", required = true, paramType = "body")
     })

@@ -19,7 +19,7 @@ public interface OperationTopicService {
      * @param display 是否显示，0显示，1不显示
      * @return
      */
-    OperationTopicEntity addTopic(String name, String order, Integer display);
+    OperationTopicEntity addTopic(String name, Long order, Integer display);
 
     /**
      * 修改栏目
@@ -29,7 +29,7 @@ public interface OperationTopicService {
      * @param display 是否显示，0显示，1不显示
      * @return
      */
-    OperationTopicEntity updateTopic(Long id, String newName, String order, Integer display);
+    OperationTopicEntity updateTopic(Long id, String newName, Long order, Integer display);
 
     /**
      * 栏目分页
