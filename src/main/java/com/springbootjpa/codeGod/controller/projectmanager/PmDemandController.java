@@ -2,9 +2,13 @@ package com.springbootjpa.codeGod.controller.projectmanager;
 
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
+import com.springbootjpa.codeGod.entity.eunm.DemandStatus;
+import com.springbootjpa.codeGod.entity.eunm.ReturnStatus;
 import com.springbootjpa.codeGod.entity.projectmanager.PmApplicationEntity;
 import com.springbootjpa.codeGod.entity.projectmanager.PmDemandEntity;
 import com.springbootjpa.codeGod.entity.projectmanager.PmProjectEntity;
+import com.springbootjpa.codeGod.eunm.ProjectStatus;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,10 +19,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 
@@ -77,7 +79,7 @@ public class PmDemandController extends PmDemandBase {
                 logger.info("url:/PmDemandController/refuseByIdPmDemand 请求参数" + json);
                 PmDemandEntity pmDemandEntity = gson.fromJson(json, PmDemandEntity.class);
                 System.out.println(pmDemandEntity.getDemandRefusalCause() + "原因  id:" + pmDemandEntity.getId());
-                int i = pmDemandService.updateDemand(pmDemandEntity.getDemandRefusalCause(), pmDemandEntity.getId());
+                int i = pmDemandService.updateDemand(pmDemandEntity.getDemandRefusalCause(), pmDemandEntity.getId(),DemandStatus.已拒单.getIndex());
                 if (i > 0) {
                     return "success";
                 }
@@ -95,7 +97,7 @@ public class PmDemandController extends PmDemandBase {
                     , required = true, paramType = "body")
     })
     public PageResult<PmApplicationEntity> findAllProjectManager(@RequestBody String json) throws CodeGodException {
-        logger.info("url:/findAllProjectManager/refuseByIdPmDemand 请求参数" + json);
+        logger.info("url:/findAllProjectManager/findAllProjectManager 请求参数" + json);
         HashMap<String, String> map = gson.fromJson(json, HashMap.class);
         Sort sort = new Sort(Sort.Direction.ASC, "number");
         PageRequestParam pageRequest = null;
@@ -117,7 +119,7 @@ public class PmDemandController extends PmDemandBase {
     }
 
 
-    @PostMapping(value = "/settingPorjectManager", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/settingProjectManager", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "设置产品经理", httpMethod = "POST", notes = "设置产品经理接口")
     @ApiImplicitParams({
@@ -125,14 +127,13 @@ public class PmDemandController extends PmDemandBase {
                     "\n{'productManagerId':'41','id':'1'}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> settingPorjectManager(@RequestBody String json) {
+    public AjaxResult<Object> settingProjectManager(@RequestBody String json) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                logger.info("url:/PmDemandController/refuseByIdPmDemand 请求参数" + json);
-                System.out.println(json.charAt(1));
+                logger.info("url:/PmDemandController/settingProjectManager 请求参数" + json);
                 PmDemandEntity pmDemandEntity = gson.fromJson(json, PmDemandEntity.class);
-                boolean falg = pmDemandService.settingProjectManager(pmDemandEntity.getProductManagerId(), pmDemandEntity.getId());
+                boolean falg = pmDemandService.settingProjectManager(pmDemandEntity.getProductManagerId(), pmDemandEntity.getId(),DemandStatus.已安排产品.getIndex());
                 if (falg) {
                     return "success";
                 }
@@ -150,39 +151,44 @@ public class PmDemandController extends PmDemandBase {
                     "\ngrIVrCdxtEbLol2tUxfI2g=="
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> sendPorject(@RequestBody String json) {
-        return AjaxUtils.process(new Func_T<Object>() {
+    public AjaxResult<HashMap<String,Object>> sendPorject(@RequestBody String json) {
+        return AjaxUtils.process(new Func_T<HashMap<String,Object>>() {
             @Override
-            public Object invoke() throws Exception {
-                PmDemandEntity one = pmDemandService.findOne(1L);
+            public HashMap<String,Object> invoke() throws Exception {
+                HashMap<String,String> hashMap = gson.fromJson(json,HashMap.class);
+                HashMap<String ,Object> map = new HashMap<String, Object>();
+                PmDemandEntity one = pmDemandService.findOne(Long.valueOf(hashMap.get("id")));
+                map.put("pmDemandEntity",one);
+                map.put("privateProject",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_PROJECTPRIVATE_PROJECT));
                 System.out.println(one);
-                return one;
+                return map;
             }
         });
     }
-    @PostMapping(value = "/affirmSendPorject", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/affirmSendProject", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "确认发布项目", httpMethod = "POST", notes = "确认发布项目接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "json", value = "{'id':1,'projectName':'会员系统','projectBudget':1000.0,'projectType':1,'projectPeriod':'30天'," +
+            @ApiImplicitParam(name = "json", value = "{'id':1,'productManagerId':41,'demandId':1,'projectName':'会员系统','projectBudget':1000.0,'projectType':1,'projectPeriod':'30天'," +
                     "'projectDelivery_time':'2019-12-01','projectAdderss':'成都','projectDevelopmentModel':1,'projectRemark':'很简单的','projectKeyword':'牛逼，贼牛逼，老牛逼了'," +
                     "'projectIntroduce':'这是个贼牛逼的项目','projectDesignDocumentId':'','privateProject':0,'projectPassword':''}" +
                     "\ngrIVrCdxtEbLol2tUxfI2g=="
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> affirmSendPorject(@RequestBody String json) {
+    public AjaxResult<Object> affirmSendProject(@RequestBody String json, @RequestParam("requirementDocument") MultipartFile[] requirementDocument) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                logger.info("url:/PmDemandController/refuseByIdPmDemand 请求参数" + json);
+                logger.info("url:/PmDemandController/affirmSendProject 请求参数" + json);
                 PmProjectEntity pmProjectEntity = gson.fromJson(json, PmProjectEntity.class);
                 System.out.println(pmProjectEntity);
-                pmProjectEntity.setProjectStatus(0);
-                boolean flag = pmProjectService.saveProject(pmProjectEntity);
+                //🚗
+                pmProjectEntity.setProjectStatus(ProjectStatus.洽谈中.getIndex());
+                boolean flag = pmProjectService.saveProject(pmProjectEntity,requirementDocument);
                 if(flag){
-                    return "success";
+                    return ReturnStatus.SUCCESS.getName();
                 }
-                return "error";
+                return ReturnStatus.ERROR.getName();
             }
         });
     }

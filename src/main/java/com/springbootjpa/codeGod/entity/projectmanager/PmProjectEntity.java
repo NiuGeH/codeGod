@@ -14,6 +14,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -169,14 +170,11 @@ public class PmProjectEntity extends AbstractEntity implements Serializable {
 
 
 
-	/**
-	 * 需求文档
-	 * default value: null
-	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_design_document_id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	private UploadFile uploadFile;
+	@ApiModelProperty(value = "需求文档 可上传多个 用,号隔开 就是upload_file 的主键")
+	@Column(name = "project_design_document", nullable = true, length = 50)
+	private String requirementDocument;
 
-
+	@ApiModelProperty(value = "需求文档uploadFile 集合")
+	@Transient
+	private List<UploadFile> requirementDocumentList ;
 }

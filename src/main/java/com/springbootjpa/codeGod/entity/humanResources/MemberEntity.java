@@ -116,7 +116,8 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "签约方式 0全职 1兼职")
 	@Column(name = "member_signing_mode", nullable = true, length = 3)
 	private Integer memberSigningMode;
-
+	@Transient
+	private String memberSigningModeString;
 	/**
 	 * 勋章 ,号分割
 	 * default value: null

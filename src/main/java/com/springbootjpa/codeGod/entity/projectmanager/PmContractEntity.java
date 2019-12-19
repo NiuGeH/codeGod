@@ -2,12 +2,14 @@ package com.springbootjpa.codeGod.entity.projectmanager;
 
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
+import com.springbootjpa.codeGod.entity.UploadFile;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,7 +39,7 @@ public class PmContractEntity extends AbstractEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "合同金额")
 	@Column(name = "contract_money", nullable = true)
-	private Double contractMoney;
+	private Double contractMoney=0.0;
 
 	/**
 	 * 实际金额
@@ -45,23 +47,23 @@ public class PmContractEntity extends AbstractEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "实际金额")
 	@Column(name = "actual_amount", nullable = true )
-	private Double actualAmount;
+	private Double actualAmount=0.0;
 
 	/**
 	 * 签订日期
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "签订日期")
-	@Column(name = "contract_date", nullable = true )
+	@Column(name = "contract_date", nullable = true)
 	private Date contractDate;
 
-	/**
+	/**s
 	 * 付款方式
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "付款方式")
-	@Column(name = "payment_method", nullable = true, length = 11)
-	private Integer paymentMethod;
+	@Column(name = "payment_method", nullable = true, length = 255)
+	private String paymentMethod;
 
 	/**
 	 * 付款方式说明
@@ -75,9 +77,10 @@ public class PmContractEntity extends AbstractEntity implements Serializable {
 	 * 合同文件
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "合同文件")
-	@Column(name = "contract_document", nullable = true, length = 11)
-	private Integer contractDocument;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "contract_document_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile contractDocument;
 
 	/**
 	 * 关联项目编号
@@ -87,7 +90,6 @@ public class PmContractEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "project_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PmProjectEntity pmProjectEntity;
-
 	/**
 	 * 关联需求编号
 	 * default value: null
@@ -96,4 +98,5 @@ public class PmContractEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "demand_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PmDemandEntity pmDemandEntity;
+
 }

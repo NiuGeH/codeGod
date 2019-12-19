@@ -2,6 +2,7 @@ package com.springbootjpa.codeGod.service.projectmanager.Impl;
 
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.projectmanager.PmDemandEntity;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
 import com.springbootjpa.codeGod.repository.projectmanager.PmDemandentityRepository;
 import com.springbootjpa.codeGod.service.projectmanager.PmDemandService;
@@ -34,7 +35,7 @@ public class PmDemandServiceIml implements PmDemandService {
         Page<PmDemandEntity> all = pmDemandentityRepository.findAll(pageable);
         List<PmDemandEntity> list = new ArrayList<PmDemandEntity>();
         for (PmDemandEntity pmDemandEntity : all) {
-            BaseDataDictionaryEntity value = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(pmDemandEntity.getDemandStatus().toString(), "pm_demand.demand_status");
+            BaseDataDictionaryEntity value = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(pmDemandEntity.getDemandStatus().toString(), DataBaseFinal.PM_DEMANDDEMAND_STATUS);
             pmDemandEntity.setDemandStatus1(value.getDataValue());
             list.add(pmDemandEntity);
         }
@@ -48,8 +49,8 @@ public class PmDemandServiceIml implements PmDemandService {
      * @return   影响行数
      */
     @Override
-    public int updateDemand(String demandRefusalCause, Long id) {
-        return pmDemandentityRepository.updateDemand(demandRefusalCause, id);
+    public int updateDemand(String demandRefusalCause, Long id,Integer status) {
+        return pmDemandentityRepository.updateDemand(demandRefusalCause, id,status);
     }
     /**
      * 设置产品经理
@@ -58,9 +59,9 @@ public class PmDemandServiceIml implements PmDemandService {
      * @return  是否成功
      */
     @Override
-    public boolean settingProjectManager(Long productManagerId, Long id) {
+    public boolean settingProjectManager(Long productManagerId, Long id,Integer status) {
         boolean falg = false;
-        int i = pmDemandentityRepository.settingProjectManager(productManagerId, id);
+        int i = pmDemandentityRepository.settingProjectManager(productManagerId, id,status);
         if(i>0){
             falg = true;
         }

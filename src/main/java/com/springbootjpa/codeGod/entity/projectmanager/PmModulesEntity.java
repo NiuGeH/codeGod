@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,12 +26,22 @@ import javax.persistence.*;
 public class PmModulesEntity extends AbstractEntity implements Serializable {
 
 	/**
+	 * 模块名称
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "模块类型")
+	@Column(name = "module_name", nullable = true, length = 50)
+	private String moduleName;
+
+	/**
 	 * 模块类型
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "模块类型")
 	@Column(name = "module_type", nullable = true, length = 11)
 	private Integer moduleType;
+	@Transient
+	private String moduleTypeString;
 
 	/**
 	 * 模块分类（招聘的岗位）
@@ -47,7 +58,8 @@ public class PmModulesEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "技术栈")
 	@Column(name = "technology_stack", nullable = true, length = 11)
 	private Integer technologyStack;
-
+	@Transient
+	private String technologyStackString;
 	/**
 	 * 模块描述
 	 * default value: null
@@ -87,6 +99,16 @@ public class PmModulesEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "是否完成")
 	@Column(name = "accomplish", nullable = true, length = 11)
 	private Integer accomplish;
+
+
+	/**
+	 * 是否完成
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "是否删除")
+	@Column(name = "module_status", nullable = true, length = 11)
+	private Integer moduleStatus;
+
 
 	/**
 	 * 当前进度

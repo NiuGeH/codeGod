@@ -9,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 public interface PmDemandService {
     Page<PmDemandEntity> findAll(Pageable pageable);
 
-    int updateDemand(String demandRefusalCause,Long id);
+    int updateDemand(String demandRefusalCause,Long id,Integer Status);
 
-    boolean settingProjectManager(Long productManagerId,Long id);
+    boolean settingProjectManager(Long productManagerId,Long id,Integer Status);
 
     PmDemandEntity findOne(Long id);
 

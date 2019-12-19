@@ -30,7 +30,8 @@ public class PmRecruitmentEntity extends AbstractEntity implements Serializable 
 	@ApiModelProperty(value = "招聘职务")
 	@Column(name = "recruitment_duty", nullable = true, length = 11)
 	private Integer recruitmentDuty;
-
+	@Transient
+	private String duty;
 	/**
 	 * 要求角色
 	 * default value: null
@@ -38,7 +39,8 @@ public class PmRecruitmentEntity extends AbstractEntity implements Serializable 
 	@ApiModelProperty(value = "要求角色")
 	@Column(name = "recruitment_role", nullable = true, length = 11)
 	private Integer recruitmentRole;
-
+	@Transient
+	private String role;
 	/**
 	 * 招聘人数
 	 * default value: null

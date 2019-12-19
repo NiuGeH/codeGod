@@ -1,5 +1,6 @@
 package com.springbootjpa.codeGod.repository.projectmanager;
 
+import com.springbootjpa.codeGod.entity.eunm.DemandStatus;
 import com.springbootjpa.codeGod.entity.projectmanager.PmDemandEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -20,13 +21,13 @@ public interface PmDemandentityRepository extends JpaSpecificationExecutor<PmDem
 
     @Transactional
     @Modifying
-    @Query(value = "update PmDemandEntity set demandRefusalCause = :demandRefusalCause,demandStatus = 1  where id=:id")
-    int updateDemand(@Param("demandRefusalCause") String demandRefusalCause, @Param("id") Long id);
+    @Query(value = "update PmDemandEntity set demandRefusalCause = :demandRefusalCause,demandStatus = :status  where id=:id")
+    int updateDemand(@Param("demandRefusalCause") String demandRefusalCause, @Param("id") Long id,@Param("status") Integer status);
 
     @Transactional
     @Modifying
-    @Query(value = "update PmDemandEntity set memberEntity.id = :productManagerId,demandStatus = 2  where id=:id")
-    int settingProjectManager(@Param("productManagerId") Long productManagerId, @Param("id") Long id);
+    @Query(value = "update PmDemandEntity set memberEntity.id = :productManagerId,demandStatus = :status  where id=:id")
+    int settingProjectManager(@Param("productManagerId") Long productManagerId, @Param("id") Long id,@Param("status") Integer status);
 
     @Override
     Optional<PmDemandEntity> findById(Long id);

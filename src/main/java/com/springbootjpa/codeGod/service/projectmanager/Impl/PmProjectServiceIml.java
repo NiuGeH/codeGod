@@ -1,18 +1,24 @@
 package com.springbootjpa.codeGod.service.projectmanager.Impl;
 
 import com.alibaba.druid.util.StringUtils;
+import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
+import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.projectmanager.PmApplicationEntity;
 import com.springbootjpa.codeGod.entity.projectmanager.PmProjectEntity;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
+import com.springbootjpa.codeGod.repository.UploadFileRepository;
 import com.springbootjpa.codeGod.repository.projectmanager.PmProjectentityRepository;
 import com.springbootjpa.codeGod.service.projectmanager.PmProjectService;
+import com.springbootjpa.codeGod.utils.SaveFileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -28,9 +34,13 @@ import java.util.Optional;
 public class PmProjectServiceIml implements PmProjectService {
     @Autowired
     private PmProjectentityRepository pmProjectentityRepository;
-
+    @Autowired
+    private UploadFileRepository uploadFileRepository;
     @Autowired
     private BaseDataDictionaryentityRepository baseDataDictionaryentityRepository;
+    @Autowired
+    private SaveFileUtils saveFiles = new SaveFileUtils();
+
     @Override
     public Page<PmProjectEntity> findAll() {
         return null;
@@ -38,6 +48,7 @@ public class PmProjectServiceIml implements PmProjectService {
 
     /**
      * 获取产品经理下的项目
+     *
      * @param projectManagerId 产品经理ID
      * @return 项目数量
      */
@@ -47,69 +58,67 @@ public class PmProjectServiceIml implements PmProjectService {
     }
 
     /**
+     * 保存项目
      *
      * @param pmProjectEntity
      * @return
      */
     @Override
-    public boolean saveProject(PmProjectEntity pmProjectEntity){
-//        if(StringUtils.isEmpty(pmProjectEntity.getProjectName())){
-//
-//        }
-//        if(StringUtils.isEmpty(pmProjectEntity.getProjectAdderss())){
-//
-//        }
-//        if(StringUtils.isEmpty(pmProjectEntity.getProjectIntroduce())){
-//
-//        }
-//        if(StringUtils.isEmpty(pmProjectEntity.getProjectKeyword())){
-//
-//        }
-//        if(StringUtils.isEmpty(pmProjectEntity.getProjectPeriod())){
-//
-//        }
-//        if(StringUtils.isEmpty(pmProjectEntity.getProjectRemark())){
-//
-//        }
-//        if(StringUtils.isEmpty(pmProjectEntity.getProjectBudget().toString())){
-//
-//        }
+    public boolean saveProject(PmProjectEntity pmProjectEntity, MultipartFile[] requirementDocument) throws CodeGodException {
+        if (!ObjectUtils.isEmpty(requirementDocument) && requirementDocument.length > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < requirementDocument.length; i++) {
+                MultipartFile file = requirementDocument[i];
+                //保存文件
+                if (!(ObjectUtils.isEmpty(file)) && file.getSize() != 0) {
+                    UploadFile uploadFile = uploadFileRepository.save(saveFiles.saveFile(file));
+                    sb.append(uploadFile.getId()).append(",");
+                }
+                if (!org.springframework.util.StringUtils.isEmpty(sb.toString())) {
+                    sb.delete(sb.length() - 1, sb.length());
+                    pmProjectEntity.setRequirementDocument(sb.toString());
+                }
+            }
+        }
         PmProjectEntity save = pmProjectentityRepository.save(pmProjectEntity);
-        if(save!=null){
+        if (save != null) {
             return true;
         }
         return false;
     }
+
     /**
      * 项目查询
-     * @param pageable 分页
+     *
+     * @param pageable      分页
      * @param projectStuats 项目状态
-     * @return  返回项目列表
+     * @return 返回项目列表
      */
     @Override
-    public Page<PmProjectEntity> doPage(Pageable pageable,Integer projectStuats) {
+    public Page<PmProjectEntity> doPage(Pageable pageable, Integer projectStuats) {
         Specification sp = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> list = new ArrayList<Predicate>();
-                if(!StringUtils.isEmpty(projectStuats.toString())){
-                    list.add(criteriaBuilder.equal(root.get("projectStatus"),projectStuats.toString()));
+                if (!StringUtils.isEmpty(projectStuats.toString())) {
+                    list.add(criteriaBuilder.equal(root.get("projectStatus"), projectStuats.toString()));
                 }
                 return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
             }
         };
         Page<PmProjectEntity> all = pmProjectentityRepository.findAll(sp, pageable);
         ArrayList<PmProjectEntity> list = new ArrayList<>();
-        for (PmProjectEntity pmProjectEntity:all){
+        for (PmProjectEntity pmProjectEntity : all) {
             BaseDataDictionaryEntity value = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(pmProjectEntity.getProjectStatus().toString(), "pm_project.project_status");
             pmProjectEntity.setProjectStatus1(value.getDataValue());
             list.add(pmProjectEntity);
         }
-        return  new PageImpl<PmProjectEntity>(list, pageable,list.size());
+        return new PageImpl<PmProjectEntity>(list, pageable, list.size());
     }
 
     /**
      * 单个项目数据
+     *
      * @param id 项目iD
      * @return 项目信息
      */
@@ -119,5 +128,19 @@ public class PmProjectServiceIml implements PmProjectService {
         return byId.get();
     }
 
-
+    /**
+     * 修改项目状态
+     *
+     * @param id
+     * @param status
+     * @return
+     */
+    @Override
+    public boolean updateStatus(Long id, Integer status) {
+        int i = pmProjectentityRepository.updateProjectStatus(id, status);
+        if (i > 0) {
+            return true;
+        }
+        return false;
+    }
 }

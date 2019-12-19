@@ -18,4 +18,7 @@ public interface BaseDataDictionaryentityRepository extends JpaSpecificationExec
 
     @Query("select b from BaseDataDictionaryEntity b where b.dataColumnName=:colum_name ")
     public List<BaseDataDictionaryEntity> findBaseDataDictionaryEntityByDataColumnName(@Param("colum_name") String dataColumnName);
+
+    @Query("select b from BaseDataDictionaryEntity b where b.dataColumnName=:colum_name and b.dataValue=:value" )
+    public BaseDataDictionaryEntity findDistinctByDataColumnNameAndAndDataValue(@Param("value") String value, @Param("colum_name") String colum_name);
 }

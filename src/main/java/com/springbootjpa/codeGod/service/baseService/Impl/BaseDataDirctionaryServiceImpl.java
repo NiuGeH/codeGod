@@ -42,6 +42,20 @@ public class BaseDataDirctionaryServiceImpl implements BaseDataDirctionaryServic
     }
 
     @Override
+    public BaseDataDictionaryEntity findByDataKeyAndColumReturnDataKey(String value, String colum_name) {
+        BaseDataDictionaryEntity baseDataDictionaryEntity = (BaseDataDictionaryEntity) redisUtils.get("dirctionary_"+value+"_"+colum_name);
+        if(ObjectUtils.isEmpty(baseDataDictionaryEntity)){
+            logger.debug("findByDataKeyAndColumReturnDataKey no Redis");
+            BaseDataDictionaryEntity distinctByDataColumnNameAndAndDataValue = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataValue(value, colum_name);
+            redisUtils.set("dirctionary_" + value + "_" + colum_name, distinctByDataColumnNameAndAndDataValue,10800);
+            return distinctByDataColumnNameAndAndDataValue;
+        }else {
+            logger.debug(" findByDataKeyAndColumReturnDataKey Redis");
+            return baseDataDictionaryEntity;
+        }
+    }
+
+    @Override
     public List<BaseDataDictionaryEntity> findByColumNameRetrunDirctionaryAryList(String colum_Name) {
         List<BaseDataDictionaryEntity> list =  (List<BaseDataDictionaryEntity>)redisUtils.get("dirctionary_"+colum_Name);
         if(ObjectUtils.isEmpty(list)){

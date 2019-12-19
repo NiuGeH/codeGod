@@ -28,5 +28,18 @@ public class DataBaseFinal {
 
     public static final String MEMBER_MEMBERSIGNINGSTATUS = "member.member_signing_status";
 
+    public static final String PM_PROJECTPRIVATE_PROJECT = "pm_project.private_project";
+
+    public static final String PM_RECRUITMENTRECRUITMENT_DUTY = "pm_recruitment.recruitment_duty";
+
+    public static final String PM_DEMANDDEMAND_STATUS = "pm_demand.demand_status";
+
+    public static final String MEMBER_CONTRACTCONTRACT_COURT = "member_contract.contract_court";
+
+    public static final String PM_MODULESMODULE_TYPE="pm_modules.module_type";
+
+    public static final String PM_MODULESTECHNOLOGY_STACK="pm_modules.technology_stack";
+
+    public static final String PM_TEAMSTATUS = "pm_team.status";
 
 }
