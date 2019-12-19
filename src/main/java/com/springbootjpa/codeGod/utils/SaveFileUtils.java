@@ -33,7 +33,7 @@ public class SaveFileUtils {
     @Autowired
     private BaseDataDirctionaryService baseDataDirctionaryService;
 
-    public UploadFile saveFile(MultipartFile file, HttpServletRequest request) throws CodeGodException {
+    public UploadFile saveFile(MultipartFile file) throws CodeGodException {
         // 判断文件是否为空
         if (!file.isEmpty()) {
             try {
@@ -67,7 +67,8 @@ public class SaveFileUtils {
                 e.printStackTrace();
             }
         }
-        throw new CodeGodException("上传文件失败 ======>文件为空", this.getClass());
+        logger.error("上传文件为空 SaveFileUtils.saveFile");
+        return null;
     }
 
 }

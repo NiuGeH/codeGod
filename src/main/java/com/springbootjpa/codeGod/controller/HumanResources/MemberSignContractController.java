@@ -3,9 +3,11 @@ package com.springbootjpa.codeGod.controller.HumanResources;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
+import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
+import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,11 +20,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Api(description = "推荐签约审核Controller")
@@ -108,8 +113,9 @@ public class MemberSignContractController extends MemberBase {
     }
 
     @ApiOperation(value = "签约设置 回显用户pc端填写的数据" , httpMethod = "POST" , notes =
-            "signEnt  签约实体类  \n  memberType  用户类型  \n  memberSigningPost  签约岗位  \n  memberSigningMode  签约方式" +
-                    "  \n  memberMedal  勋章  \n  memberStationing  是否驻场  \n  memberStatus  当前状态  \n  memberSigningStatus  签约状态")
+            "回显中取sigEnt 中的memberEndId对象中的数据 具体对象与/doSaveSign接口对应  \n  >>>>>>>>>>>>>>>>>>>>>>>>>  \n" +
+                    "  signEnt  签约实体类  \n  memberType  用户类型  \n  memberSigningPost  签约岗位  \n  memberSigningMode  签约方式" +
+                    "  \n  memberMedal  勋章  \n  memberStationing  是否驻场  \n  memberStatus  当前状态  \n  memberSigningStatus  签约状态  \n  memberTeam 团队")
     @PostMapping(value = "/saveSignEcho", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiImplicitParams({
@@ -131,33 +137,29 @@ public class MemberSignContractController extends MemberBase {
                     //获取签约审核中生成的MemberId
                     MemberEntity memberEndId = entity.getMemberEndId();
                     //根据生成的 Member 然后查找私人信息表
-                    memberEndId.setMemberPrivacyEntity(memberPrivacyentityRepository.findAllByMemberId(memberEndId.getId()));
+                    entity.setMemberEndId(memberService.doStringConvarToList(memberEndId));
                     hashMap.put("signEnt",entity);
-                    hashMap.put("memberType",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERTYPE));
-                    hashMap.put("memberSigningPost",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGPOST));
-                    hashMap.put("memberSigningMode",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGMODE));
-                    hashMap.put("memberMedal", operationMedalRepository.findAllByState(0));
-                    hashMap.put("memberStationing", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSTATIONING));
-                    hashMap.put("memberStatus",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSTATUS));
-                    hashMap.put("memberDisplay",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERDISPLAY));
-                    hashMap.put("memberSigningStatus",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGSTATUS));
+                    HashMap<String, Object> allDataFromDictionary = memberService.allDataFromDictionary();
+                    hashMap.putAll(allDataFromDictionary);
                 }
                 return hashMap;
             }
         });
     }
 
-    @ApiOperation(value = "签约设置保存接口" , notes = "id >>> memberSignId  \n  memberMobile >>> 手机号  \n  memberPwd >>> 登录密码  \n  nickName >>> 昵称  \n" +
+    @ApiOperation(value = "签约设置保存接口" , notes = "id >>> memberSignId(必须) \n  memberMobile >>> 手机号  \n  memberPwd >>> 登录密码  \n  nickName >>> 昵称  \n" +
             "memberRealName >>> 姓名  \n  memberEmail >>> 邮箱  \n  memberQq >>> QQ  \n  memberWechat >>> 微信  \n  memebrCity >>> 所在城市  \n  memberContactAddress >>> 联系地址 " +
             "  \n  memberWord >>> 关键词  \n  memberLongRange >>> 远程开发报价  \n  memberOnSiteDevelopment >>> 驻场开发报价  \n memberCashWithdrawal >>> 提现账户  \n " +
             "memberIntroduce >>> 个人账户  \n  memberType >>> 用户类型  \n  memberCardno >>> 身份证号  \n  memberSigningPost >>> 签约岗位  \n  memberSigningMode >>> 签约方式  \n" +
-            "memberMedal >>> 勋章  \n  memberStationing >>> 是否驻场  \n  memberStatus >>> 当前状态  \n  memberDisplay >>> 公开显示  \n  memberSigningStatus >>> 签约状态 ")
+            "memberMedal >>> 勋章  \n  memberStationing >>> 是否驻场  \n  memberStatus >>> 当前状态  \n  memberDisplay >>> 公开显示  \n  memberSigningStatus >>> 签约状态  \n  " +
+            "memberPhotoFileMultipartFile(文件) >>> 形象照  \n  memberPhotoHeadPortraitMultipartFile(文件)  >>> 头像  \n  memberPersonalDataMultipartFile(文件 可多个) >>> 个人资料  \n" +
+            "memberCardFrontMultipartFile >>> 身份证正面(文件)  \n  memberCardReverseSideMultipartFile >>> 身份证反面(文件)  \n  siginAgreementMultipartFile >>> 签约协议(文件 可多个)")
     @PostMapping(value = "/doSaveSign", headers = "content-type=multipart/form-data")
     @ResponseBody
     @ApiImplicitParams({
-//            @ApiImplicitParam(name = "memberSignContractEntity" , required = false , paramType = "formData"),
-//            @ApiImplicitParam(name = "memberPrivacyEntity" , required = false , paramType = "formData"),
-//            @ApiImplicitParam(name = "memberEntity" , required = false , paramType = "formData"),
+            @ApiImplicitParam(name = "memberSignContractEntity" ),
+            @ApiImplicitParam(name = "memberPrivacyEntity" ),
+            @ApiImplicitParam(name = "memberEntity" ),
             @ApiImplicitParam(name = "memberPhotoFileMultipartFile" ,  paramType = "formData",value = "形象照"),
             @ApiImplicitParam(name = "memberPhotoHeadPortraitMultipartFile" , paramType = "formData",value = "头像"),
             @ApiImplicitParam(name = "memberPersonalDataMultipartFile" ,  paramType = "formData",value = "个人资料（可多个）"),
@@ -173,41 +175,41 @@ public class MemberSignContractController extends MemberBase {
             , HttpServletRequest request){
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
-            public Object invoke() throws Exception {
+            public Object invoke() throws CodeGodException {
                 logger.info("URL:/SignContract/doSaveSgin 请求参数为: 用户签约 信息："+memberSignContractEntity.toString() +"  用户私密信息表数据:"+memberPrivacyEntity.toString() + " 用户基本信息："+memberEntity.toString());
-                MemberSignContractEntity entity = memberSignContractService.signSetting(memberSignContractEntity, memberEntity, memberPrivacyEntity, memberPhotoFileMultipartFile, memberPhotoHeadPortraitMultipartFile, memberPersonalDataMultipartFile, memberCardFrontMultipartFile, memberCardReverseSideMultipartFile, siginAgreementMultipartFile, request);
-
-                return memberSignContractEntity;
+                if(ObjectUtils.isEmpty(memberSignContractEntity.getId())) throw new CodeGodException("id 为空 ",this.getClass());
+                memberSignContractService.signSetting(memberSignContractEntity, memberEntity, memberPrivacyEntity, memberPhotoFileMultipartFile, memberPhotoHeadPortraitMultipartFile, memberPersonalDataMultipartFile, memberCardFrontMultipartFile, memberCardReverseSideMultipartFile, siginAgreementMultipartFile, request);
+                return "success";
             }
         });
     }
 
-    @ApiOperation("测试文件上传接口")
-    @PostMapping("/doForm")
-    @ResponseBody
-    public AjaxResult<Object> doForm(String competition,String year,String name,@RequestParam("files") MultipartFile[] files,HttpServletRequest request){
-        return AjaxUtils.process(new Func_T<Object>() {
-            @Override
-            public Object invoke() throws Exception {
-                System.out.println(competition);
-                System.out.println(name);
-                System.out.println(year);
-                if(files!=null&&files.length>0){
-                    //循环获取file数组中得文件
-                    for(int i = 0;i<files.length;i++){
-                        MultipartFile file = files[i];
-                        //保存文件
-                        if(!(ObjectUtils.isEmpty(file)) && file.getSize() != 0){
-                            System.out.println(saveFileUtils.saveFile(file, request));
+//    @ApiOperation("测试文件上传接口")
+//    @PostMapping("/doForm")
+//    @ResponseBody
+//    public AjaxResult<Object> doForm(String competition,String year,String name,@RequestParam("memberPhotoFileMultipartFile") MultipartFile[] memberPhotoFileMultipartFile,HttpServletRequest request){
+//        return AjaxUtils.process(new Func_T<Object>() {
+//            @Override
+//            public Object invoke() throws Exception {
+//                System.out.println(competition);
+//                System.out.println(name);
+//                System.out.println(year);
+//                if(memberPhotoFileMultipartFile!=null&&memberPhotoFileMultipartFile.length>0){
+//                    //循环获取file数组中得文件
+//                    for(int i = 0;i<memberPhotoFileMultipartFile.length;i++){
+//                        MultipartFile file = memberPhotoFileMultipartFile[i];
+//                        //保存文件
+//                        if(!(ObjectUtils.isEmpty(file)) && file.getSize() != 0){
+//                            UploadFile uploadFile = saveFileUtils.saveFile(file);
 //                            UploadFile save = uploadFileRepository.save(uploadFile);
-//                            System.out.println(save.toString());
-                        }
-                    }
-                }
-                return "null";
-            }
-        });
-    }
+////                            System.out.println(save.toString());
+//                        }
+//                    }
+//                }
+//                return "success";
+//            }
+//        });
+//    }
 
 
 }

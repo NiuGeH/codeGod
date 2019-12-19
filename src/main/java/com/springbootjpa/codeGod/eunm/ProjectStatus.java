@@ -1,4 +1,4 @@
-package com.springbootjpa.codeGod.entity.eunm;
+package com.springbootjpa.codeGod.eunm;
 
 public enum ProjectStatus {
          洽谈中("洽谈中", 0)

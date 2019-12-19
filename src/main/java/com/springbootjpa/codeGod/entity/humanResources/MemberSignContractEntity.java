@@ -99,13 +99,6 @@ public class MemberSignContractEntity extends AbstractEntity implements Serializ
 	@Transient
 	private String siginVerificationCodeData;
 
-	/**
-	 * 协议 Id
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "协议 Id")
-	@Column(name = "sigin_agreement", nullable = true, length = 50)
-	private String siginAgreement;
 
 	@Override
 	public String toString() {
@@ -119,7 +112,6 @@ public class MemberSignContractEntity extends AbstractEntity implements Serializ
 				", siginResultsData='" + siginResultsData + '\'' +
 				", siginVerificationCode=" + siginVerificationCode +
 				", siginVerificationCodeData='" + siginVerificationCodeData + '\'' +
-				", siginAgreement='" + siginAgreement + '\'' +
 				", id=" + id +
 				'}';
 	}

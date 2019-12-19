@@ -5,6 +5,7 @@ import com.springbootjpa.codeGod.repository.HumanResources.MemberPrivacyentityRe
 import com.springbootjpa.codeGod.repository.HumanResources.MemberSignContractentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationMedalRepository;
+import com.springbootjpa.codeGod.repository.UploadFileRepository;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
 import com.springbootjpa.codeGod.service.baseService.Impl.BaseDataDirctionaryServiceImpl;
 import com.springbootjpa.codeGod.service.humanResourcesService.MemberPrivacyService;
@@ -44,4 +45,10 @@ public class MemberBase {
 
     @Autowired
     protected MemberPrivacyentityRepository memberPrivacyentityRepository;
+
+    @Autowired
+    protected UploadFileRepository uploadFileRepository;
+
+    @Autowired
+    protected MemberentityRepository memberentityRepository;
 }

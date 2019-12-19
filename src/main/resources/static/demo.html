@@ -8,15 +8,49 @@
 <img src="http://localhost:8888/files/20191214/jpg/08757f9d-afa0-4140-94d0-b7320aa46d95.jpg">
 <a href="http://localhost:8888/files/dl/20191214/xlsx/a7a44ebe-4720-4185-ae78-4116aa194927.xlsx?filename=123.xlsx">asd</a>
 <form method="post" enctype="multipart/form-data" id="uploadForm"
-      action="/codeGod/SignContract/doForm">
-    作品名称：<input type="text" name="name" id="name"><br>
-    参赛年份：<input type="text" name="year" id="year"><br>
-    参加竞赛：<select name="competition" id="competition">
-    <option value="请选择">请选择</option>
+      action="/codeGod/SignContract/doSaveSign">
+    <input type="hidden" name="id" value="2" >
+    <input type="hidden" name="siginMaterial" value="32">
+    <input type="hidden" name="memberPhotoFile" value="32">
+    <input type="hidden" name="memberPersonalData" value="101">
+    <input type="hidden" name="memberPhotoHeadPortrait" value="102">
+    <input type="hidden" name="memberCardFront" value="103">
+    <input type="hidden" name="memberCardReverseSide" value="104">
+    <input type="hidden" name="memberSigningAgreement" value="100">
+     手机号 <input name="memberMobile"> <br>
+     登录密码 <input name="memberPwd"> <br>
+     昵称 <input name="nickName"> <br>
+     姓名 <input name="memberRealName"> <br>
+     邮箱 <input name="memberEmail"> <br>
+     QQ <input name="memberQq"> <br>
+     微信 <input name="memberWechat"> <br>
+     所在城市 <input name="memebrCity"> <br>
+     联系地址 <input name="memberContactAddress"> <br>
+     关键词 <input name="memberWord"> <br>
+     远程开发报价 <input name="memberLongRange"> <br>
+     驻场开发报价 <input name="memberOnSiteDevelopment"> <br>
+     提现账户 <input name="memberCashWithdrawal"> <br>
+     个人介绍 <input name="memberIntroduce"> <br>
+     用户类型 <input name="memberType"> <br>
+     身份证号 <input name="memberCardno"> <br>
+     签约岗位 <input name="memberSigningPost"> <br>
+     签约方式 <input name="memberSigningMode"> <br>
+     勋章 <input name="memberMedal"> <br>
+     是否驻场 <input name="memberStationing"> <br>
+     当前状态 <input name="memberStatus"> <br>
+     公开显示 <input name="memberDisplay"> <br>
+     签约状态 <input name="memberSigningStatus"> <br>
+<!--    <option value="请选择">请选择</option>-->
 </select><br>
-    源文件上传:<input type="file" name="files" id="file1"><br>
-    展示文件上传:<input type="file" name="files" id="file2"><br>
-    附件上传:<input type="file" name="files" id="file3"><br>
+    形象照:<input type="file" name="memberPhotoFileMultipartFile" ><br>
+    个人资料:<input type="file" name="memberPersonalDataMultipartFile" ><br>
+    个人资料:<input type="file" name="memberPersonalDataMultipartFile" ><br>
+    头像:<input type="file" name="memberPhotoHeadPortraitMultipartFile" ><br>
+    身份证正面:<input type="file" name="memberCardFrontMultipartFile" ><br>
+    身份证反面:<input type="file" name="memberCardReverseSideMultipartFile" ><br>
+    签约协议:<input type="file" name="siginAgreementMultipartFile" ><br>
+    签约协议:<input type="file" name="siginAgreementMultipartFile" ><br>
+    签约协议:<input type="file" name="siginAgreementMultipartFile" ><br>
     <input type="submit" id="sub" value="提交">
 </form>
 </body>
@@ -57,20 +91,20 @@
 
 
     $(function () {
-        // var sd = decrypt("5LK1ac+DIHQIdlF7az9vIF8+oAj017z5RiOarugVsBd2ejwlU2jiAd%2F57A47u86m=","MI97JSJfjwIDAQAB");
-        // console.log(sd);
-        // var dat = {username:'123',password:12312};
-        // console.log(encrypt(JSON.stringify(dat)));
-        // $.ajax({
-        //     url:'/codeGod/login',
-        //     type:'POST',
-        //     dataType:'json',
-        //     contentType:'application/json;charset=UTF-8',
-        //     data:encrypt(JSON.stringify(dat)),
-        //     success:function(data, status){
-        //         console.log(data);
-        //     }
-        // });
+        var sd = decrypt("5LK1ac+DIHQIdlF7az9vIF8+oAj017z5RiOarugVsBd2ejwlU2jiAd%2F57A47u86m=","MI97JSJfjwIDAQAB");
+        console.log(sd);
+        var dat = {username:'test1',password:123};
+        console.log(encrypt(JSON.stringify(dat)));
+        $.ajax({
+            url:'/codeGod/login',
+            type:'POST',
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:encrypt(JSON.stringify(dat)),
+            success:function(data, status){
+                console.log(data);
+            }
+        });
 
         // $("#sub").click(function () {
         //     let formData = new FormData()

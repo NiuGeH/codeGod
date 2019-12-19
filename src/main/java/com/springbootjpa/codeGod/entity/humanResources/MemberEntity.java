@@ -1,11 +1,15 @@
 package com.springbootjpa.codeGod.entity.humanResources;
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
+import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.operation.OperationMedalEntity;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -144,6 +148,9 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	@Column(name = "member_signing_agreement", nullable = true, length = 50)
 	private String memberSigningAgreement;
 
+	@Transient
+	private List<UploadFile> memberSigningAgreementList;
+
 	/**
 	 * 签约状态 0 拒绝 1 已签约
 	 * default value: null
@@ -202,7 +209,15 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	 * 私密信息表
 	 */
 	@ApiModelProperty(value = "私密信息表")
-	@Transient
-	private MemberPrivacyEntity memberPrivacyEntity;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_pricacy")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private MemberPrivacyEntity memberPricacy;
+
+	/**
+	 * 删除 0 正常 1 逻辑删除
+	 */
+	@Column(name = "member_state")
+	private Integer memberState;
 
 }

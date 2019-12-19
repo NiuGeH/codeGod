@@ -1,5 +1,6 @@
 package com.springbootjpa.codeGod.service.humanResourcesService;
 
+import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
@@ -45,5 +46,5 @@ public interface MemberSignContractService {
                                           MultipartFile memberPhotoFileMultipartFile, MultipartFile memberPhotoHeadPortraitMultipartFile,
                                           MultipartFile[] memberPersonalDataMultipartFile, MultipartFile memberCardFrontMultipartFile,
                                           MultipartFile memberCardReverseSideMultipartFile, MultipartFile[] siginAgreementMultipartFile
-            , HttpServletRequest request);
+            , HttpServletRequest request) throws CodeGodException;
 }

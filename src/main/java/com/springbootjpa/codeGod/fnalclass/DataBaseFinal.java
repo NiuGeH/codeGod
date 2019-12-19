@@ -27,4 +27,6 @@ public class DataBaseFinal {
     public static final String MEMBER_MEMBERSTATUS = "member.member_status";
 
     public static final String MEMBER_MEMBERSIGNINGSTATUS = "member.member_signing_status";
+
+
 }

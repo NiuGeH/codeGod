@@ -88,8 +88,11 @@ public class MemberPrivacyEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "形象照")
-	@Column(name = "member_photo_file", nullable = true, length = 20)
-	private Long memberPhotoFile;
+//	@Column(name = "member_photo_file", nullable = true, length = 20)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_photo_file")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile memberPhotoFile;
 
 	/**
 	 * 头像
