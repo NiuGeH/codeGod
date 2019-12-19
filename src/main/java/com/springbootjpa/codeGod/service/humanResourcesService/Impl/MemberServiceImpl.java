@@ -3,10 +3,13 @@ package com.springbootjpa.codeGod.service.humanResourcesService.Impl;
 import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
+import com.springbootjpa.codeGod.eunm.HumanRecourcesStatus;
 import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
+import com.springbootjpa.codeGod.repository.Operation.OperationCompanyRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationMedalRepository;
+import com.springbootjpa.codeGod.repository.Operation.OperationRegionRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationTeamRepository;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
@@ -26,6 +29,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 用户表Service
+ * @author NiuGeH
+ * @date 2019/12/19
+ */
 @Service
 @Transactional(rollbackOn = Exception.class)
 @Slf4j
@@ -46,21 +54,28 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private OperationTeamRepository operationTeamRepository;
 
-    private Specification<MemberEntity> getSpecification( String memberDisplay, String memberStationing, String memberSigningPost, String memberType, String keyWord) {
+    @Autowired
+    private OperationRegionRepository operationRegionRepository;
+
+    @Autowired
+    private OperationCompanyRepository operationCompanyRepository;
+
+    private Specification<MemberEntity> getSpecification( String memberDisplay, String memberStationing, String memberSigningPost, String memberType, String keyWord, String memebrCityEntityId) {
         return new Specification<MemberEntity>() {
             @Override
             public Predicate toPredicate(Root<MemberEntity> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-//                Predicate p2 = criteriaBuilder.like(root.get("nickName"),"%zhang%");
                 //是否公开
+                Predicate perState = criteriaBuilder.or(criteriaBuilder.equal(root.get("memberState"), HumanRecourcesStatus.MEMBER_STATE_ZC.getIndex()),criteriaBuilder.isNull(root.get("memberState")));
                 Predicate perMemberDisplay = !ObjectUtils.isEmpty(memberDisplay) ? criteriaBuilder.equal(root.get("memberDisplay"), memberDisplay) : criteriaBuilder.like(root.get("nickName"), "%");
                 Predicate perMemberStationing = !ObjectUtils.isEmpty(memberStationing) ? criteriaBuilder.equal(root.get("memberStationing"),memberStationing) : criteriaBuilder.like(root.get("nickName"),"%");
                 Predicate perMemberSigningPost = !ObjectUtils.isEmpty(memberSigningPost) ? criteriaBuilder.equal(root.get("memberSigningPost"),memberSigningPost) : criteriaBuilder.like(root.get("nickName"),"%");
                 Predicate perMemberType = !ObjectUtils.isEmpty(memberType) ? criteriaBuilder.equal(root.get("memberType"),memberType) : criteriaBuilder.like(root.get("nickName") , "%");
+                Predicate perCity = !ObjectUtils.isEmpty(memebrCityEntityId) ? criteriaBuilder.equal(root.get("memebrCityEntity").get("id"),Long.valueOf(memebrCityEntityId)) : criteriaBuilder.like(root.get("nickName") , "%");
                 Predicate perNickName = !ObjectUtils.isEmpty(keyWord) ? criteriaBuilder.like(root.get("nickName"),"%"+keyWord+"%") : criteriaBuilder.like(root.get("nickName"),"%");
                 Predicate perRealName = !ObjectUtils.isEmpty(keyWord) ? criteriaBuilder.like(root.get("memberPricacy").get("memberRealName"), "%"+keyWord+"%") : criteriaBuilder.like(root.get("nickName"),"%");
                 Predicate perMobile = !ObjectUtils.isEmpty(keyWord) ? criteriaBuilder.like(root.get("memberPricacy").get("memberMobile"),"%"+keyWord+"%") :  criteriaBuilder.like(root.get("nickName"),"%");
                 Predicate or = criteriaBuilder.or(perNickName, perRealName, perMobile);
-                return criteriaBuilder.and(perMemberDisplay, perMemberSigningPost, perMemberStationing, perMemberType,or);
+                return criteriaBuilder.and(perState,perMemberDisplay, perMemberSigningPost, perMemberStationing, perMemberType, perCity, or);
             }
         };
     }
@@ -74,12 +89,13 @@ public class MemberServiceImpl implements MemberService {
      * @param memberSigningPost  所有角色
      * @param memberType 所有用户
      * @param keyWord 关键测
+     * @param memebrCityEntityId 城市
      * @return 集合实体
      */
     @Override
-    public Page<MemberEntity> findAll(Pageable pageable, String memberDisplay, String memberStationing, String memberSigningPost, String memberType, String keyWord) {
+    public Page<MemberEntity> findAll(Pageable pageable, String memberDisplay, String memberStationing, String memberSigningPost, String memberType, String keyWord, String memebrCityEntityId) {
 
-        return memberentityRepository.findAll(getSpecification(memberDisplay, memberStationing, memberSigningPost, memberType, keyWord),pageable);
+        return memberentityRepository.findAll(getSpecification(memberDisplay, memberStationing, memberSigningPost, memberType, keyWord,memebrCityEntityId),pageable);
     }
 
 

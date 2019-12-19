@@ -4,6 +4,12 @@ import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
+import com.springbootjpa.codeGod.repository.HumanResources.MemberPrivacyentityRepository;
+import com.springbootjpa.codeGod.repository.HumanResources.MemberSignContractentityRepository;
+import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
+import com.springbootjpa.codeGod.repository.UploadFileRepository;
+import com.springbootjpa.codeGod.utils.SaveFileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 
 public interface MemberSignContractService {
+
 
     /**
      * 根据验证码和签约结果分页

@@ -2,7 +2,9 @@ package com.springbootjpa.codeGod.entity.humanResources;
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
 import com.springbootjpa.codeGod.entity.UploadFile;
+import com.springbootjpa.codeGod.entity.operation.OperationCompanyEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationMedalEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
@@ -53,8 +55,14 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "所在城市")
-	@Column(name = "memebr_city", nullable = true, length = 30)
-	private String memebrCity;
+//	@Column(name = "memebr_city", nullable = true, length = 30)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "memebr_city")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private OperationRegionEntity memebrCityEntity;
+
+	@Transient
+	private String  memebrCity;
 
 	/**
 	 * 关键字 用,分割
@@ -69,9 +77,14 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "所属公司")
-	@Column(name = "member_company", nullable = true, length = 30)
-	private String memberCompany;
+//	@Column(name = "member_company", nullable = true, length = 30)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_company")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private OperationCompanyEntity operationCompanyEntity;
 
+	@Transient
+	private String memberCompany;
 	/**
 	 * 个人介绍
 	 * default value: null
@@ -218,6 +231,6 @@ public class MemberEntity extends AbstractEntity implements Serializable {
 	 * 删除 0 正常 1 逻辑删除
 	 */
 	@Column(name = "member_state")
-	private Integer memberState;
+	private Integer memberState = 0;
 
 }

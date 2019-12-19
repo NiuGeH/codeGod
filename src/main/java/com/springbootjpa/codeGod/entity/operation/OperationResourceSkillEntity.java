@@ -8,6 +8,7 @@ import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 资源类型—技术栈关联表
@@ -39,4 +40,8 @@ public class OperationResourceSkillEntity extends AbstractEntity implements Seri
 	@JoinColumn(name = "skill_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private OperationSkillEntity skill;
+
+
+	@Transient
+	private List<OperationSkillEntity> operationSkillEntityList;
 }

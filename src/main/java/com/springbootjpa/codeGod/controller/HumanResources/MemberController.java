@@ -6,6 +6,10 @@ import com.springbootjpa.codeGod.common.*;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationResourceEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationResourceSkillEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationSkillEntity;
+import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -21,8 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 
 @Api(description = "用户管理接口")
 @Controller
@@ -36,7 +39,7 @@ public class MemberController extends MemberBase {
     @ApiOperation(value = "查询用户基础信息", httpMethod = "POST", notes = "查询用户基础信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json",
-                    value = "{'page':'1','rows':'5','memberDisplay':'0','memberStationing':'0','memberSigningPost':'0','memberType':'0' ,'keyWord':''}",required = true, paramType = "body")
+                    value = "{'page':'1','rows':'5','memberDisplay':'0','memberStationing':'0','memberSigningPost':'0','memberType':'0' ,'keyWord':'' , 'memebrCityEntityId':'7'}",required = true, paramType = "body")
     })
     public PageResult<MemberEntity> doPage(@RequestBody String json) {
         log.info("URL:/memberController/doPage 参数："+json);
@@ -46,19 +49,20 @@ public class MemberController extends MemberBase {
             @Override
             public Page<MemberEntity> invoke(Pageable var1) throws Exception {
                 HashMap<String , String > hashMap = gson.fromJson(json,HashMap.class);
-                return memberService.findAll(var1,hashMap.get("memberDisplay"),hashMap.get("memberStationing"),hashMap.get("memberSigningPost"),hashMap.get("memberType"),hashMap.get("keyWord"));
+                return memberService.findAll(var1,hashMap.get("memberDisplay"),hashMap.get("memberStationing"),hashMap.get("memberSigningPost"),hashMap.get("memberType"),hashMap.get("keyWord"),hashMap.get("memebrCityEntityId"));
             }
         });
     }
 
     @PostMapping( value = "/editMemberEcho", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    @ApiOperation(value = "点击资料编辑回显", httpMethod = "POST" , notes =
+    @ApiOperation(value = "点击资料编辑回显(memberId 必须)/点击添加用户(不需要传memberId)", httpMethod = "POST" , notes =
             "回显中取sigEnt 中的memberEndId对象中的数据 具体对象与/doSaveSign接口对应  \n  >>>>>>>>>>>>>>>>>>>>>>>>>  \n" +
                     "  signEnt  签约实体类  \n  memberType  用户类型  \n  memberSigningPost  签约岗位  \n  memberSigningMode  签约方式" +
-                    "  \n  memberMedal  勋章  \n  memberStationing  是否驻场  \n  memberStatus  当前状态  \n  memberSigningStatus  签约状态")
+                    "  \n  memberMedal  勋章  \n  memberStationing  是否驻场  \n  memberStatus  当前状态  \n  memberSigningStatus  签约状态" +
+                    "  \n  memberTeam 团队")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "json" , value = "{'id':'2'}")
+            @ApiImplicitParam(name = "json" , value = "{'memberId':'2'}")
     })
     public AjaxResult<HashMap<String , Object >> editMemberEcho(@RequestBody String json){
         log.info("URL:/memberController/editMemberEcho 参数列表: "+json);
@@ -67,22 +71,62 @@ public class MemberController extends MemberBase {
             public HashMap<String, Object> invoke() throws Exception {
                 HashMap<String, Object> hashMap = memberService.allDataFromDictionary();
                 HashMap<String , String > params = gson.fromJson(json, HashMap.class);
-                Optional<MemberEntity> optional = memberentityRepository.findById(Long.valueOf(params.get("id")));
-                if(ObjectUtils.isEmpty(optional)){
-                    throw new CodeGodException("id 为空 /memberController/editMemberEcho",this.getClass());
-                }else {
-                    MemberEntity memberEntity = optional.get();
-                    hashMap.put("MemberEnt",memberService.doStringConvarToList(memberEntity));
+                if(ObjectUtils.isEmpty(params.get("memberId"))){
                     return hashMap;
+                }else{
+                    Optional<MemberEntity> optional = memberentityRepository.findById(Long.valueOf(params.get("memberId")));
+                    if(ObjectUtils.isEmpty(optional)){
+                        throw new CodeGodException("id 为空 /memberController/editMemberEcho",this.getClass());
+                    }else {
+                        MemberEntity memberEntity = optional.get();
+                        hashMap.put("MemberEnt",memberService.doStringConvarToList(memberEntity));
+                        return hashMap;
+                    }
                 }
+
+            }
+        });
+    }
+
+    @PostMapping(value = "/findKeyWordLikeCity", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "根据城市名字模糊搜索" , httpMethod = "POST" , notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json" , value = "{'cityName':'重'}")
+    })
+    public AjaxResult<Object> findKeyWordLikeCity(@RequestBody String json){
+        log.info("URL:/memberController/findKeyWordLikeCity 参数列表为:"+json);
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                HashMap<String , String> hashMap = gson.fromJson(json,HashMap.class);
+                return operationRegionRepository.findAllByCityNameAndDisplay("%"+hashMap.get("cityName")+"%", OperationEnum.OPERATION_ENUM_REGION_DISPLAY_XS.getIndex());
+            }
+        });
+    }
+
+    @PostMapping(value = "/findKeyWordListCompany" , produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "根据企业名称查找企业" , httpMethod = "POST" , notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json" , value = "{'companyName':'酷贝'}")
+    })
+    public AjaxResult<Object> findKeyWordListCompany(@RequestBody String json){
+        log.info("URL:/memberController/findKeyWordListCompany 参数列表 "+json);
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                HashMap<String , String > hashMap = gson.fromJson(json,HashMap.class);
+                return operationCompanyRepository.findAllByCompanyNameAndCompanyDispay("%"+hashMap.get("companyName")+"%",OperationEnum.OPERATION_ENUM_REGION_DISPLAY_XS.getIndex());
             }
         });
     }
 
 
+
     @PostMapping(value = "/basedSearch", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    @ApiOperation(value = "分页搜索关键词数据", httpMethod = "POST",  notes = "memberDisplay==>是否公开  \n  memberStationing==>是否驻场  \n  所有城市待确定！！！  \n  " +
+    @ApiOperation(value = "分页搜索关键词数据", httpMethod = "POST",  notes = "memberDisplay==>是否公开  \n  memberStationing==>是否驻场  \n  memebrCityEntity==>城市  \n  " +
             "  memberSigningPost==>所有角色  \n  memberType==>所有用户")
     public AjaxResult<HashMap<String,Object>> basedSearch(){
         return AjaxUtils.process(new Func_T<HashMap<String, Object>>() {
@@ -94,7 +138,7 @@ public class MemberController extends MemberBase {
                 //是否驻场
                 hashMap.put("memberStationing",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSTATIONING));
                 //所有城市
-
+                hashMap.put("memebrCityEntity",operationRegionRepository.findAllByDisplay(OperationEnum.OPERATION_ENUM_REGION_DISPLAY_XS.getIndex()));
                 //所有角色
                 hashMap.put("memberSigningPost",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGPOST));
                 //所有用户
@@ -106,7 +150,8 @@ public class MemberController extends MemberBase {
     }
 
     @PostMapping(value = "/doEditMember" , headers = "content-type=multipart/form-data")
-    @ApiOperation(value = "资料编辑(比/SignContract/doSaveSgin接口多两个参数 )" , httpMethod = "POST" , notes = "多的两个参数：memberCompany >>> 所属公司  \n  memberTeam >>> 所属团队  \n  >>>>>>>>>>>>>>  \n  id >>> memberId(必须) \n  memberMobile >>> 手机号  \n  memberPwd >>> 登录密码  \n  nickName >>> 昵称  \n" +
+    @ApiOperation(value = "资料编辑(比/SignContract/doSaveSgin接口多两个参数 )" , httpMethod = "POST" , notes = "多的两个参数：memberCompany >>> 所属公司  \n  memberTeam >>> 所属团队  \n  >>>>>>>>>>>>>>>>>>  " +
+            "\n  id >>> memberId(必须) \n  memberMobile >>> 手机号  \n  memberPwd >>> 登录密码  \n  nickName >>> 昵称  \n" +
             "memberRealName >>> 姓名  \n  memberEmail >>> 邮箱  \n  memberQq >>> QQ  \n  memberWechat >>> 微信  \n  memebrCity >>> 所在城市  \n  memberContactAddress >>> 联系地址 " +
             "  \n  memberWord >>> 关键词  \n  memberLongRange >>> 远程开发报价  \n  memberOnSiteDevelopment >>> 驻场开发报价  \n memberCashWithdrawal >>> 提现账户  \n " +
             "memberIntroduce >>> 个人账户  \n  memberType >>> 用户类型  \n  memberCardno >>> 身份证号  \n  memberSigningPost >>> 签约岗位  \n  memberSigningMode >>> 签约方式  \n" +
@@ -126,18 +171,82 @@ public class MemberController extends MemberBase {
 
     })
     @ResponseBody
-    public AjaxResult<Object> doEditMember (MemberSignContractEntity memberSignContractEntity, MemberEntity memberEntity, MemberPrivacyEntity memberPrivacyEntity,
+    public AjaxResult<Object> doEditMember (MemberSignContractEntity memberSignContractEntity, MemberEntity memberEntity, MemberPrivacyEntity memberPrivacyEntity, String memberCompany,
                                             @RequestParam("memberPhotoFileMultipartFile") MultipartFile memberPhotoFileMultipartFile, @RequestParam("memberPhotoHeadPortraitMultipartFile") MultipartFile memberPhotoHeadPortraitMultipartFile,
                                             @RequestParam("memberPersonalDataMultipartFile") MultipartFile[] memberPersonalDataMultipartFile, @RequestParam("memberCardFrontMultipartFile") MultipartFile memberCardFrontMultipartFile,
                                             @RequestParam("memberCardReverseSideMultipartFile") MultipartFile memberCardReverseSideMultipartFile, @RequestParam("siginAgreementMultipartFile") MultipartFile[] siginAgreementMultipartFile
             , HttpServletRequest request){
+        log.info("RUL:/memberController/doEditMember 参数列表: memberSignContractEntity："+memberSignContractEntity.toString() +"  用户私密信息表数据:"+memberPrivacyEntity.toString() + " 用户基本信息："+memberEntity.toString());
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                return null;
+                Optional<MemberEntity> byId = memberentityRepository.findById(memberSignContractEntity.getId());
+                if(!ObjectUtils.isEmpty(byId)){
+                    memberEntity.setMemberCompany(memberCompany);
+                    MemberSignContractEntity byMemberEndId = memberSignContractentityRepository.findByMemberEndId(byId.get());
+                    memberSignContractEntity.setId(byMemberEndId.getId());
+                    memberSignContractService.signSetting(memberSignContractEntity, memberEntity, memberPrivacyEntity, memberPhotoFileMultipartFile, memberPhotoHeadPortraitMultipartFile, memberPersonalDataMultipartFile, memberCardFrontMultipartFile, memberCardReverseSideMultipartFile, siginAgreementMultipartFile, request);
+                }else {
+                    throw new CodeGodException("用户Id不存在",this.getClass());
+                }
+                return "success";
             }
         });
     }
 
+    @PostMapping(value = "/doAddMember" , headers = "content-type=multipart/form-data")
+    @ApiOperation(value = "添加用户(详细参数 同 doEditMember 不需要传Id)" , httpMethod = "POST" )
+    @ResponseBody
+    public AjaxResult<Object> doAddMember(MemberSignContractEntity memberSignContractEntity, MemberEntity memberEntity, MemberPrivacyEntity memberPrivacyEntity, String memberCompany,
+                                          @RequestParam("memberPhotoFileMultipartFile") MultipartFile memberPhotoFileMultipartFile, @RequestParam("memberPhotoHeadPortraitMultipartFile") MultipartFile memberPhotoHeadPortraitMultipartFile,
+                                          @RequestParam("memberPersonalDataMultipartFile") MultipartFile[] memberPersonalDataMultipartFile, @RequestParam("memberCardFrontMultipartFile") MultipartFile memberCardFrontMultipartFile,
+                                          @RequestParam("memberCardReverseSideMultipartFile") MultipartFile memberCardReverseSideMultipartFile, @RequestParam("siginAgreementMultipartFile") MultipartFile[] siginAgreementMultipartFile
+            , HttpServletRequest request){
+        log.info("URL:/memberController/doAddMember 参数列表: memberSignContractEntity："+memberSignContractEntity.toString() +"  用户私密信息表数据:"+memberPrivacyEntity.toString() + " 用户基本信息："+memberEntity.toString());
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                memberSignContractService.signSetting(memberSignContractEntity, memberEntity, memberPrivacyEntity, memberPhotoFileMultipartFile, memberPhotoHeadPortraitMultipartFile, memberPersonalDataMultipartFile, memberCardFrontMultipartFile, memberCardReverseSideMultipartFile, siginAgreementMultipartFile, request);
+                return "success";
+            }
+        });
+    }
+
+    @PostMapping(value = "/findResourceAll" )
+    @ApiOperation(value = "技能管理参数列表" , httpMethod = "POST" )
+    @ResponseBody
+    public AjaxResult<Object> findResourceAll(){
+        log.info("URL:/memberController/findResourceAll ");
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                List<OperationResourceSkillEntity> allByResourceAnAndOrderBySkill = operationResourceSkillRepository.findAllByResourceAnAndOrderBySkill(OperationEnum.OPERATION_ENUM_REGION_DISPLAY_XS.getIndex(), OperationEnum.OPERATION_ENUM_REGION_DISPLAY_XS.getIndex());
+                HashMap<Object , Object> hashMap = new HashMap<>();
+                for (OperationResourceSkillEntity operationResourceSkillEntity : allByResourceAnAndOrderBySkill) {
+
+                    Object o = hashMap.get(operationResourceSkillEntity.getResource());
+                    if(ObjectUtils.isEmpty(o)){
+                        List<OperationSkillEntity> list = new ArrayList<>();
+                        list.add(operationResourceSkillEntity.getSkill());
+                        operationResourceSkillEntity.setOperationSkillEntityList(list);
+                        hashMap.put(operationResourceSkillEntity.getResource(),list);
+                    }else{
+                        List<OperationSkillEntity> list = (ArrayList<OperationSkillEntity>) o;
+                        list.add(operationResourceSkillEntity.getSkill());
+                        operationResourceSkillEntity.setOperationSkillEntityList(list);
+                        hashMap.put(operationResourceSkillEntity.getResource(),list);
+                    }
+                }
+                List<OperationResourceSkillEntity> list = new ArrayList<>();
+                for (Map.Entry<Object, Object> objectObjectEntry : hashMap.entrySet()) {
+                    OperationResourceSkillEntity os = new OperationResourceSkillEntity();
+                    os.setResource((OperationResourceEntity) objectObjectEntry.getKey());
+                    os.setOperationSkillEntityList((List<OperationSkillEntity>)objectObjectEntry.getValue());
+                    list.add(os);
+                }
+                return list;
+            }
+        });
+    }
 
 }

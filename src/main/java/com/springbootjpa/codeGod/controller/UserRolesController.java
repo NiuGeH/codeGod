@@ -45,7 +45,7 @@ import java.util.Map;
 @RequestMapping("/")
 public class UserRolesController extends SysBase{
 
-    protected static Logger logger = LoggerFactory.getLogger(UserRolesController.class);
+    private static Logger logger = LoggerFactory.getLogger(UserRolesController.class);
 
     @PostMapping("/modifyPwd")
     @ResponseBody
@@ -104,6 +104,7 @@ public class UserRolesController extends SysBase{
                     request.getSession().setAttribute("user", username);
                     String id = request.getSession().getId();
                     hashMap.put("JSESSIONID",id);
+                    System.err.println("JSESSIONID "+id);
 //                    System.out.println(jsessionid.toString());
 //                    Cookie[] cookies = request.getCookies();
 //                    for (Cookie cookie : cookies) {

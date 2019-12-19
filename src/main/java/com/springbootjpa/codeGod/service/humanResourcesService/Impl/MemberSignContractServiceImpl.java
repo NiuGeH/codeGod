@@ -3,13 +3,18 @@ package com.springbootjpa.codeGod.service.humanResourcesService.Impl;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.UploadFile;
+import com.springbootjpa.codeGod.entity.operation.OperationCompanyEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
 import com.springbootjpa.codeGod.eunm.HumanRecourcesStatus;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
+import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberPrivacyentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberSignContractentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
+import com.springbootjpa.codeGod.repository.Operation.OperationCompanyRepository;
+import com.springbootjpa.codeGod.repository.Operation.OperationRegionRepository;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
 import com.springbootjpa.codeGod.service.humanResourcesService.MemberSignContractService;
 import com.springbootjpa.codeGod.utils.DateTimeUtils;
@@ -33,6 +38,12 @@ import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ * 用户签约 Service
+ *
+ * @author NiuGeH
+ * @date 2019/12/14
+ */
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class MemberSignContractServiceImpl implements MemberSignContractService {
@@ -51,6 +62,12 @@ public class MemberSignContractServiceImpl implements MemberSignContractService 
 
     @Autowired
     private SaveFileUtils saveFileUtils = new SaveFileUtils();
+
+    @Autowired
+    private OperationRegionRepository operationRegionRepository;
+
+    @Autowired
+    private OperationCompanyRepository operationCompanyRepository;
 
     /**
      * 根据验证码和签约结果分页
@@ -78,13 +95,13 @@ public class MemberSignContractServiceImpl implements MemberSignContractService 
             throw new CodeGodRunTimExcetion("需要删除的Id不存在 byIdDelMemberSignContract", this.getClass());
         }
         MemberSignContractEntity entity = byId.get();
-        if(ObjectUtils.isEmpty(entity.getSiginResults())){
-            throw new CodeGodRunTimExcetion("签约删除的状态为空" , this.getClass());
+        if (ObjectUtils.isEmpty(entity.getSiginResults())) {
+            throw new CodeGodRunTimExcetion("签约删除的状态为空", this.getClass());
         }
         //未申请状态删除
-        if(entity.getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_WSQ.getIndex()){
+        if (entity.getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_WSQ.getIndex()) {
             memberSignContractentityRepository.delete(entity);
-        }else if(entity.getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_YJJ.getIndex()){
+        } else if (entity.getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_YJJ.getIndex()) {
             //已拒绝删除方式
             MemberEntity memberEndId = entity.getMemberEndId();
             memberSignContractentityRepository.delete(entity);
@@ -97,7 +114,7 @@ public class MemberSignContractServiceImpl implements MemberSignContractService 
     }
 
     /**
-     * 签约设置保存 ===> 签约成功 / 签约失败
+     * 签约设置保存 资料编辑 添加用户 ===> 签约成功 / 签约失败
      *
      * @param memberSignContractEntity             用户签约审核实体类
      * @param memberEntity                         用户基础信息表
@@ -116,23 +133,153 @@ public class MemberSignContractServiceImpl implements MemberSignContractService 
                                                 MultipartFile memberPhotoFileMultipartFile, MultipartFile memberPhotoHeadPortraitMultipartFile, MultipartFile[] memberPersonalDataMultipartFile,
                                                 MultipartFile memberCardFrontMultipartFile, MultipartFile memberCardReverseSideMultipartFile, MultipartFile[] siginAgreementMultipartFile,
                                                 HttpServletRequest request) throws CodeGodRunTimExcetion, CodeGodException {
+        //添加用户 memberSignContract 的Id为空
+        MemberEntity jdbc_memberEntity = null;
+        MemberPrivacyEntity jdbc_memberPrivacy = null;
+        Optional<MemberSignContractEntity> byId = null;
+        MemberSignContractEntity jdbc_SignContrac = null;
+        if (ObjectUtils.isEmpty(memberSignContractEntity.getId())) {
+            OperationRegionEntity byCityName = operationRegionRepository.findByCityName(memberEntity.getMemebrCity());
+            //如果没有这个城市
+            if (ObjectUtils.isEmpty(byCityName)) {
+                OperationRegionEntity operationRegionEntity = new OperationRegionEntity();
+                operationRegionEntity.setCreateTime(new Date());
+                operationRegionEntity.setDisplay(OperationEnum.OPERATION_ENUM_REGION_DISPLAY_BXS.getIndex());
+                operationRegionEntity.setCityName(memberEntity.getMemebrCity());
+                OperationRegionEntity save = operationRegionRepository.save(operationRegionEntity);
+                memberEntity.setMemebrCityEntity(save);
+            } else {
+                memberEntity.setMemebrCityEntity(byCityName);
+            }
+            memberEntity.setCreateTime(new Date());
+            //如果企业名称不为空 就设置先查找企业名称 然后保存所属企业
+            if (!(ObjectUtils.isEmpty(memberEntity.getMemberCompany())) && !(StringUtils.isEmpty(memberEntity.getMemberCompany()))) {
+                OperationCompanyEntity allByCompanyName = operationCompanyRepository.findAllByCompanyName(memberEntity.getMemberCompany());
+                if (ObjectUtils.isEmpty(allByCompanyName)) {
+                    //没有先创建 设置为不显示
+                    allByCompanyName = new OperationCompanyEntity();
+                    allByCompanyName.setCompanyName(memberEntity.getMemberCompany());
+                    allByCompanyName.setCreateTime(new Date());
+                    allByCompanyName.setCompanyDisplay(OperationEnum.OPERATION_ENUM_REGION_DISPLAY_BXS.getIndex());
+                    operationCompanyRepository.save(allByCompanyName);
+                    memberEntity.setOperationCompanyEntity(allByCompanyName);
+                } else {
+                    //有就直接设置企业
+                    memberEntity.setOperationCompanyEntity(allByCompanyName);
+                }
+            }
 
-        Optional<MemberSignContractEntity> byId = memberSignContractentityRepository.findById(memberSignContractEntity.getId());
-        if (ObjectUtils.isEmpty(byId)) {
-            throw new CodeGodRunTimExcetion("Id 不存在", this.getClass());
+            jdbc_memberEntity = memberentityRepository.save(memberEntity);
+            memberPrivacyEntity.setMemberId(jdbc_memberEntity.getId());
+            jdbc_memberPrivacy = memberPrivacyentityRepository.save(memberPrivacyEntity);
+            //形象照
+            if (!memberPhotoFileMultipartFile.isEmpty()) {
+                UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberPhotoFileMultipartFile));
+                jdbc_memberPrivacy.setMemberPhotoFile(uploadFile);
+            }
+            //头像
+            if (!(ObjectUtils.isEmpty(memberPhotoHeadPortraitMultipartFile)) && memberPhotoHeadPortraitMultipartFile.getSize() != 0) {
+                UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberPhotoHeadPortraitMultipartFile));
+                jdbc_memberPrivacy.setMemberPhotoHeadPortrait(uploadFile);
+            }
+            //个人资料（可多个）
+            if (!ObjectUtils.isEmpty(memberPersonalDataMultipartFile) && memberPersonalDataMultipartFile.length > 0) {
+                //循环获取file数组中得文件
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < memberPersonalDataMultipartFile.length; i++) {
+                    MultipartFile file = memberPersonalDataMultipartFile[i];
+                    //保存文件
+                    if (!(ObjectUtils.isEmpty(file)) && file.getSize() != 0) {
+                        UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(file));
+                        sb.append(uploadFile.getId()).append(",");
+//                            System.out.println(save.toString());
+                    }
+                }
+                if (!StringUtils.isEmpty(sb.toString())) {
+                    sb.delete(sb.length() - 1, sb.length());
+                    jdbc_memberPrivacy.setMemberPersonalData(sb.toString());
+                }
+            }
+            //身份证正面
+            if (!(ObjectUtils.isEmpty(memberCardFrontMultipartFile)) && memberCardFrontMultipartFile.getSize() != 0) {
+                UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberCardFrontMultipartFile));
+                jdbc_memberPrivacy.setMemberCardFront(uploadFile);
+            }
+            //身份证反面
+            if (!(ObjectUtils.isEmpty(memberCardReverseSideMultipartFile)) && memberCardReverseSideMultipartFile.getSize() != 0) {
+                UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberCardReverseSideMultipartFile));
+                jdbc_memberPrivacy.setMemberCardReverseSide(uploadFile);
+            }
+            //签约协议(可多个)
+            if (siginAgreementMultipartFile != null && siginAgreementMultipartFile.length > 0) {
+                //循环获取file数组中得文件
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < siginAgreementMultipartFile.length; i++) {
+                    MultipartFile file = siginAgreementMultipartFile[i];
+                    //保存文件
+                    if (!(ObjectUtils.isEmpty(file)) && file.getSize() != 0) {
+                        UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(file));
+                        sb.append(uploadFile.getId()).append(",");
+                    }
+                }
+                if (!StringUtils.isEmpty(sb.toString())) {
+                    sb.delete(sb.length() - 1, sb.length());
+                    jdbc_memberEntity.setMemberSigningAgreement(sb.toString());
+                }
+            }
         }
-        //签约表
-        MemberSignContractEntity jdbc_SignContrac = byId.get();
-        if (jdbc_SignContrac.getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_DDSH.getIndex()) {
+        if(!ObjectUtils.isEmpty(memberSignContractEntity.getId())){
+            byId = memberSignContractentityRepository.findById(memberSignContractEntity.getId());
+            if (ObjectUtils.isEmpty(byId)) {
+                throw new CodeGodRunTimExcetion("Id 不存在", this.getClass());
+            }
+            //签约表
+            jdbc_SignContrac = byId.get();
+        }
+
+        if (!(ObjectUtils.isEmpty(jdbc_SignContrac)) /*&& jdbc_SignContrac.getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_DDSH.getIndex()*/) {
             //设置签约结果
             jdbc_SignContrac.setSiginResults(memberEntity.getMemberSigningStatus());
 
             //如果是待审核状态，此时用户已经在pc前端申请过了 所有 MemberSignContract 中的 memberEndId 是用户申请的信息
-            MemberEntity jdbc_memberEntity = jdbc_SignContrac.getMemberEndId();
+            jdbc_memberEntity = jdbc_SignContrac.getMemberEndId();
             //修改时间
             jdbc_memberEntity.setUpdateTime(new Date());
             jdbc_memberEntity.setNickName(memberEntity.getNickName());
+            //设置城市
             jdbc_memberEntity.setMemebrCity(memberEntity.getMemebrCity());
+            //用城市名字进行查询
+            OperationRegionEntity byCityName = operationRegionRepository.findByCityName(memberEntity.getMemebrCity());
+            //如果没有这个城市
+            if (ObjectUtils.isEmpty(byCityName)) {
+                OperationRegionEntity operationRegionEntity = new OperationRegionEntity();
+                operationRegionEntity.setCreateTime(new Date());
+                operationRegionEntity.setDisplay(OperationEnum.OPERATION_ENUM_REGION_DISPLAY_BXS.getIndex());
+                operationRegionEntity.setCityName(memberEntity.getMemebrCity());
+                OperationRegionEntity save = operationRegionRepository.save(operationRegionEntity);
+                jdbc_memberEntity.setMemebrCityEntity(save);
+            } else {
+                jdbc_memberEntity.setMemebrCityEntity(byCityName);
+            }
+
+            //如果企业名称不为空 就设置先查找企业名称 然后保存所属企业
+            if (!(ObjectUtils.isEmpty(memberEntity.getMemberCompany())) && !(StringUtils.isEmpty(memberEntity.getMemberCompany()))) {
+                OperationCompanyEntity allByCompanyName = operationCompanyRepository.findAllByCompanyName(memberEntity.getMemberCompany());
+                if (ObjectUtils.isEmpty(allByCompanyName)) {
+                    //没有先创建 设置为不显示
+                    allByCompanyName = new OperationCompanyEntity();
+                    allByCompanyName.setCompanyName(memberEntity.getMemberCompany());
+                    allByCompanyName.setCreateTime(new Date());
+                    allByCompanyName.setCompanyDisplay(OperationEnum.OPERATION_ENUM_REGION_DISPLAY_BXS.getIndex());
+                    operationCompanyRepository.save(allByCompanyName);
+                    jdbc_memberEntity.setOperationCompanyEntity(allByCompanyName);
+                } else {
+                    //有就直接设置企业
+                    jdbc_memberEntity.setOperationCompanyEntity(allByCompanyName);
+                }
+            }
+
+
             jdbc_memberEntity.setMemberWord(memberEntity.getMemberWord());
             jdbc_memberEntity.setMemberIntroduce(memberEntity.getMemberIntroduce());
             jdbc_memberEntity.setMemberType(memberEntity.getMemberType());
@@ -146,7 +293,7 @@ public class MemberSignContractServiceImpl implements MemberSignContractService 
             jdbc_memberEntity.setMemberLongRange(memberEntity.getMemberLongRange());
             jdbc_memberEntity.setMemberOnSiteDevelopment(memberEntity.getMemberOnSiteDevelopment());
             //用户私人信息表
-            MemberPrivacyEntity jdbc_memberPrivacy = memberPrivacyentityRepository.findAllByMemberId(memberEntity.getId());
+            jdbc_memberPrivacy = memberPrivacyentityRepository.findAllByMemberId(memberEntity.getId());
             jdbc_memberPrivacy.setMemberRealName(memberPrivacyEntity.getMemberRealName());
             jdbc_memberPrivacy.setMemberEmail(memberPrivacyEntity.getMemberEmail());
             jdbc_memberPrivacy.setMemberQq(memberPrivacyEntity.getMemberQq());
@@ -157,67 +304,68 @@ public class MemberSignContractServiceImpl implements MemberSignContractService 
             jdbc_memberPrivacy.setMemberMobile(memberPrivacyEntity.getMemberMobile());
             jdbc_memberPrivacy.setMemberPwd(memberPrivacyEntity.getMemberPwd());
 
-                //形象照
-                if(!memberPhotoFileMultipartFile.isEmpty()){
-                    UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberPhotoFileMultipartFile));
-                    jdbc_memberPrivacy.setMemberPhotoFile(uploadFile);
-                }
-                //头像
-                if(!(ObjectUtils.isEmpty(memberPhotoHeadPortraitMultipartFile)) && memberPhotoHeadPortraitMultipartFile.getSize() != 0){
-                    UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberPhotoHeadPortraitMultipartFile));
-                    jdbc_memberPrivacy.setMemberPhotoHeadPortrait(uploadFile);
-                }
-                //个人资料（可多个）
-                if(!ObjectUtils.isEmpty(memberPersonalDataMultipartFile)&& memberPersonalDataMultipartFile.length>0){
-                    //循环获取file数组中得文件
-                    StringBuilder sb = new StringBuilder();
-                    for(int i = 0;i<memberPersonalDataMultipartFile.length;i++){
-                        MultipartFile file = memberPersonalDataMultipartFile[i];
-                        //保存文件
-                        if(!(ObjectUtils.isEmpty(file)) && file.getSize() != 0){
-                            UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(file));
-                            sb.append(uploadFile.getId()).append(",");
+
+            //形象照
+            if (!memberPhotoFileMultipartFile.isEmpty()) {
+                UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberPhotoFileMultipartFile));
+                jdbc_memberPrivacy.setMemberPhotoFile(uploadFile);
+            }
+            //头像
+            if (!(ObjectUtils.isEmpty(memberPhotoHeadPortraitMultipartFile)) && memberPhotoHeadPortraitMultipartFile.getSize() != 0) {
+                UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberPhotoHeadPortraitMultipartFile));
+                jdbc_memberPrivacy.setMemberPhotoHeadPortrait(uploadFile);
+            }
+            //个人资料（可多个）
+            if (!ObjectUtils.isEmpty(memberPersonalDataMultipartFile) && memberPersonalDataMultipartFile.length > 0) {
+                //循环获取file数组中得文件
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < memberPersonalDataMultipartFile.length; i++) {
+                    MultipartFile file = memberPersonalDataMultipartFile[i];
+                    //保存文件
+                    if (!(ObjectUtils.isEmpty(file)) && file.getSize() != 0) {
+                        UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(file));
+                        sb.append(uploadFile.getId()).append(",");
 //                            System.out.println(save.toString());
-                        }
-                    }
-                    if(!StringUtils.isEmpty(sb.toString())){
-                        sb.delete(sb.length()-1,sb.length());
-                        jdbc_memberPrivacy.setMemberPersonalData(sb.toString());
                     }
                 }
-                //身份证正面
-                if(!(ObjectUtils.isEmpty(memberCardFrontMultipartFile)) && memberCardFrontMultipartFile.getSize() != 0){
-                    UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberCardFrontMultipartFile));
-                    jdbc_memberPrivacy.setMemberCardFront(uploadFile);
+                if (!StringUtils.isEmpty(sb.toString())) {
+                    sb.delete(sb.length() - 1, sb.length());
+                    jdbc_memberPrivacy.setMemberPersonalData(sb.toString());
                 }
-                //身份证反面
-                if(!(ObjectUtils.isEmpty(memberCardReverseSideMultipartFile)) && memberCardReverseSideMultipartFile.getSize() != 0){
-                    UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberCardReverseSideMultipartFile));
-                    jdbc_memberPrivacy.setMemberCardReverseSide(uploadFile);
-                }
-                //签约协议(可多个)
-                if(siginAgreementMultipartFile!=null&&siginAgreementMultipartFile.length>0){
-                    //循环获取file数组中得文件
-                    StringBuilder sb = new StringBuilder();
-                    for(int i = 0;i<siginAgreementMultipartFile.length;i++){
-                        MultipartFile file = siginAgreementMultipartFile[i];
-                        //保存文件
-                        if(!(ObjectUtils.isEmpty(file)) && file.getSize() != 0){
-                            UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(file));
-                            sb.append(uploadFile.getId()).append(",");
-                        }
+            }
+            //身份证正面
+            if (!(ObjectUtils.isEmpty(memberCardFrontMultipartFile)) && memberCardFrontMultipartFile.getSize() != 0) {
+                UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberCardFrontMultipartFile));
+                jdbc_memberPrivacy.setMemberCardFront(uploadFile);
+            }
+            //身份证反面
+            if (!(ObjectUtils.isEmpty(memberCardReverseSideMultipartFile)) && memberCardReverseSideMultipartFile.getSize() != 0) {
+                UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberCardReverseSideMultipartFile));
+                jdbc_memberPrivacy.setMemberCardReverseSide(uploadFile);
+            }
+            //签约协议(可多个)
+            if (siginAgreementMultipartFile != null && siginAgreementMultipartFile.length > 0) {
+                //循环获取file数组中得文件
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < siginAgreementMultipartFile.length; i++) {
+                    MultipartFile file = siginAgreementMultipartFile[i];
+                    //保存文件
+                    if (!(ObjectUtils.isEmpty(file)) && file.getSize() != 0) {
+                        UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(file));
+                        sb.append(uploadFile.getId()).append(",");
                     }
-                    if(!StringUtils.isEmpty(sb.toString())){
-                        sb.delete(sb.length()-1,sb.length());
-                        jdbc_memberEntity.setMemberSigningAgreement(sb.toString());
-                    }
                 }
+                if (!StringUtils.isEmpty(sb.toString())) {
+                    sb.delete(sb.length() - 1, sb.length());
+                    jdbc_memberEntity.setMemberSigningAgreement(sb.toString());
+                }
+            }
 
-            return memberSignContractEntity;
-
-        }else{
-            throw new CodeGodRunTimExcetion("签约状态不为待审核状态",this.getClass());
         }
+
+
+        return memberSignContractEntity;
+
     }
 
     /**

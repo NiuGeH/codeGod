@@ -15,9 +15,10 @@ public interface MemberService {
      * @param memberSigningPost  所有角色
      * @param memberType 所有用户
      * @param keyWord 关键测
+     * @param memebrCityEntityId 城市
      * @return 集合实体
      */
-    Page<MemberEntity> findAll(Pageable pageable,String memberDisplay,String memberStationing,String memberSigningPost,String memberType,String keyWord);
+    Page<MemberEntity> findAll(Pageable pageable,String memberDisplay,String memberStationing,String memberSigningPost,String memberType,String keyWord,String memebrCityEntityId);
 
     /**
      *

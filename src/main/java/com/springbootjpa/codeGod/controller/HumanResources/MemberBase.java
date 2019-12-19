@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberPrivacyentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberSignContractentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
-import com.springbootjpa.codeGod.repository.Operation.OperationMedalRepository;
+import com.springbootjpa.codeGod.repository.Operation.*;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
 import com.springbootjpa.codeGod.service.baseService.Impl.BaseDataDirctionaryServiceImpl;
@@ -51,4 +51,13 @@ public class MemberBase {
 
     @Autowired
     protected MemberentityRepository memberentityRepository;
+
+    @Autowired
+    protected OperationRegionRepository operationRegionRepository;
+
+    @Autowired
+    protected OperationCompanyRepository operationCompanyRepository;
+
+    @Autowired
+    protected OperationResourceSkillRepository operationResourceSkillRepository;
 }
