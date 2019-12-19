@@ -47,6 +47,9 @@ public class OperationTopicServiceImpl implements OperationTopicService {
      */
     @Override
     public OperationTopicEntity addTopic(String name, Long order, Integer display) {
+        if(ObjectUtils.isEmpty(name)){
+            throw new CodeGodRunTimExcetion("栏目名称不能为空", this.getClass());
+        }
         //判断栏目是否已存在
         OperationTopicEntity te = operationTopicRepository.findByTopicName(name);
         if(!ObjectUtils.isEmpty(te)){
@@ -78,13 +81,22 @@ public class OperationTopicServiceImpl implements OperationTopicService {
     @Override
     public OperationTopicEntity updateTopic(Long id, String newName, Long order, Integer display) {
         //查询需要修改的栏目
+        if(ObjectUtils.isEmpty(id)){
+            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+        }
         OperationTopicEntity topic = operationTopicRepository.getOne(id);
         log.info("栏目修改前：" + topic.toString());
 
         //修改该栏目属性
-        topic.setTopicName(newName);
-        topic.setTopicOrder(order);
-        topic.setDisplay(display);
+        if (!ObjectUtils.isEmpty(newName)) {
+            topic.setTopicName(newName);
+        }
+        if (!ObjectUtils.isEmpty(order)) {
+            topic.setTopicOrder(order);
+        }
+        if (!ObjectUtils.isEmpty(display)) {
+            topic.setDisplay(display);
+        }
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         topic.setModifyTime(now);

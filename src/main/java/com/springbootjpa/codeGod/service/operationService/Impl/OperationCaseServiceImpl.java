@@ -47,6 +47,9 @@ public class OperationCaseServiceImpl implements OperationCaseService {
      */
     @Override
     public OperationCaseEntity addCase(String name, Long order, Integer display) {
+        if(ObjectUtils.isEmpty(name)){
+            throw new CodeGodRunTimExcetion("案例名称不能为空", this.getClass());
+        }
 
         //判断类型是否已存在
         OperationCaseEntity ce = operationCaseRepository.findByCaseName(name);
@@ -79,13 +82,22 @@ public class OperationCaseServiceImpl implements OperationCaseService {
     @Override
     public OperationCaseEntity updateCase(Long id, String newName, Long order, Integer display) {
         //查询需要修改的案例类型
+        if(ObjectUtils.isEmpty(id)){
+            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+        }
         OperationCaseEntity caseEntity = operationCaseRepository.getOne(id);
         log.info("案例类型修改前：" + caseEntity.toString());
 
         //修改该案例类型属性
-        caseEntity.setCaseName(newName);
-        caseEntity.setCaseOrder(order);
-        caseEntity.setDisplay(display);
+        if (!ObjectUtils.isEmpty(newName)) {
+            caseEntity.setCaseName(newName);
+        }
+        if (!ObjectUtils.isEmpty(order)) {
+            caseEntity.setCaseOrder(order);
+        }
+        if (!ObjectUtils.isEmpty(display)) {
+            caseEntity.setDisplay(display);
+        }
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         caseEntity.setModifyTime(now);

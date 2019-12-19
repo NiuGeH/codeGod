@@ -11,13 +11,22 @@ import com.springbootjpa.codeGod.service.operationService.OperationMedalService;
 import com.springbootjpa.codeGod.utils.SaveFileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lixin
@@ -47,6 +56,10 @@ public class OperationMedalServiceImpl implements OperationMedalService {
      */
     @Override
     public OperationMedalEntity addMedal(String name, MultipartFile medalPhotoFile) throws CodeGodException {
+        if(ObjectUtils.isEmpty(name)){
+            throw new CodeGodRunTimExcetion("勋章名称不能为空", this.getClass());
+        }
+
         //判断新添加的勋章名称是否存在
         OperationMedalEntity medalEntity = operationMedalRepository.findByMedalName(name);
         if(!ObjectUtils.isEmpty(medalEntity)){
@@ -81,11 +94,16 @@ public class OperationMedalServiceImpl implements OperationMedalService {
     @Override
     public OperationMedalEntity updateMedal(Long id, String newName, MultipartFile medalPhotoFile) throws CodeGodException {
         //查询需要修改的勋章
+        if(ObjectUtils.isEmpty(id)){
+            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+        }
         OperationMedalEntity medalEntity = operationMedalRepository.getOne(id);
         log.info("勋章修改前：" + medalEntity.toString());
 
         //修改勋章属性
-        medalEntity.setMedalName(newName);
+        if (!ObjectUtils.isEmpty(newName)) {
+            medalEntity.setMedalName(newName);
+        }
         if(!ObjectUtils.isEmpty(medalPhotoFile)){
             UploadFile uploadFile = medalEntity.getMedalPhoto();
             Long fileId = uploadFile.getId();
@@ -103,5 +121,43 @@ public class OperationMedalServiceImpl implements OperationMedalService {
         operationMedalRepository.save(medalEntity);
 
         return medalEntity;
+    }
+
+    /**
+     * 删除勋章，软删除，只是改变了状态
+     * @param id 勋章id
+     * @return
+     */
+    @Override
+    public OperationMedalEntity deleteMedal(Long id) {
+        if(ObjectUtils.isEmpty(id)){
+            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+        }
+        //查询要被删除的勋章
+        OperationMedalEntity medalEntity = operationMedalRepository.getOne(id);
+        //修改被删除勋章的状态
+        medalEntity.setState(OperationEnum.OPERATION_STATE_SC.getIndex());
+        medalEntity.setModifyTime(Calendar.getInstance().getTime());
+
+        return medalEntity;
+    }
+
+    /**
+     * 未被删除的勋章分页
+     * @param pageable 分页
+     * @return
+     */
+    @Override
+    public Page<OperationMedalEntity> findAll(Pageable pageable) {
+        Specification<OperationMedalEntity> specification = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> list = new ArrayList<>();
+                list.add(criteriaBuilder.equal(root.get("state"),String.valueOf(OperationEnum.OPERATION_STATE_ZC.getIndex())));
+                log.info("查询到勋章的数量：" + list.size());
+                return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
+            }
+        };
+        return operationMedalRepository.findAll(specification, pageable);
     }
 }

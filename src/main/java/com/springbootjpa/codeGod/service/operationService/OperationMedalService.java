@@ -2,6 +2,8 @@ package com.springbootjpa.codeGod.service.operationService;
 
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.entity.operation.OperationMedalEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -28,4 +30,18 @@ public interface OperationMedalService {
      * @return
      */
     OperationMedalEntity updateMedal(Long id, String newName, MultipartFile medalPhotoFile) throws CodeGodException;
+
+    /**
+     * 删除勋章，软删除，只是改变了状态
+     * @param id 勋章id
+     * @return
+     */
+    OperationMedalEntity deleteMedal(Long id);
+
+    /**
+     * 未被删除的勋章分页
+     * @param pageable 分页
+     * @return
+     */
+    Page<OperationMedalEntity> findAll(Pageable pageable);
 }

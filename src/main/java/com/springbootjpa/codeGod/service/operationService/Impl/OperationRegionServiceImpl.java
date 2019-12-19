@@ -47,6 +47,10 @@ public class OperationRegionServiceImpl implements OperationRegionService {
      */
     @Override
     public OperationRegionEntity addCity(String name, Long order, Integer display) {
+        if(ObjectUtils.isEmpty(name)){
+            throw new CodeGodRunTimExcetion("城市名称不能为空", this.getClass());
+        }
+
         //判断城市是否已存在
         OperationRegionEntity ce = operationRegionRepository.findByCityName(name);
         if(!ObjectUtils.isEmpty(ce)){
@@ -77,14 +81,23 @@ public class OperationRegionServiceImpl implements OperationRegionService {
      */
     @Override
     public OperationRegionEntity updateCity(Long id, String newName, Long order, Integer display) {
+        if(ObjectUtils.isEmpty(id)){
+            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+        }
         //查询需要修改的城市
         OperationRegionEntity city = operationRegionRepository.getOne(id);
         log.info("城市修改前：" + city.toString());
 
         //修改该城市属性
-        city.setCityName(newName);
-        city.setCityOrder(order);
-        city.setDisplay(display);
+        if (!ObjectUtils.isEmpty(newName)) {
+            city.setCityName(newName);
+        }
+        if (!ObjectUtils.isEmpty(order)) {
+            city.setCityOrder(order);
+        }
+        if (!ObjectUtils.isEmpty(display)) {
+            city.setDisplay(display);
+        }
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         city.setModifyTime(now);

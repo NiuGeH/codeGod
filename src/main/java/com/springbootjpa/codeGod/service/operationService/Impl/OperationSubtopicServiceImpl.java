@@ -57,6 +57,9 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
      */
     @Override
     public OperationSubtopicEntity addSubtopic(String name, Long order, Long topicId, String content, String url, Integer urlState) {
+        if(ObjectUtils.isEmpty(name)){
+            throw new CodeGodRunTimExcetion("子栏目名称不能为空", this.getClass());
+        }
         //判断该子栏目在所属栏目下是否存在
         OperationSubtopicEntity subtopicEntity = operationSubtopicRepository.findBySubtopicNameAndTopicId(name,topicId);
         if(!ObjectUtils.isEmpty(subtopicEntity)){
@@ -94,18 +97,33 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
      */
     @Override
     public OperationSubtopicEntity updateSubtopic(Long id, String newName, Long order, Long topicId, String content, String url, Integer urlState) {
+        if(ObjectUtils.isEmpty(id)){
+            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+        }
         //查询需要修改的子栏目
         OperationSubtopicEntity subtopic = operationSubtopicRepository.getOne(id);
         log.info("子栏目修改前：" + subtopic.toString());
 
         //修改子栏目属性
-        subtopic.setSubtopicName(newName);
-        subtopic.setSubtopicOrder(order);
-        OperationTopicEntity topic = operationTopicRepository.getOne(topicId);
-        subtopic.setTopic(topic);
-        subtopic.setContent(content);
-        subtopic.setUrl(url);
-        subtopic.setUrlState(urlState);
+        if (!ObjectUtils.isEmpty(newName)) {
+            subtopic.setSubtopicName(newName);
+        }
+        if (!ObjectUtils.isEmpty(order)) {
+            subtopic.setSubtopicOrder(order);
+        }
+        if (!ObjectUtils.isEmpty(topicId)) {
+            OperationTopicEntity topic = operationTopicRepository.getOne(topicId);
+            subtopic.setTopic(topic);
+        }
+        if (!ObjectUtils.isEmpty(content)) {
+            subtopic.setContent(content);
+        }
+        if (!ObjectUtils.isEmpty(url)) {
+            subtopic.setUrl(url);
+        }
+        if (!ObjectUtils.isEmpty(urlState)) {
+            subtopic.setUrlState(urlState);
+        }
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         subtopic.setModifyTime(now);
