@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface OperationResourceSkillRepository extends JpaSpecificationExecutor<OperationResourceSkillEntity>, PagingAndSortingRepository<OperationResourceSkillEntity, Long>, JpaRepository<OperationResourceSkillEntity, Long> {
 
-    @Query("select ors from OperationResourceSkillEntity ors where ors.resource.display= ?1 and ors.skill.display= ?2")
+    @Query("select ors from OperationResourceSkillEntity ors where ors.resource.display= ?1 and ors.skill.display= ?2 order by -ors.skill.skillOrder DESC")
     List<OperationResourceSkillEntity> findAllByResourceAnAndOrderBySkill(Integer resourceDisplay,Integer skillDisplay);
 }

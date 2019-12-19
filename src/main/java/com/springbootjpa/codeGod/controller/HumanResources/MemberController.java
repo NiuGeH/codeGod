@@ -244,6 +244,20 @@ public class MemberController extends MemberBase {
                     os.setOperationSkillEntityList((List<OperationSkillEntity>)objectObjectEntry.getValue());
                     list.add(os);
                 }
+                list.sort(new Comparator<OperationResourceSkillEntity>() {
+                    @Override
+                    public int compare(OperationResourceSkillEntity o1, OperationResourceSkillEntity o2) {
+                        if(ObjectUtils.isEmpty(o1.getResource().getResourceOrder()) || ObjectUtils.isEmpty(o2.getResource().getResourceOrder())){
+                            return -1;
+                        }
+                        if(o1.getResource().getResourceOrder() > o2.getResource().getResourceOrder()){
+                            return 1;
+                        }else if (o1.getResource().getResourceOrder() <= o2.getResource().getResourceOrder()){
+                            return -1;
+                        }
+                        return 0;
+                    }
+                });
                 return list;
             }
         });

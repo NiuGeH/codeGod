@@ -2,6 +2,7 @@ package com.springbootjpa.codeGod.controller.HumanResources;
 
 import com.google.gson.Gson;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberPrivacyentityRepository;
+import com.springbootjpa.codeGod.repository.HumanResources.MemberResourceSkillentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberSignContractentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
 import com.springbootjpa.codeGod.repository.Operation.*;
@@ -60,4 +61,7 @@ public class MemberBase {
 
     @Autowired
     protected OperationResourceSkillRepository operationResourceSkillRepository;
+
+    @Autowired
+    protected MemberResourceSkillentityRepository memberResourceSkillentityRepository;
 }
