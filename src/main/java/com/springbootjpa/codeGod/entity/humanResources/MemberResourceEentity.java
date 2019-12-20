@@ -10,6 +10,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -20,7 +21,7 @@ import javax.persistence.*;
 @ApiModel(value = "用户技能")
 @Entity
 @Table(name = "member_resource")
-public class MemberResourcEentity extends AbstractEntity implements Serializable {
+public class MemberResourceEentity extends AbstractEntity implements Serializable {
 
 	/**
 	 * 资源Id
@@ -40,5 +41,12 @@ public class MemberResourcEentity extends AbstractEntity implements Serializable
 	@ApiModelProperty(value = "熟练度 0参与者 1独挡一面")
 	@Column(name = "member_proficiency", nullable = true, length = 11)
 	private Integer memberProficiency;
+
+	@ApiModelProperty(value = "对应用户Id")
+	@Column(name = "member_id")
+	private Long memberId;
+
+	@Transient
+	private List<MemberResourceSkillEntity> memberResourceSkillEntityList;
 
 }

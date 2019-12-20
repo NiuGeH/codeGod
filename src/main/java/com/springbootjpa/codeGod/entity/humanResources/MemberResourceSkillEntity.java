@@ -47,8 +47,8 @@ public class MemberResourceSkillEntity extends AbstractEntity implements Seriali
 	 */
 	@ApiModelProperty(value = "用户资源池ID")
 //	@Column(name = "member_resource_id", nullable = true, length = 20)
-	@ManyToOne(targetEntity = MemberResourcEentity.class)
+	@ManyToOne(targetEntity = MemberResourceEentity.class)
 	@JoinColumn(name = "member_resource_id",referencedColumnName = "id")
 	@NotFound(action = NotFoundAction.IGNORE)
-	private MemberResourcEentity memberResourceId;
+	private MemberResourceEentity memberResourceId;
 }

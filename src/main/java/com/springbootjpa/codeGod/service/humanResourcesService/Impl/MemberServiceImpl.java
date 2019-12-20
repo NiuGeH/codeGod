@@ -1,16 +1,19 @@
 package com.springbootjpa.codeGod.service.humanResourcesService.Impl;
 
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
+import com.springbootjpa.codeGod.entity.humanResources.MemberResourceEentity;
 import com.springbootjpa.codeGod.eunm.HumanRecourcesStatus;
 import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
+import com.springbootjpa.codeGod.repository.HumanResources.MemberResourceSkillentityRepository;
+import com.springbootjpa.codeGod.repository.HumanResources.MemberResourceentityRepository;
 import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
-import com.springbootjpa.codeGod.repository.Operation.OperationCompanyRepository;
-import com.springbootjpa.codeGod.repository.Operation.OperationMedalRepository;
-import com.springbootjpa.codeGod.repository.Operation.OperationRegionRepository;
-import com.springbootjpa.codeGod.repository.Operation.OperationTeamRepository;
+import com.springbootjpa.codeGod.repository.Operation.*;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
 import com.springbootjpa.codeGod.service.humanResourcesService.MemberService;
@@ -25,6 +28,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +63,18 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private OperationCompanyRepository operationCompanyRepository;
+
+    @Autowired
+    private MemberResourceentityRepository memberResourceentityRepository;
+
+    @Autowired
+    private MemberResourceSkillentityRepository memberResourceSkillentityRepository;
+
+    @Autowired
+    private OperationResourceRepository operationResourceRepository;
+
+    @Autowired
+    private OperationSkillRepository operationSkillRepository;
 
     private Specification<MemberEntity> getSpecification( String memberDisplay, String memberStationing, String memberSigningPost, String memberType, String keyWord, String memebrCityEntityId) {
         return new Specification<MemberEntity>() {
@@ -158,5 +174,38 @@ public class MemberServiceImpl implements MemberService {
             memberEndId.setMemberSigningAgreementList(list);
         }
         return memberEndId;
+    }
+
+
+    /**
+     * 对技能管理进行提交数据库
+     * @param str 前端传来的json
+     */
+    @Override
+    public void doSaveResourceAndSkillList(String str) {
+        Gson gson = new Gson();
+        HashMap<String,Object> hashMap = gson.fromJson(str, HashMap.class);
+        String memberId = (String)hashMap.get("memberId");
+        List<LinkedTreeMap> json1 = (List<LinkedTreeMap>)hashMap.get("ResourceAndListSkill");
+        for (LinkedTreeMap linkedTreeMap : json1) {
+            //资源Id
+            String resourceId = (String) linkedTreeMap.get("resourceId");
+            //资源的定位
+            String resourceProficiency = (String) linkedTreeMap.get("resourceProficiency");
+            MemberResourceEentity memberResourceEentity = new MemberResourceEentity();
+            if(StringUtils.isEmpty(memberId)){
+                throw new CodeGodRunTimExcetion("用户Id为空",this.getClass());
+            }
+            memberResourceEentity.setMemberId(Long.valueOf(memberId));
+            memberResourceEentity.setMemberOperationResource(operationResourceRepository.findById(Long.valueOf(resourceId)).orElseThrow(() -> new CodeGodRunTimExcetion("resourceId 不存在",this.getClass())));
+            memberResourceEentity.setMemberProficiency(Integer.valueOf(resourceProficiency));
+            MemberResourceEentity save = memberResourceentityRepository.save(memberResourceEentity);
+
+            List<LinkedTreeMap> k =(List<LinkedTreeMap>) linkedTreeMap.get("skillList");
+            for (LinkedTreeMap treeMap : k) {
+                //技术Id
+                System.err.println("sdasdasd "+treeMap.get("skillProficiency"));
+            }
+        }
     }
 }

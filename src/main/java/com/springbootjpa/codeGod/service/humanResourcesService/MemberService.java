@@ -33,4 +33,10 @@ public interface MemberService {
      * @return 封装后的实体
      */
     MemberEntity doStringConvarToList(MemberEntity memberEndId);
+
+    /**
+     * 对技能管理进行提交数据库
+     * @param str 前端传来的json
+     */
+    void doSaveResourceAndSkillList(String str);
 }

@@ -1,6 +1,7 @@
 package com.springbootjpa.codeGod.controller.HumanResources;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
@@ -263,4 +264,20 @@ public class MemberController extends MemberBase {
         });
     }
 
+    @ApiOperation(value = "技能管理提交 " , httpMethod = "POST")
+    @ResponseBody
+    @PostMapping(value = "doSaveResourceAndSkill",produces = "application/json;charset=UTF-8")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json" , value = "")
+    })
+    public AjaxResult<Object> doSaveResourceAndSkill (@RequestBody String str){
+        log.info("URL: /memberController/doSaveResourceAndSkill 参数列表: "+str);
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                memberService.doSaveResourceAndSkillList(str);
+                return null;
+            }
+        });
+    }
 }
