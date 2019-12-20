@@ -8,6 +8,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface OperationTopicRepository extends JpaSpecificationExecutor<OperationTopicEntity>, PagingAndSortingRepository<OperationTopicEntity, Long>, JpaRepository<OperationTopicEntity, Long> {
 
-    @Query("select te from OperationTopicEntity te where te.topicName= ?1")
-    OperationTopicEntity findByTopicName(String name);
+    OperationTopicEntity findByTopicName(String topicName);
+
+    @Query("select max(te.topicOrder) from OperationTopicEntity te")
+    Long findMaxTopicOrder();
 }

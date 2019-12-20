@@ -11,4 +11,7 @@ public interface OperationSubtopicRepository extends JpaSpecificationExecutor<Op
 
     @Query("select se from OperationSubtopicEntity se where se.subtopicName=:subtopicName and se.topic.id=:topicId")
     OperationSubtopicEntity findBySubtopicNameAndTopicId(@Param("subtopicName") String subtopicName, @Param("topicId") Long topicId);
+
+    @Query("select max(se.subtopicOrder) from OperationSubtopicEntity se where se.topic.id=:topicId")
+    Long findMaxSubtopicOrder(Long topicId);
 }

@@ -7,9 +7,12 @@ public enum OperationEnum {
     ,OPERATION_STATE_SC("删除",1)
     ,OPERATION_ENUM_REGION_DISPLAY_XS("显示",0)
     ,OPERATION_ENUM_REGION_DISPLAY_BXS("不显示",1)
-    ,OPERATION_DISPLAY_YES("是",0),
-    OPERATION_DISPLAY_NO("否",1);
     //所有是否显示 0是1否
+    ,OPERATION_DISPLAY_YES("是",0)
+    ,OPERATION_DISPLAY_NO("否",1)
+    //子栏目是否可以跳转url
+    ,OPERATION_URL_STATE_NO("不可以",0)
+    ,OPERATION_URL_STATE_YES("可以",1);
 
 
     // 成员变量

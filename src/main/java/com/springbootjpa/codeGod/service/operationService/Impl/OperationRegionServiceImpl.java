@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.service.operationService.Impl;
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
+import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationRegionRepository;
@@ -60,8 +61,16 @@ public class OperationRegionServiceImpl implements OperationRegionService {
         //添加新城市
         OperationRegionEntity city = new OperationRegionEntity();
         city.setCityName(name);
-        city.setCityOrder(order);
-        city.setDisplay(display);
+        if(ObjectUtils.isEmpty(order)){
+            city.setCityOrder(operationRegionRepository.findMaxCityOrder()+1);
+        }else {
+            city.setCityOrder(order);
+        }
+        if(ObjectUtils.isEmpty(display)){
+            city.setDisplay(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
+        }else {
+            city.setDisplay(display);
+        }
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         city.setCreateTime(now);

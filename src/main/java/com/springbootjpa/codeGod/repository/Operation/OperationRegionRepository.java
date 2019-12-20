@@ -10,8 +10,10 @@ import java.util.List;
 
 public interface OperationRegionRepository extends JpaSpecificationExecutor<OperationRegionEntity>, PagingAndSortingRepository<OperationRegionEntity, Long>, JpaRepository<OperationRegionEntity, Long> {
 
-    @Query("select re from OperationRegionEntity re where re.cityName= ?1")
-    OperationRegionEntity findByCityName(String name);
+    OperationRegionEntity findByCityName(String cityName);
+
+    @Query("select max(re.cityOrder) from OperationRegionEntity re")
+    Long findMaxCityOrder();
 
     @Query("select re.cityName from OperationRegionEntity  re where re.cityName like ?1 and re.display= ?2")
     List<String > findAllByCityNameAndDisplay(String cityName,Integer display);

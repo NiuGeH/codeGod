@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.service.operationService.Impl;
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationTopicEntity;
+import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationTopicRepository;
@@ -59,8 +60,18 @@ public class OperationTopicServiceImpl implements OperationTopicService {
         //添加新栏目
         OperationTopicEntity topic = new OperationTopicEntity();
         topic.setTopicName(name);
-        topic.setTopicOrder(order);
-        topic.setDisplay(display);
+        if(ObjectUtils.isEmpty(order)){
+            topic.setTopicOrder(operationTopicRepository.findMaxTopicOrder()+1);
+        }else {
+            topic.setTopicOrder(order);
+        }
+        if(ObjectUtils.isEmpty(display)){
+            topic.setDisplay(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
+        }else {
+            topic.setDisplay(display);
+        }
+
+
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         topic.setCreateTime(now);

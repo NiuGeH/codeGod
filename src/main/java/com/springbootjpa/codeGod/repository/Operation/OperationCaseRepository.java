@@ -8,7 +8,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface OperationCaseRepository extends JpaSpecificationExecutor<OperationCaseEntity>, PagingAndSortingRepository<OperationCaseEntity, Long>, JpaRepository<OperationCaseEntity, Long> {
 
-    @Query("select ce from OperationCaseEntity ce where ce.caseName= ?1")
-    OperationCaseEntity findByCaseName(String name);
+    OperationCaseEntity findByCaseName(String caseName);
+
+    @Query("select max(ce.caseOrder) from OperationCaseEntity ce")
+    Long findMaxCaseOrder();
 
 }

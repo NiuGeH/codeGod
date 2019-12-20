@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.service.operationService.Impl;
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationCaseEntity;
+import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationCaseRepository;
@@ -60,8 +61,16 @@ public class OperationCaseServiceImpl implements OperationCaseService {
         //添加新案例类型
         OperationCaseEntity caseEntity = new OperationCaseEntity();
         caseEntity.setCaseName(name);
-        caseEntity.setCaseOrder(order);
-        caseEntity.setDisplay(display);
+        if(ObjectUtils.isEmpty(order)){
+            caseEntity.setCaseOrder(operationCaseRepository.findMaxCaseOrder()+1);
+        }else {
+            caseEntity.setCaseOrder(order);
+        }
+        if(ObjectUtils.isEmpty(display)){
+            caseEntity.setDisplay(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
+        }else {
+            caseEntity.setDisplay(display);
+        }
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         caseEntity.setCreateTime(now);

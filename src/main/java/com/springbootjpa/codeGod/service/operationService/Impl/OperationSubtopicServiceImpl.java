@@ -3,7 +3,7 @@ package com.springbootjpa.codeGod.service.operationService.Impl;
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.operation.OperationSubtopicEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationTopicEntity;
-import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
+import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.repository.Operation.OperationSubtopicRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationTopicRepository;
 import com.springbootjpa.codeGod.service.operationService.OperationSubtopicService;
@@ -42,9 +42,6 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
     @Autowired
     private OperationTopicRepository operationTopicRepository;
 
-    @Autowired
-    private BaseDataDictionaryentityRepository baseDataDictionaryentityRepository;
-
     /**
      * 添加子栏目
      * @param name 子栏目名称
@@ -60,6 +57,9 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
         if(ObjectUtils.isEmpty(name)){
             throw new CodeGodRunTimExcetion("子栏目名称不能为空", this.getClass());
         }
+        if(ObjectUtils.isEmpty(topicId)){
+            throw new CodeGodRunTimExcetion("所属栏目不能为空", this.getClass());
+        }
         //判断该子栏目在所属栏目下是否存在
         OperationSubtopicEntity subtopicEntity = operationSubtopicRepository.findBySubtopicNameAndTopicId(name,topicId);
         if(!ObjectUtils.isEmpty(subtopicEntity)){
@@ -69,12 +69,20 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
         //添加新子栏目
         OperationSubtopicEntity subtopic = new OperationSubtopicEntity();
         subtopic.setSubtopicName(name);
-        subtopic.setSubtopicOrder(order);
+        if(ObjectUtils.isEmpty(order)){
+            subtopic.setSubtopicOrder(operationSubtopicRepository.findMaxSubtopicOrder(topicId)+1);
+        }else {
+            subtopic.setSubtopicOrder(order);
+        }
         OperationTopicEntity topic = operationTopicRepository.getOne(topicId);
         subtopic.setTopic(topic);
         subtopic.setContent(content);
         subtopic.setUrl(url);
-        subtopic.setUrlState(urlState);
+        if(ObjectUtils.isEmpty(urlState)){
+            subtopic.setUrlState(OperationEnum.OPERATION_URL_STATE_NO.getIndex());
+        }else {
+            subtopic.setUrlState(urlState);
+        }
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         subtopic.setCreateTime(now);
