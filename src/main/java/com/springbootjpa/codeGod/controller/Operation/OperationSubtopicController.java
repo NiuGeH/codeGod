@@ -118,9 +118,6 @@ public class OperationSubtopicController extends OperationBase {
             @Override
             public Page<OperationSubtopicEntity> invoke(Pageable page) throws Exception {
                 Page<OperationSubtopicEntity> all = operationSubtopicService.findAll(page, topicId);
-                for (OperationSubtopicEntity operationSubtopicEntity : all) {
-                    log.info("子栏目分页：" + operationSubtopicEntity.toString());
-                }
                 return all;
             }
         });

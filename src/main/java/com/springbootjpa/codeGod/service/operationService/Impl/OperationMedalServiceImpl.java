@@ -97,7 +97,10 @@ public class OperationMedalServiceImpl implements OperationMedalService {
         if(ObjectUtils.isEmpty(id)){
             throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
         }
-        OperationMedalEntity medalEntity = operationMedalRepository.getOne(id);
+        OperationMedalEntity medalEntity = operationMedalRepository.findByIdAndState(id, OperationEnum.OPERATION_STATE_ZC.getIndex());
+        if(ObjectUtils.isEmpty(medalEntity)){
+            throw new CodeGodRunTimExcetion("未查到匹配勋章",this.getClass());
+        }
         log.info("勋章修改前：" + medalEntity.toString());
 
         //修改勋章属性
@@ -134,7 +137,7 @@ public class OperationMedalServiceImpl implements OperationMedalService {
             throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
         }
         //查询要被删除的勋章
-        OperationMedalEntity medalEntity = operationMedalRepository.getOne(id);
+        OperationMedalEntity medalEntity = operationMedalRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配勋章",this.getClass()));
         //修改被删除勋章的状态
         medalEntity.setState(OperationEnum.OPERATION_STATE_SC.getIndex());
         medalEntity.setModifyTime(Calendar.getInstance().getTime());

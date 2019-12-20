@@ -100,9 +100,6 @@ public class OperationMedalController extends OperationBase {
             @Override
             public Page<OperationMedalEntity> invoke(Pageable page) throws Exception {
                 Page<OperationMedalEntity> all = operationMedalService.findAll(page);
-                for (OperationMedalEntity operationMedalEntity:all) {
-                    log.info("勋章分页：" + operationMedalEntity.toString());
-                }
                 return all;
             }
         });

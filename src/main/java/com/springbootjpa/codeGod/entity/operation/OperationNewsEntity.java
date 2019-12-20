@@ -61,6 +61,22 @@ public class OperationNewsEntity extends AbstractEntity implements Serializable 
 	private Integer state;
 
 	/**
+	 * 发布人
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "发布人")
+	@Column(name = "publisher", nullable = true)
+	private String publisher;
+
+	/**
+	 * 发布时间
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "发布时间")
+	@Column(name = "publish_time", nullable = true)
+	private String publishTime;
+
+	/**
 	 * 创建时间
 	 * default value: null
 	 */

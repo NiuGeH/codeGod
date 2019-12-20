@@ -101,10 +101,7 @@ public class OperationTopicController extends OperationBase {
         return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<OperationTopicEntity>>() {
             @Override
             public Page<OperationTopicEntity> invoke(Pageable page) throws Exception {
-                Page<OperationTopicEntity> all = operationTopicService.findAll(page);
-                for (OperationTopicEntity operationTopicEntity : all) {
-                    log.info("栏目分页：" + operationTopicEntity.toString());
-                }
+                Page<OperationTopicEntity> all = operationTopicService.findAll();
                 return all;
             }
         });

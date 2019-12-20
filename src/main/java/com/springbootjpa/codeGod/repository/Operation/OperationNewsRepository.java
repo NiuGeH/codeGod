@@ -7,4 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface OperationNewsRepository extends JpaSpecificationExecutor<OperationNewsEntity>, PagingAndSortingRepository<OperationNewsEntity, Long>, JpaRepository<OperationNewsEntity, Long> {
 
+    OperationNewsEntity findByTitle(String title);
+
+    OperationNewsEntity findByIdAndState(Long id, Integer state);
 }

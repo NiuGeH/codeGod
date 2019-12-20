@@ -2,7 +2,6 @@ package com.springbootjpa.codeGod.service.operationService;
 
 import com.springbootjpa.codeGod.entity.operation.OperationTopicEntity;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * @author lixin
@@ -32,9 +31,8 @@ public interface OperationTopicService {
     OperationTopicEntity updateTopic(Long id, String newName, Long order, Integer display);
 
     /**
-     * 栏目分页
-     * @param pageable 分页
+     * 查询全部栏目
      * @return
      */
-    Page<OperationTopicEntity> findAll(Pageable pageable);
+    Page<OperationTopicEntity> findAll();
 }

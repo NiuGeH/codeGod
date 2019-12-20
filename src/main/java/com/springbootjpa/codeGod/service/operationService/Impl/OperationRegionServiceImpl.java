@@ -12,12 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -94,7 +92,7 @@ public class OperationRegionServiceImpl implements OperationRegionService {
             throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
         }
         //查询需要修改的城市
-        OperationRegionEntity city = operationRegionRepository.getOne(id);
+        OperationRegionEntity city = operationRegionRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配栏目",this.getClass()));
         log.info("城市修改前：" + city.toString());
 
         //修改该城市属性
@@ -119,21 +117,18 @@ public class OperationRegionServiceImpl implements OperationRegionService {
     }
 
     /**
-     * 城市分页
-     * @param pageable 分页
+     * 查询全部城市
      * @return
      */
     @Override
-    public Page<OperationRegionEntity> findAll(Pageable pageable) {
-        Page<OperationRegionEntity> all = operationRegionRepository.findAll(pageable);
-        List<OperationRegionEntity> list = new ArrayList<>();
-        if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
+    public Page<OperationRegionEntity> findAll() {
+        List<OperationRegionEntity> all = operationRegionRepository.findAll();
+        if(!ObjectUtils.isEmpty(all) && all.size()>0){
             for(OperationRegionEntity operationRegionEntity : all){
                 BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationRegionEntity.getDisplay().toString(), DataBaseFinal.OPERATIONREGION_DISPLAY);
                 operationRegionEntity.setDisplayStr(bdd.getDataValue());
-                list.add(operationRegionEntity);
             }
         }
-        return new PageImpl<OperationRegionEntity>(list);
+        return new PageImpl<OperationRegionEntity>(all);
     }
 }

@@ -101,10 +101,7 @@ public class OperationCaseController extends OperationBase {
         return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<OperationCaseEntity>>() {
             @Override
             public Page<OperationCaseEntity> invoke(Pageable page) throws Exception {
-                Page<OperationCaseEntity> all = operationCaseService.findAll(page);
-                for (OperationCaseEntity operationCaseEntity:all) {
-                    log.info("案例类型分页：" + operationCaseEntity.toString());
-                }
+                Page<OperationCaseEntity> all = operationCaseService.findAll();
                 return all;
             }
         });

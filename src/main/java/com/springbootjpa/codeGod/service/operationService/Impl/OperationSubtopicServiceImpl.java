@@ -109,7 +109,7 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
             throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
         }
         //查询需要修改的子栏目
-        OperationSubtopicEntity subtopic = operationSubtopicRepository.getOne(id);
+        OperationSubtopicEntity subtopic = operationSubtopicRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配子栏目",this.getClass()));
         log.info("子栏目修改前：" + subtopic.toString());
 
         //修改子栏目属性
@@ -123,18 +123,14 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
             OperationTopicEntity topic = operationTopicRepository.getOne(topicId);
             subtopic.setTopic(topic);
         }
-        if (!ObjectUtils.isEmpty(content)) {
-            subtopic.setContent(content);
-        }
-        if (!ObjectUtils.isEmpty(url)) {
-            subtopic.setUrl(url);
-        }
-        if (!ObjectUtils.isEmpty(urlState)) {
+        if(ObjectUtils.isEmpty(urlState)){
+            subtopic.setUrlState(OperationEnum.OPERATION_URL_STATE_NO.getIndex());
+        }else {
             subtopic.setUrlState(urlState);
         }
-        Calendar calendar = Calendar.getInstance();
-        Date now = calendar.getTime();
-        subtopic.setModifyTime(now);
+        subtopic.setContent(content);
+        subtopic.setUrl(url);
+        subtopic.setModifyTime(Calendar.getInstance().getTime());
         log.info("子栏目修改后：" + subtopic.toString());
         operationSubtopicRepository.save(subtopic);
 

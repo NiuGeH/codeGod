@@ -12,12 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -95,7 +93,7 @@ public class OperationTopicServiceImpl implements OperationTopicService {
         if(ObjectUtils.isEmpty(id)){
             throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
         }
-        OperationTopicEntity topic = operationTopicRepository.getOne(id);
+        OperationTopicEntity topic = operationTopicRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配栏目",this.getClass()));
         log.info("栏目修改前：" + topic.toString());
 
         //修改该栏目属性
@@ -108,9 +106,7 @@ public class OperationTopicServiceImpl implements OperationTopicService {
         if (!ObjectUtils.isEmpty(display)) {
             topic.setDisplay(display);
         }
-        Calendar calendar = Calendar.getInstance();
-        Date now = calendar.getTime();
-        topic.setModifyTime(now);
+        topic.setModifyTime(Calendar.getInstance().getTime());
         log.info("栏目修改后：" + topic.toString());
 
         //保存修改后的栏目
@@ -120,21 +116,18 @@ public class OperationTopicServiceImpl implements OperationTopicService {
     }
 
     /**
-     * 栏目分页
-     * @param pageable 分页
+     * 查询全部栏目
      * @return
      */
     @Override
-    public Page<OperationTopicEntity> findAll(Pageable pageable) {
-        Page<OperationTopicEntity> all = operationTopicRepository.findAll(pageable);
-        List<OperationTopicEntity> list = new ArrayList<>();
-        if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
+    public Page<OperationTopicEntity> findAll() {
+        List<OperationTopicEntity> all = operationTopicRepository.findAll();
+        if(!ObjectUtils.isEmpty(all) && all.size()>0){
             for(OperationTopicEntity operationTopicEntity : all){
                 BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTopicEntity.getDisplay().toString(), DataBaseFinal.OPERATIONTOPIC_DISPLAY);
                 operationTopicEntity.setDisplayStr(bdd.getDataValue());
-                list.add(operationTopicEntity);
             }
         }
-        return new PageImpl<OperationTopicEntity>(list);
+        return new PageImpl<OperationTopicEntity>(all);
     }
 }

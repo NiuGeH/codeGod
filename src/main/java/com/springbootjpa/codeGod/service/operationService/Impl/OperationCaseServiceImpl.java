@@ -12,12 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -94,7 +92,7 @@ public class OperationCaseServiceImpl implements OperationCaseService {
         if(ObjectUtils.isEmpty(id)){
             throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
         }
-        OperationCaseEntity caseEntity = operationCaseRepository.getOne(id);
+        OperationCaseEntity caseEntity = operationCaseRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配案例",this.getClass()));
         log.info("案例类型修改前：" + caseEntity.toString());
 
         //修改该案例类型属性
@@ -119,22 +117,19 @@ public class OperationCaseServiceImpl implements OperationCaseService {
     }
 
     /**
-     * 案例类型分页
-     * @param pageable 分页
+     * 查询全部案例类型
      * @return
      */
     @Override
-    public Page<OperationCaseEntity> findAll(Pageable pageable) {
-        Page<OperationCaseEntity> all = operationCaseRepository.findAll(pageable);
-        List<OperationCaseEntity> list = new ArrayList<>();
-        if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
+    public Page<OperationCaseEntity> findAll() {
+        List<OperationCaseEntity> all = operationCaseRepository.findAll();
+        if(!ObjectUtils.isEmpty(all) && all.size()>0){
             for(OperationCaseEntity operationCaseEntity : all){
                 BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationCaseEntity.getDisplay().toString(), DataBaseFinal.OPERATIONCASE_DISPLAY);
                 operationCaseEntity.setDisplayStr(bdd.getDataValue());
-                list.add(operationCaseEntity);
             }
         }
-        return new PageImpl<OperationCaseEntity>(list);
+        return new PageImpl<OperationCaseEntity>(all);
     }
 
 

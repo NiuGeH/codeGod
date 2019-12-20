@@ -31,4 +31,7 @@ public class OperationBase {
     @Autowired
     protected OperationMedalService operationMedalService;
 
+    @Autowired
+    protected OperationNewsService operationNewsService;
+
 }
