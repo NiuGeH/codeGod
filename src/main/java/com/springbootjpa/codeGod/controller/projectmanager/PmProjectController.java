@@ -176,7 +176,7 @@ public class PmProjectController extends PmDemandBase {
                 map.put("duty",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_RECRUITMENTRECRUITMENT_DUTY));
                 map.put("rule",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGPOST));
                 map.put("stationing",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_CONTRACTCONTRACT_COURT));
-                map.put("display",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.OPERATIONTOPIC_DISPLAY));
+                map.put("display",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.OPERATION_TOPIC_DISPLAY));
                 return map;
             }
         });
