@@ -4,6 +4,8 @@ import com.springbootjpa.codeGod.entity.operation.OperationTopicEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Map;
+
 /**
  * @author lixin
  * @version 1.0
@@ -32,8 +34,14 @@ public interface OperationTopicService {
     OperationTopicEntity updateTopic(Long id, String newName, Long order, Integer display);
 
     /**
-     * 查询全部栏目
+     * 查询全部栏目分页
      * @return
      */
     Page<OperationTopicEntity> findAll(Pageable pageable);
+
+    /**
+     * 查询全部栏目名称和对应的栏目id，供添加子栏目时调用
+     * @return
+     */
+    Map<Long,String> findAll();
 }

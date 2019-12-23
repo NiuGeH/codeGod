@@ -104,28 +104,31 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
     @Override
     public OperationSubtopicEntity updateSubtopic(Long id, String newName, Long order, Long topicId, String content, String url, Integer urlState) {
         if(ObjectUtils.isEmpty(id)){
-            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+            throw new CodeGodRunTimExcetion("子栏目id不能为空", this.getClass());
+        }
+        if(ObjectUtils.isEmpty(topicId)){
+            throw new CodeGodRunTimExcetion("所属栏目id不能为空", this.getClass());
         }
         //查询需要修改的子栏目
-        OperationSubtopicEntity subtopic = operationSubtopicRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配子栏目",this.getClass()));
+        OperationSubtopicEntity subtopic = operationSubtopicRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("子栏目id错误，未查到匹配子栏目",this.getClass()));
         log.info("子栏目修改前：" + subtopic.toString());
 
         //修改子栏目属性
         if (!ObjectUtils.isEmpty(newName)) {
+            OperationSubtopicEntity se = operationSubtopicRepository.findBySubtopicNameAndTopicId(newName,topicId);
+            if(id != se.getId()) throw new CodeGodRunTimExcetion("所属栏目中该子栏目已存在",this.getClass());
             subtopic.setSubtopicName(newName);
         }
         if (!ObjectUtils.isEmpty(order)) {
             subtopic.setSubtopicOrder(order);
-        }
-        if (!ObjectUtils.isEmpty(topicId)) {
-            OperationTopicEntity topic = operationTopicRepository.getOne(topicId);
-            subtopic.setTopic(topic);
         }
         if(ObjectUtils.isEmpty(urlState)){
             subtopic.setUrlState(OperationEnum.OPERATION_URL_STATE_NO.getIndex());
         }else {
             subtopic.setUrlState(urlState);
         }
+        OperationTopicEntity topic = operationTopicRepository.getOne(topicId);
+        subtopic.setTopic(topic);
         subtopic.setContent(content);
         subtopic.setUrl(url);
         subtopic.setModifyTime(Calendar.getInstance().getTime());

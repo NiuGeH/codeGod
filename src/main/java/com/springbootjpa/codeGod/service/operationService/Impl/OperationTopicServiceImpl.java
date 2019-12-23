@@ -21,8 +21,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @author lixin
@@ -95,13 +94,15 @@ public class OperationTopicServiceImpl implements OperationTopicService {
     public OperationTopicEntity updateTopic(Long id, String newName, Long order, Integer display) {
         //查询需要修改的栏目
         if(ObjectUtils.isEmpty(id)){
-            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+            throw new CodeGodRunTimExcetion("栏目id不能为空", this.getClass());
         }
-        OperationTopicEntity topic = operationTopicRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配栏目",this.getClass()));
+        OperationTopicEntity topic = operationTopicRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("栏目id错误，未查到匹配栏目",this.getClass()));
         log.info("栏目修改前：" + topic.toString());
 
         //修改该栏目属性
         if (!ObjectUtils.isEmpty(newName)) {
+            OperationTopicEntity te = operationTopicRepository.findByTopicName(newName);
+            if(id != te.getId()) throw new CodeGodRunTimExcetion("该栏目已存在",this.getClass());
             topic.setTopicName(newName);
         }
         if (!ObjectUtils.isEmpty(order)) {
@@ -120,7 +121,7 @@ public class OperationTopicServiceImpl implements OperationTopicService {
     }
 
     /**
-     * 查询全部栏目
+     * 查询全部栏目分页
      * @return
      */
     @Override
@@ -139,5 +140,21 @@ public class OperationTopicServiceImpl implements OperationTopicService {
             }
         }
         return all;
+    }
+
+    /**
+     * 查询全部栏目名称和对应的栏目id，供添加子栏目时调用
+     * @return
+     */
+    @Override
+    public Map<Long, String> findAll() {
+        List<OperationTopicEntity> list = operationTopicRepository.findAll();
+        Map<Long, String> map = new HashMap<>();
+        if(!ObjectUtils.isEmpty(list) && list.size()>0){
+            for(OperationTopicEntity topicEntity : list){
+                map.put(topicEntity.getId(),topicEntity.getTopicName());
+            }
+        }
+        return map;
     }
 }

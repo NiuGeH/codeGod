@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author lixin
@@ -91,7 +93,10 @@ public class OperationRegionController extends OperationBase{
     })
     public PageResult<OperationRegionEntity> doPage(@RequestBody String json) throws CodeGodException {
         log.info("URL:/region/findAllCity 请求参数：" + json);
-        Sort sort = new Sort(Sort.Direction.ASC, "cityOrder");
+        List<String> list = new ArrayList();
+        list.add("cityOrder");
+        list.add("id");
+        Sort sort = new Sort(Sort.Direction.ASC, list);
         PageRequestParam pages = null;
         try{
             pages = gson.fromJson(json, PageRequestParam.class);

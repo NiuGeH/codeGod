@@ -104,9 +104,13 @@ public class OperationSubtopicController extends OperationBase {
             List<String> list = new ArrayList();
             list.add("topicId");
             list.add("subtopicOrder");
+            list.add("id");
             sort = new Sort(Sort.Direction.ASC, list);
         }else {
-            sort = new Sort(Sort.Direction.ASC, "subtopicOrder");
+            List<String> list = new ArrayList();
+            list.add("subtopicOrder");
+            list.add("id");
+            sort = new Sort(Sort.Direction.ASC, list);
         }
         PageRequestParam pages = null;
         try{

@@ -140,6 +140,8 @@ public class OperationNewsServiceImpl implements OperationNewsService {
 
         //修改属性
         if (!ObjectUtils.isEmpty(title)) {
+            OperationNewsEntity ne = operationNewsRepository.findByTitle(title);
+            if(id != ne.getId()) throw new CodeGodRunTimExcetion("该新闻标题已存在",this.getClass());
             newsEntity.setTitle(title);
         }
         newsEntity.setViews(views);

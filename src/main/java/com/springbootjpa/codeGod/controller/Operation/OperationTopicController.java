@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author lixin
@@ -91,7 +94,10 @@ public class OperationTopicController extends OperationBase {
     })
     public PageResult<OperationTopicEntity> doPage(@RequestBody String json) throws CodeGodException {
         log.info("URL:/topic/findAllTopic 请求参数：" + json);
-        Sort sort = new Sort(Sort.Direction.ASC, "topicOrder");
+        List<String> list = new ArrayList();
+        list.add("topicOrder");
+        list.add("id");
+        Sort sort = new Sort(Sort.Direction.ASC, list);
         PageRequestParam pages = null;
         try{
             pages = gson.fromJson(json, PageRequestParam.class);
@@ -105,5 +111,12 @@ public class OperationTopicController extends OperationBase {
                 return all;
             }
         });
+    }
+
+
+    @PostMapping(value = "/findTopic", produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "查询全部栏目名称和id", httpMethod = "POST", notes = "供添加子栏目时调用")
+    public Map<Long,String> findTopic() {
+        return operationTopicService.findAll();
     }
 }

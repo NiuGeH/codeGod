@@ -94,13 +94,15 @@ public class OperationCaseServiceImpl implements OperationCaseService {
     public OperationCaseEntity updateCase(Long id, String newName, Long order, Integer display) {
         //查询需要修改的案例类型
         if(ObjectUtils.isEmpty(id)){
-            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
+            throw new CodeGodRunTimExcetion("案例id不能为空", this.getClass());
         }
-        OperationCaseEntity caseEntity = operationCaseRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配案例",this.getClass()));
+        OperationCaseEntity caseEntity = operationCaseRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("案例id错误，未查到匹配案例",this.getClass()));
         log.info("案例类型修改前：" + caseEntity.toString());
 
         //修改该案例类型属性
         if (!ObjectUtils.isEmpty(newName)) {
+            OperationCaseEntity ce = operationCaseRepository.findByCaseName(newName);
+            if(id != ce.getId()) throw new CodeGodRunTimExcetion("该案例类型已存在",this.getClass());
             caseEntity.setCaseName(newName);
         }
         if (!ObjectUtils.isEmpty(order)) {

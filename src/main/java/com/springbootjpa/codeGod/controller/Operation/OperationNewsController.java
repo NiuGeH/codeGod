@@ -119,7 +119,7 @@ public class OperationNewsController extends OperationBase {
     })
     public PageResult<OperationNewsEntity> doPageNews(@RequestBody String json) throws CodeGodException {
         log.info("URL:/news/findAllNews 请求参数：" + json);
-        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
         PageRequestParam pages = null;
         try{
             pages = gson.fromJson(json, PageRequestParam.class);

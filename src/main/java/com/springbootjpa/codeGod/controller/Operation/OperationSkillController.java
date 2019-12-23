@@ -2,7 +2,7 @@ package com.springbootjpa.codeGod.controller.Operation;
 
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
-import com.springbootjpa.codeGod.entity.operation.OperationCaseEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationSkillEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,76 +25,76 @@ import java.util.List;
  * @author lixin
  * @version 1.0
  * @description TODO
- * @date 2019/12/16 15:42
+ * @date 2019/12/23 16:33
  */
-@Api(value = "/case", description = "案例类型管理Controller")
-@RequestMapping("/case")
+@Api(value = "/skill", description = "技术栈管理Controller")
+@RequestMapping("/skill")
 @RestController
 @Slf4j
-public class OperationCaseController extends OperationBase {
+public class OperationSkillController extends OperationBase {
 
-    @PostMapping(value = "/addCase", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "添加案例类型", httpMethod = "POST", notes = "caseName/案例名称  \n  caseOrder/案例排序  \n  display/是否显示，0是，1否")
+    @PostMapping(value = "/addSkill", produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "添加技术栈", httpMethod = "POST", notes = "skillName/技术栈名称  \n  skillOrder/技术栈排序  \n  display/是否显示：0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
-                    value = "{'caseName':'电子商务','caseOrder':'4','display':'0'}",
+                    value = "{'skillName':'','skillOrder':'','display':''}",
                     required = true,
                     paramType = "body")
     })
-    public AjaxResult<Object> addCase(@RequestBody String json){
-        log.info("URL:/case/addCase 请求参数：" + json);
+    public AjaxResult<Object> addSkill(@RequestBody String json){
+        log.info("URL:/skill/addSkill 请求参数：" + json);
         HashMap<String,String> hashMap = gson.fromJson(json, HashMap.class);
         return AjaxUtils.process(new Func_T<Object>() {
 
             @Override
             public Object invoke() throws Exception {
-                OperationCaseEntity caseEntity = operationCaseService.addCase(
-                        String.valueOf(hashMap.get("caseName")),
-                        ObjectUtils.isEmpty(hashMap.get("caseOrder")) ? null : Long.valueOf(hashMap.get("caseOrder")),
+                OperationSkillEntity skillEntity = operationSkillService.addSkill(
+                        String.valueOf(hashMap.get("skillName")),
+                        ObjectUtils.isEmpty(hashMap.get("skillOrder")) ? null : Long.valueOf(hashMap.get("skillOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
-                return caseEntity;
+                return skillEntity;
             }
         });
     }
 
 
-    @PostMapping(value = "/updateCase", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "修改案例类型", httpMethod = "POST", notes = "id/案例id newCaseName/案例新名称  \n  caseOrder/案例排序  \n  display/是否显示，0是，1否")
+    @PostMapping(value = "/updateSkill", produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "修改技术栈", httpMethod = "POST", notes = "id/技术栈id newName/技术栈新名称  \n  skillOrder/技术栈排序  \n  display/是否显示：0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
-                    value = "{'id':'5','newCaseName':'社交1','caseOrder':'5','display':'0'}",
+                    value = "{'id':'','newName':'','skillOrder':'','display':''}",
                     required = true,
                     paramType = "body")
     })
     public AjaxResult<Object> updateCase(@RequestBody String json){
-        log.info("URL:/case/updateCase 请求参数：" + json);
+        log.info("URL:/skill/updateSkill 请求参数：" + json);
         HashMap<String,String> hashMap = gson.fromJson(json, HashMap.class);
         return AjaxUtils.process(new Func_T<Object>() {
 
             @Override
             public Object invoke() throws Exception {
-                OperationCaseEntity caseEntity = operationCaseService.updateCase(
+                OperationSkillEntity skillEntity = operationSkillService.updateSkill(
                         ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
-                        String.valueOf(hashMap.get("newCaseName")),
-                        ObjectUtils.isEmpty(hashMap.get("caseOrder")) ? null : Long.valueOf(hashMap.get("caseOrder")),
+                        String.valueOf(hashMap.get("newName")),
+                        ObjectUtils.isEmpty(hashMap.get("skillOrder")) ? null : Long.valueOf(hashMap.get("skillOrder")),
                         ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")));
-                return caseEntity;
+                return skillEntity;
             }
         });
     }
 
 
-    @PostMapping(value = "/findAllCase", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "案例类型分页", httpMethod = "POST", notes = "page/当前页  \n  rows/每页记录数")
+    @PostMapping(value = "/findAllSkill", produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "技术栈分页", httpMethod = "POST", notes = "page/当前页  \n  rows/每页记录数")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5'}", required = true, paramType = "body")
     })
-    public PageResult<OperationCaseEntity> doPage(@RequestBody String json) throws CodeGodException {
-        log.info("URL:/case/findAllCase 请求参数：" + json);
+    public PageResult<OperationSkillEntity> doPage(@RequestBody String json) throws CodeGodException {
+        log.info("URL:/skill/findAllSkill 请求参数：" + json);
         List<String> list = new ArrayList();
-        list.add("caseOrder");
+        list.add("skillOrder");
         list.add("id");
         Sort sort = new Sort(Sort.Direction.ASC, list);
         PageRequestParam pages = null;
@@ -103,10 +103,10 @@ public class OperationCaseController extends OperationBase {
         }catch (Exception e){
             throw new CodeGodException("Gson格式转换错误，请求参数为："+json,this.getClass());
         }
-        return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<OperationCaseEntity>>() {
+        return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<OperationSkillEntity>>() {
             @Override
-            public Page<OperationCaseEntity> invoke(Pageable page) throws Exception {
-                Page<OperationCaseEntity> all = operationCaseService.findAll(page);
+            public Page<OperationSkillEntity> invoke(Pageable page) throws Exception {
+                Page<OperationSkillEntity> all = operationSkillService.findAll(page);
                 return all;
             }
         });

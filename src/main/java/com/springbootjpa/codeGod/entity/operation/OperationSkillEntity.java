@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -43,6 +44,8 @@ public class OperationSkillEntity extends AbstractEntity implements Serializable
 	@ApiModelProperty(value = "是否显示：0显示，1不显示")
 	@Column(name = "display", nullable = true, length = 2)
 	private Integer display;
+	@Transient
+	private String displayStr;
 
 	/**
 	 * 创建时间
