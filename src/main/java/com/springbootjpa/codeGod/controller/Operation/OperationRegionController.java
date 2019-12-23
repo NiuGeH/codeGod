@@ -101,7 +101,7 @@ public class OperationRegionController extends OperationBase{
         return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<OperationRegionEntity>>() {
             @Override
             public Page<OperationRegionEntity> invoke(Pageable page) throws Exception {
-                Page<OperationRegionEntity> all = operationRegionService.findAll();
+                Page<OperationRegionEntity> all = operationRegionService.findAll(page);
                 return all;
             }
         });

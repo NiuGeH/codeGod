@@ -1,21 +1,33 @@
 package com.springbootjpa.codeGod.service.operationService.Impl;
 
 import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
+import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationCommentEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationNewsEntity;
 import com.springbootjpa.codeGod.eunm.OperationEnum;
+import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
+import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
+import com.springbootjpa.codeGod.repository.Operation.OperationCommentRepository;
 import com.springbootjpa.codeGod.repository.Operation.OperationNewsRepository;
 import com.springbootjpa.codeGod.service.operationService.OperationNewsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author lixin
@@ -30,6 +42,12 @@ public class OperationNewsServiceImpl implements OperationNewsService {
 
     @Autowired
     private OperationNewsRepository operationNewsRepository;
+
+    @Autowired
+    private OperationCommentRepository operationCommentRepository;
+
+    @Autowired
+    private BaseDataDictionaryentityRepository baseDataDictionaryentityRepository;
 
     /**
      * 添加新闻
@@ -92,9 +110,10 @@ public class OperationNewsServiceImpl implements OperationNewsService {
     @Override
     public OperationNewsEntity deleteNews(Long id) {
         //验证参数
-        Assert.notNull(id,"参数id不能为空");
+        if(ObjectUtils.isEmpty(id)) throw new CodeGodRunTimExcetion("新闻id不能为空",this.getClass());
         //查询要被删除的新闻
-        OperationNewsEntity newsEntity = operationNewsRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("参数id错误，未查到匹配新闻",this.getClass()));
+        OperationNewsEntity newsEntity = operationNewsRepository.findByIdAndState(id, OperationEnum.OPERATION_STATE_ZC.getIndex());
+        if(ObjectUtils.isEmpty(newsEntity)) throw new CodeGodRunTimExcetion("新闻id错误或者该新闻已删除",this.getClass());
         //修改被删除新闻的状态
         newsEntity.setState(OperationEnum.OPERATION_STATE_SC.getIndex());
         newsEntity.setModifyTime(Calendar.getInstance().getTime());
@@ -114,14 +133,10 @@ public class OperationNewsServiceImpl implements OperationNewsService {
     @Override
     public OperationNewsEntity updateNews(Long id, String title, Long views, String content, Integer display) {
         //查询需要修改的新闻
-        if(ObjectUtils.isEmpty(id)){
-            throw new CodeGodRunTimExcetion("参数id不能为空", this.getClass());
-        }
+        if(ObjectUtils.isEmpty(id)) throw new CodeGodRunTimExcetion("新闻id不能为空",this.getClass());
         OperationNewsEntity newsEntity = operationNewsRepository.findByIdAndState(id, OperationEnum.OPERATION_STATE_ZC.getIndex());
-        if(ObjectUtils.isEmpty(newsEntity)){
-            throw new CodeGodRunTimExcetion("未查到匹配新闻", this.getClass());
-        }
-        log.info("勋章修改前：" + newsEntity.toString());
+        if(ObjectUtils.isEmpty(newsEntity)) throw new CodeGodRunTimExcetion("新闻id错误或者该新闻已删除",this.getClass());
+        log.info("新闻修改前：" + newsEntity.toString());
 
         //修改属性
         if (!ObjectUtils.isEmpty(title)) {
@@ -138,5 +153,131 @@ public class OperationNewsServiceImpl implements OperationNewsService {
         operationNewsRepository.save(newsEntity);
 
         return newsEntity;
+    }
+
+    /**
+     * 查询未被删除的全部新闻
+     * @return
+     */
+    @Override
+    public Page<OperationNewsEntity> findAllNews(Pageable pageable) {
+        Specification<OperationNewsEntity> specification = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.get("state"),String.valueOf(OperationEnum.OPERATION_STATE_ZC.getIndex()));
+            }
+        };
+
+        Page<OperationNewsEntity> all = operationNewsRepository.findAll(specification, pageable);
+        if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
+            for(OperationNewsEntity operationNewsEntity : all){
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationNewsEntity.getDisplay().toString(), DataBaseFinal.OPERATION_NEWS_DISPLAY);
+                operationNewsEntity.setDisplayStr(bdd.getDataValue());
+            }
+        }
+        return all;
+    }
+
+    /**
+     * 添加评论
+     * @param newsId 关联的新闻id
+     * @param content 评论内容
+     * @param request 请求req
+     * @return
+     */
+    @Override
+    public OperationCommentEntity addComment(Long newsId, String content, HttpServletRequest request) {
+        //验证参数
+        if(ObjectUtils.isEmpty(newsId)) throw new CodeGodRunTimExcetion("关联的新闻id不能为空",this.getClass());
+        if(ObjectUtils.isEmpty(content)){
+            throw new CodeGodRunTimExcetion("评论内容不能为空",this.getClass());
+        }
+
+        //添加
+        OperationCommentEntity commentEntity = new OperationCommentEntity();
+        OperationNewsEntity newsEntity = operationNewsRepository.findByIdAndState(newsId, OperationEnum.OPERATION_STATE_ZC.getIndex());
+        if(ObjectUtils.isEmpty(newsEntity)) throw new CodeGodRunTimExcetion("新闻id错误或者该新闻已删除",this.getClass());
+        commentEntity.setNews(newsEntity);
+        commentEntity.setContent(content);
+        commentEntity.setState(OperationEnum.OPERATION_STATE_ZC.getIndex());
+        commentEntity.setCommentator(request.getSession().getAttribute("user").toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        Date now = Calendar.getInstance().getTime();
+        commentEntity.setPublishTime(sdf.format(now));
+        commentEntity.setCreateTime(now);
+
+        //保存
+        operationCommentRepository.save(commentEntity);
+
+        return commentEntity;
+    }
+
+    /**
+     * 修改评论
+     * @param id 评论id
+     * @param content 评论内容
+     * @return
+     */
+    @Override
+    public OperationCommentEntity updateComment(Long id, String content) {
+        //查询需要修改的评论
+        if(ObjectUtils.isEmpty(id)) throw new CodeGodRunTimExcetion("评论id不能为空",this.getClass());
+        OperationCommentEntity commentEntity = operationCommentRepository.findByIdAndState(id, OperationEnum.OPERATION_STATE_ZC.getIndex());
+        if(ObjectUtils.isEmpty(commentEntity)) throw new CodeGodRunTimExcetion("评论id错误或者该评论已删除",this.getClass());
+        log.info("评论修改前：" + commentEntity.toString());
+
+        //修改
+        commentEntity.setContent(content);
+        commentEntity.setModifyTime(Calendar.getInstance().getTime());
+
+        //保存
+        operationCommentRepository.save(commentEntity);
+
+        return commentEntity;
+    }
+
+    /**
+     * 删除评论，软删除，只是改变了状态
+     * @param id 评论id
+     * @return
+     */
+    @Override
+    public OperationCommentEntity deleteComment(Long id) {
+        //验证参数
+        if(ObjectUtils.isEmpty(id)) throw new CodeGodRunTimExcetion("评论id不能为空",this.getClass());
+        //查询要被删除的评论
+        OperationCommentEntity commentEntity = operationCommentRepository.findByIdAndState(id, OperationEnum.OPERATION_STATE_ZC.getIndex());
+        if(ObjectUtils.isEmpty(commentEntity)) throw new CodeGodRunTimExcetion("评论id错误或者该评论已删除",this.getClass());
+        //修改
+        commentEntity.setState(OperationEnum.OPERATION_STATE_SC.getIndex());
+        commentEntity.setModifyTime(Calendar.getInstance().getTime());
+
+        return commentEntity;
+    }
+
+    /**
+     * 根据新闻id查询未被删除的所有评论；若新闻id为空，查询未被删除的全部评论
+     * @param pageable
+     * @param newsId 新闻id
+     * @return
+     */
+    @Override
+    public Page<OperationCommentEntity> findAllComment(Pageable pageable, Long newsId) {
+        Specification<OperationCommentEntity> specification = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                Predicate pre1 = null;
+                if(!ObjectUtils.isEmpty(newsId)){
+                    OperationNewsEntity newsEntity = operationNewsRepository.findByIdAndState(newsId, OperationEnum.OPERATION_STATE_ZC.getIndex());
+                    if(ObjectUtils.isEmpty(newsEntity)) throw new CodeGodRunTimExcetion("新闻id错误或者该新闻已删除",this.getClass());
+                    pre1 = criteriaBuilder.equal(root.get("news").get("id"), newsId.toString());
+                }else {
+                    pre1 = criteriaBuilder.equal(root.get("news").get("state"), String.valueOf(OperationEnum.OPERATION_STATE_ZC.getIndex()));
+                }
+                Predicate pre2 = criteriaBuilder.equal(root.get("state"), String.valueOf(OperationEnum.OPERATION_STATE_ZC.getIndex()));
+                return criteriaBuilder.and(pre1, pre2);
+            }
+        };
+        return operationCommentRepository.findAll(specification, pageable);
     }
 }

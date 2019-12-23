@@ -11,14 +11,18 @@ import com.springbootjpa.codeGod.service.operationService.OperationRegionService
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author lixin
@@ -121,14 +125,21 @@ public class OperationRegionServiceImpl implements OperationRegionService {
      * @return
      */
     @Override
-    public Page<OperationRegionEntity> findAll() {
-        List<OperationRegionEntity> all = operationRegionRepository.findAll();
-        if(!ObjectUtils.isEmpty(all) && all.size()>0){
+    public Page<OperationRegionEntity> findAll(Pageable pageable) {
+        Specification<OperationRegionEntity> specification = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                return null;
+            }
+        };
+
+        Page<OperationRegionEntity> all = operationRegionRepository.findAll(specification, pageable);
+        if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
             for(OperationRegionEntity operationRegionEntity : all){
-                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationRegionEntity.getDisplay().toString(), DataBaseFinal.OPERATIONREGION_DISPLAY);
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationRegionEntity.getDisplay().toString(), DataBaseFinal.OPERATION_REGION_DISPLAY);
                 operationRegionEntity.setDisplayStr(bdd.getDataValue());
             }
         }
-        return new PageImpl<OperationRegionEntity>(all);
+        return all;
     }
 }

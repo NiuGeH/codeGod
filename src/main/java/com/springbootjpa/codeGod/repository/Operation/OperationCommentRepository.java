@@ -7,4 +7,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface OperationCommentRepository extends JpaSpecificationExecutor<OperationCommentEntity>, PagingAndSortingRepository<OperationCommentEntity, Long>, JpaRepository<OperationCommentEntity, Long> {
 
+    OperationCommentEntity findByIdAndState(Long id, Integer state);
 }

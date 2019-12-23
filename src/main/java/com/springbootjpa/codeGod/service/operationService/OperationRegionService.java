@@ -2,6 +2,7 @@ package com.springbootjpa.codeGod.service.operationService;
 
 import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @author lixin
@@ -34,5 +35,5 @@ public interface OperationRegionService {
      * 查询全部城市
      * @return
      */
-    Page<OperationRegionEntity> findAll();
+    Page<OperationRegionEntity> findAll(Pageable pageable);
 }

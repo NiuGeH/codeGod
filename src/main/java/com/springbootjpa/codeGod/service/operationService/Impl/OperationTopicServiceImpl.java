@@ -11,14 +11,18 @@ import com.springbootjpa.codeGod.service.operationService.OperationTopicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author lixin
@@ -120,14 +124,20 @@ public class OperationTopicServiceImpl implements OperationTopicService {
      * @return
      */
     @Override
-    public Page<OperationTopicEntity> findAll() {
-        List<OperationTopicEntity> all = operationTopicRepository.findAll();
-        if(!ObjectUtils.isEmpty(all) && all.size()>0){
+    public Page<OperationTopicEntity> findAll(Pageable pageable) {
+        Specification<OperationTopicEntity> specification = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                return null;
+            }
+        };
+        Page<OperationTopicEntity> all = operationTopicRepository.findAll(specification, pageable);
+        if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
             for(OperationTopicEntity operationTopicEntity : all){
-                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTopicEntity.getDisplay().toString(), DataBaseFinal.OPERATIONTOPIC_DISPLAY);
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTopicEntity.getDisplay().toString(), DataBaseFinal.OPERATION_TOPIC_DISPLAY);
                 operationTopicEntity.setDisplayStr(bdd.getDataValue());
             }
         }
-        return new PageImpl<OperationTopicEntity>(all);
+        return all;
     }
 }

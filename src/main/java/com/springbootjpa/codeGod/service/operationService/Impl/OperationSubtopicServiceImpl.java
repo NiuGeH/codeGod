@@ -20,10 +20,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author lixin
@@ -148,12 +146,11 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
         Specification<OperationSubtopicEntity> specification = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> list = new ArrayList<>();
+                Predicate pre = null;
                 if(!ObjectUtils.isEmpty(topicId)){
-                    list.add(criteriaBuilder.equal(root.get("topic").get("id"),topicId.toString()));
-                    log.info("查询到子栏目的数量：" + list.size());
+                    pre = criteriaBuilder.equal(root.get("topic").get("id"),topicId.toString());
                 }
-                return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
+                return pre;
             }
         };
         return operationSubtopicRepository.findAll(specification, pageable);

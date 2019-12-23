@@ -1,6 +1,9 @@
 package com.springbootjpa.codeGod.service.operationService;
 
+import com.springbootjpa.codeGod.entity.operation.OperationCommentEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationNewsEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -42,5 +45,43 @@ public interface OperationNewsService {
      * @return
      */
     OperationNewsEntity updateNews(Long id, String title, Long views, String content, Integer display);
+
+    /**
+     * 查询未被删除的全部新闻，分页
+     * @return
+     */
+    Page<OperationNewsEntity> findAllNews(Pageable pageable);
+
+    /**
+     * 添加评论
+     * @param newsId 关联的新闻id
+     * @param content 评论内容
+     * @param request 请求req
+     * @return
+     */
+    OperationCommentEntity addComment(Long newsId, String content, HttpServletRequest request);
+
+    /**
+     * 修改评论
+     * @param id 评论id
+     * @param content 评论内容
+     * @return
+     */
+    OperationCommentEntity updateComment(Long id, String content);
+
+    /**
+     * 删除评论，软删除，只是改变了状态
+     * @param id 评论id
+     * @return
+     */
+    OperationCommentEntity deleteComment(Long id);
+
+    /**
+     * 根据新闻id查询未被删除的所有评论；若新闻id为空，查询未被删除的全部评论
+     * @param pageable
+     * @param newsId 新闻id
+     * @return
+     */
+    Page<OperationCommentEntity> findAllComment(Pageable pageable, Long newsId);
 
 }

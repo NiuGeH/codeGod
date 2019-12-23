@@ -1,7 +1,6 @@
 package com.springbootjpa.codeGod.entity.operation;
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
-import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -33,17 +32,6 @@ public class OperationCommentEntity extends AbstractEntity implements Serializab
 	private OperationNewsEntity news;
 
 	/**
-	 * 关联的用户id
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "关联的用户id")
-//	@Column(name = "member_id", nullable = false, length = 20)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
-	@NotFound(action = NotFoundAction.IGNORE)
-	private MemberEntity member;
-
-	/**
 	 * 内容
 	 * default value: null
 	 */
@@ -58,6 +46,22 @@ public class OperationCommentEntity extends AbstractEntity implements Serializab
 	@ApiModelProperty(value = "当前状态：0正常，1删除(逻辑)")
 	@Column(name = "state", nullable = true, length = 2)
 	private Integer state;
+
+	/**
+	 * 评论人
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "评论人")
+	@Column(name = "commentator", nullable = true)
+	private String commentator;
+
+	/**
+	 * 发布时间
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "发布时间")
+	@Column(name = "publish_time", nullable = true)
+	private String publishTime;
 
 	/**
 	 * 创建时间

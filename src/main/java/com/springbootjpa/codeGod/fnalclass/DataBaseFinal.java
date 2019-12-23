@@ -10,11 +10,11 @@ public class DataBaseFinal {
 
     public static final String UPLOADFILE_FILETYPE = "upload_file.file_type";
 
-    public static final String OPERATIONCASE_DISPLAY = "operation_case.display";
+    public static final String OPERATION_CASE_DISPLAY = "operation_case.display";
 
-    public static final String OPERATIONREGION_DISPLAY = "operation_region.display";
+    public static final String OPERATION_REGION_DISPLAY = "operation_region.display";
 
-    public static final String OPERATIONTOPIC_DISPLAY = "operation_topic.display";
+    public static final String OPERATION_TOPIC_DISPLAY = "operation_topic.display";
 
     public static final String MEMBER_MEMBERTYPE = "member.member_type";
 
@@ -41,5 +41,7 @@ public class DataBaseFinal {
     public static final String PM_MODULESTECHNOLOGY_STACK="pm_modules.technology_stack";
 
     public static final String PM_TEAMSTATUS = "pm_team.status";
+
+    public static final String OPERATION_NEWS_DISPLAY = "operation_news.display";
 
 }

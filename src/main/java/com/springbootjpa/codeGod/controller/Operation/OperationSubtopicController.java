@@ -91,7 +91,7 @@ public class OperationSubtopicController extends OperationBase {
     }
 
     @PostMapping(value = "/findSubtopic", produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "子栏目分页", httpMethod = "POST", notes = "page/当前页  \n  rows/每页记录数  \n  topicId/所属栏目id")
+    @ApiOperation(value = "子栏目分页", httpMethod = "POST", notes = "page/当前页  \n  rows/每页记录数  \n  topicId/所属栏目id  \n  若所属栏目id为空查询全部子栏目")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5','topicId':'1'}", required = true, paramType = "body")
     })

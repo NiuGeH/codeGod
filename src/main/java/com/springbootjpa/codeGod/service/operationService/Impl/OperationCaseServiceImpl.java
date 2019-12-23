@@ -11,14 +11,18 @@ import com.springbootjpa.codeGod.service.operationService.OperationCaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author lixin
@@ -121,15 +125,21 @@ public class OperationCaseServiceImpl implements OperationCaseService {
      * @return
      */
     @Override
-    public Page<OperationCaseEntity> findAll() {
-        List<OperationCaseEntity> all = operationCaseRepository.findAll();
-        if(!ObjectUtils.isEmpty(all) && all.size()>0){
+    public Page<OperationCaseEntity> findAll(Pageable pageable) {
+        Specification<OperationCaseEntity> specification = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                return null;
+            }
+        };
+        Page<OperationCaseEntity> all = operationCaseRepository.findAll(specification, pageable);
+        if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
             for(OperationCaseEntity operationCaseEntity : all){
-                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationCaseEntity.getDisplay().toString(), DataBaseFinal.OPERATIONCASE_DISPLAY);
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationCaseEntity.getDisplay().toString(), DataBaseFinal.OPERATION_CASE_DISPLAY);
                 operationCaseEntity.setDisplayStr(bdd.getDataValue());
             }
         }
-        return new PageImpl<OperationCaseEntity>(all);
+        return all;
     }
 
 

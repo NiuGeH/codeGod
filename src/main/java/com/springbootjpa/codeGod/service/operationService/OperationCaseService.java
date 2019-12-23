@@ -2,6 +2,7 @@ package com.springbootjpa.codeGod.service.operationService;
 
 import com.springbootjpa.codeGod.entity.operation.OperationCaseEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @author lixin
@@ -34,5 +35,5 @@ public interface OperationCaseService {
      * 查询全部案例类型
      * @return
      */
-    Page<OperationCaseEntity> findAll();
+    Page<OperationCaseEntity> findAll(Pageable pageable);
 }

@@ -23,10 +23,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author lixin
@@ -155,10 +153,7 @@ public class OperationMedalServiceImpl implements OperationMedalService {
         Specification<OperationMedalEntity> specification = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> list = new ArrayList<>();
-                list.add(criteriaBuilder.equal(root.get("state"),String.valueOf(OperationEnum.OPERATION_STATE_ZC.getIndex())));
-                log.info("查询到勋章的数量：" + list.size());
-                return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
+                return criteriaBuilder.equal(root.get("state"),String.valueOf(OperationEnum.OPERATION_STATE_ZC.getIndex()));
             }
         };
         return operationMedalRepository.findAll(specification, pageable);

@@ -101,7 +101,7 @@ public class OperationTopicController extends OperationBase {
         return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<OperationTopicEntity>>() {
             @Override
             public Page<OperationTopicEntity> invoke(Pageable page) throws Exception {
-                Page<OperationTopicEntity> all = operationTopicService.findAll();
+                Page<OperationTopicEntity> all = operationTopicService.findAll(page);
                 return all;
             }
         });
