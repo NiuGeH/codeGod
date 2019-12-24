@@ -14,7 +14,9 @@ public enum OperationEnum {
     ,OPERATION_URL_STATE_NO("不可以",0)
     ,OPERATION_URL_STATE_YES("可以",1)
     //新闻访问量基数
-    ,OPERATION_NEWS_VIEWS("新闻访问量基数",1000);
+    ,OPERATION_NEWS_VIEWS("新闻访问量基数",1000)
+    //资源类型人数基数
+    ,OPERATION_RESOURCE_AMOUNT("资源类型人数基数",100);
 
 
     // 成员变量

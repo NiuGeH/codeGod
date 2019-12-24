@@ -37,4 +37,7 @@ public class OperationBase {
     @Autowired
     protected OperationSkillService operationSkillService;
 
+    @Autowired
+    protected OperationResourceService operationResourceService;
+
 }

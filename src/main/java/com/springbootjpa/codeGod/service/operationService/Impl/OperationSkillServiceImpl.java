@@ -22,6 +22,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author lixin
@@ -141,5 +144,21 @@ public class OperationSkillServiceImpl implements OperationSkillService {
             }
         }
         return all;
+    }
+
+    /**
+     * 查询全部技术栈id-name，供添加资源类型时调用
+     * @return
+     */
+    @Override
+    public Map<Long, String> findAll() {
+        List<OperationSkillEntity> list = operationSkillRepository.findAll();
+        Map<Long, String> map = new HashMap<>();
+        if(!ObjectUtils.isEmpty(list) && list.size()>0){
+            for(OperationSkillEntity skillEntity : list){
+                map.put(skillEntity.getId(),skillEntity.getSkillName());
+            }
+        }
+        return map;
     }
 }

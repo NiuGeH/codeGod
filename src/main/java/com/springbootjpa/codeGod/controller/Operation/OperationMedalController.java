@@ -26,8 +26,8 @@ public class OperationMedalController extends OperationBase {
     @PostMapping(value = "/addMedal", headers = "content-type=multipart/form-data")
     @ApiOperation(value = "添加勋章", httpMethod = "POST", notes = "medalName/勋章名称  \n  medalPhotoFile/上传的勋章图标文件")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "medalName", value = "勋章名称", required = true),
-            @ApiImplicitParam(name = "medalPhotoFile", paramType = "formData",value = "上传的勋章图标文件")
+            @ApiImplicitParam(name = "medalName", value = "勋章名称", dataType = "string", paramType = "query", required = true),
+            @ApiImplicitParam(name = "medalPhotoFile",value = "上传的勋章图标文件", paramType = "formData")
     })
     public AjaxResult<Object> addMedal(String medalName, @RequestParam("medalPhotoFile") MultipartFile medalPhotoFile){
         log.info("URL:/medal/addMedal 请求参数：" + medalName);
@@ -45,9 +45,9 @@ public class OperationMedalController extends OperationBase {
     @PostMapping(value = "/updateMedal", headers = "content-type=multipart/form-data")
     @ApiOperation(value = "修改勋章", httpMethod = "POST", notes = "id/勋章id  \n  newName/勋章新名称  \n  medalPhotoFile/上传的勋章图标文件")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "勋章id", required = true),
-            @ApiImplicitParam(name = "newName", value = "勋章新名称", required = true),
-            @ApiImplicitParam(name = "medalPhotoFile", paramType = "formData",value = "上传的勋章图标文件")
+            @ApiImplicitParam(name = "id", value = "勋章id", dataType = "long", paramType = "query", required = true),
+            @ApiImplicitParam(name = "newName", value = "勋章新名称", dataType = "string", paramType = "query", required = true),
+            @ApiImplicitParam(name = "medalPhotoFile",value = "上传的勋章图标文件", paramType = "formData")
     })
     public AjaxResult<Object> updateMedal(Long id, String newName, @RequestParam("medalPhotoFile") MultipartFile medalPhotoFile){
         log.info("URL:/medal/updateMedal 请求参数：修改的勋章id>>>" + id.toString() + "，勋章新名称>>>" + newName);

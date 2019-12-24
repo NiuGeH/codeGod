@@ -4,6 +4,8 @@ import com.springbootjpa.codeGod.entity.operation.OperationSkillEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Map;
+
 /**
  * @author lixin
  * @version 1.0
@@ -37,4 +39,10 @@ public interface OperationSkillService {
      * @return
      */
     Page<OperationSkillEntity> findAll(Pageable pageable);
+
+    /**
+     * 查询全部技术栈id-name，供添加资源类型时调用
+     * @return
+     */
+    Map<Long,String> findAll();
 }
