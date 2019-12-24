@@ -134,14 +134,15 @@ public class OperationNewsServiceImpl implements OperationNewsService {
     public OperationNewsEntity updateNews(Long id, String title, Long views, String content, Integer display) {
         //查询需要修改的新闻
         if(ObjectUtils.isEmpty(id)) throw new CodeGodRunTimExcetion("新闻id不能为空",this.getClass());
+        if(ObjectUtils.isEmpty(title)) throw new CodeGodRunTimExcetion("新闻标题不能为空",this.getClass());
         OperationNewsEntity newsEntity = operationNewsRepository.findByIdAndState(id, OperationEnum.OPERATION_STATE_ZC.getIndex());
         if(ObjectUtils.isEmpty(newsEntity)) throw new CodeGodRunTimExcetion("新闻id错误或者该新闻已删除",this.getClass());
         log.info("新闻修改前：" + newsEntity.toString());
 
         //修改属性
-        if (!ObjectUtils.isEmpty(title)) {
+        if (!newsEntity.getTitle().equals(title)) {
             OperationNewsEntity ne = operationNewsRepository.findByTitle(title);
-            if(id != ne.getId()) throw new CodeGodRunTimExcetion("该新闻标题已存在",this.getClass());
+            if(!ObjectUtils.isEmpty(ne)) throw new CodeGodRunTimExcetion("该新闻标题已存在",this.getClass());
             newsEntity.setTitle(title);
         }
         newsEntity.setViews(views);

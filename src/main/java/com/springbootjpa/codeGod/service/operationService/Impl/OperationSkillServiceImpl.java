@@ -98,14 +98,17 @@ public class OperationSkillServiceImpl implements OperationSkillService {
         if(ObjectUtils.isEmpty(id)){
             throw new CodeGodRunTimExcetion("技术栈id不能为空", this.getClass());
         }
+        if(ObjectUtils.isEmpty(newName)){
+            throw new CodeGodRunTimExcetion("技术栈名称不能为空", this.getClass());
+        }
         //查询需要修改的技术栈
         OperationSkillEntity skillEntity = operationSkillRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("技术栈id错误，未查到技术栈",this.getClass()));
         log.info("技术栈修改前：" + skillEntity.toString());
 
         //修改
-        if (!ObjectUtils.isEmpty(newName)) {
+        if (!skillEntity.getSkillName().equals(newName)) {
             OperationSkillEntity se = operationSkillRepository.findBySkillName(newName);
-            if(id != se.getId()) throw new CodeGodRunTimExcetion("该技术栈名称已存在",this.getClass());
+            if(!ObjectUtils.isEmpty(se)) throw new CodeGodRunTimExcetion("该技术栈名称已存在",this.getClass());
             skillEntity.setSkillName(newName);
         }
         if (!ObjectUtils.isEmpty(order)) {

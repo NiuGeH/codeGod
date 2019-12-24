@@ -10,8 +10,8 @@ import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 资源类型列表
@@ -58,12 +58,20 @@ public class OperationResourceEntity extends AbstractEntity implements Serializa
 	private Long resourceOrder;
 
 	/**
+	 * 技术栈名称
+	 */
+	@Transient
+	private List<String> skillNames;
+
+	/**
 	 * 是否显示：0显示，1不显示
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "是否显示：0显示，1不显示")
 	@Column(name = "display", nullable = true, length = 2)
 	private Integer display;
+	@Transient
+	private String displayStr;
 
 	/**
 	 * 创建时间

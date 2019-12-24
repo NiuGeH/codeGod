@@ -95,14 +95,17 @@ public class OperationRegionServiceImpl implements OperationRegionService {
         if(ObjectUtils.isEmpty(id)){
             throw new CodeGodRunTimExcetion("城市id不能为空", this.getClass());
         }
+        if(ObjectUtils.isEmpty(newName)){
+            throw new CodeGodRunTimExcetion("城市名称不能为空", this.getClass());
+        }
         //查询需要修改的城市
         OperationRegionEntity city = operationRegionRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("城市id错误，未查到匹配栏目",this.getClass()));
         log.info("城市修改前：" + city.toString());
 
         //修改该城市属性
-        if (!ObjectUtils.isEmpty(newName)) {
+        if (!city.getCityName().equals(newName)) {
             OperationRegionEntity re = operationRegionRepository.findByCityName(newName);
-            if(id != re.getId()) throw new CodeGodRunTimExcetion("该城市已存在",this.getClass());
+            if(!ObjectUtils.isEmpty(re)) throw new CodeGodRunTimExcetion("该城市名称已存在",this.getClass());
             city.setCityName(newName);
         }
         if (!ObjectUtils.isEmpty(order)) {

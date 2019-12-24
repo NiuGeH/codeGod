@@ -106,6 +106,9 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
         if(ObjectUtils.isEmpty(id)){
             throw new CodeGodRunTimExcetion("子栏目id不能为空", this.getClass());
         }
+        if(ObjectUtils.isEmpty(newName)){
+            throw new CodeGodRunTimExcetion("子栏目名称不能为空", this.getClass());
+        }
         if(ObjectUtils.isEmpty(topicId)){
             throw new CodeGodRunTimExcetion("所属栏目id不能为空", this.getClass());
         }
@@ -114,9 +117,9 @@ public class OperationSubtopicServiceImpl implements OperationSubtopicService {
         log.info("子栏目修改前：" + subtopic.toString());
 
         //修改子栏目属性
-        if (!ObjectUtils.isEmpty(newName)) {
+        if (!subtopic.getSubtopicName().equals(newName)) {
             OperationSubtopicEntity se = operationSubtopicRepository.findBySubtopicNameAndTopicId(newName,topicId);
-            if(id != se.getId()) throw new CodeGodRunTimExcetion("所属栏目中该子栏目已存在",this.getClass());
+            if(!ObjectUtils.isEmpty(se)) throw new CodeGodRunTimExcetion("所属栏目中该子栏目已存在",this.getClass());
             subtopic.setSubtopicName(newName);
         }
         if (!ObjectUtils.isEmpty(order)) {

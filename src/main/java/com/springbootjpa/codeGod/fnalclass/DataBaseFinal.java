@@ -46,4 +46,6 @@ public class DataBaseFinal {
 
     public static final String OPERATION_SKILL_DISPLAY = "operation_skill.display";
 
+    public static final String OPERATION_RESOURCE_DISPLAY = "operation_resource.display";
+
 }
