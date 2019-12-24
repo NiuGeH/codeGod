@@ -73,10 +73,15 @@ public class OperationNewsServiceImpl implements OperationNewsService {
         }
         //添加
         OperationNewsEntity newsEntity = new OperationNewsEntity();
+        //新闻标题
         newsEntity.setTitle(title);
+        //发布人
         newsEntity.setPublisher(request.getSession().getAttribute("user").toString());
+        //内容
         newsEntity.setContent(content);
+        //状态
         newsEntity.setState(OperationEnum.OPERATION_STATE_ZC.getIndex());
+        //发布时间
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy.MM.dd");
         if(ObjectUtils.isEmpty(time)){
@@ -84,16 +89,15 @@ public class OperationNewsServiceImpl implements OperationNewsService {
         }else {
             newsEntity.setPublishTime(sdf2.format(sdf1.parse(time)));
         }
-        if(ObjectUtils.isEmpty(views)){
-            newsEntity.setViews((long)OperationEnum.OPERATION_NEWS_VIEWS.getIndex());
-        }else {
-            newsEntity.setViews(views);
-        }
+        //访问量
+        newsEntity.setViews(views);
+        //是否显示
         if(ObjectUtils.isEmpty(display)){
             newsEntity.setDisplay(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
         }else {
             newsEntity.setDisplay(display);
         }
+        //创建时间
         newsEntity.setCreateTime(Calendar.getInstance().getTime());
 
         //保存

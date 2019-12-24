@@ -12,11 +12,7 @@ public enum OperationEnum {
     ,OPERATION_DISPLAY_NO("否",1)
     //子栏目是否可以跳转url
     ,OPERATION_URL_STATE_NO("不可以",0)
-    ,OPERATION_URL_STATE_YES("可以",1)
-    //新闻访问量基数
-    ,OPERATION_NEWS_VIEWS("新闻访问量基数",1000)
-    //资源类型人数基数
-    ,OPERATION_RESOURCE_AMOUNT("资源类型人数基数",100);
+    ,OPERATION_URL_STATE_YES("可以",1);
 
 
     // 成员变量

@@ -40,4 +40,7 @@ public class OperationBase {
     @Autowired
     protected OperationResourceService operationResourceService;
 
+    @Autowired
+    protected OperationCodeGodDataService operationCodeGodDataService;
+
 }

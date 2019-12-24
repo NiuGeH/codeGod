@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lixin
@@ -116,7 +115,13 @@ public class OperationTopicController extends OperationBase {
 
     @PostMapping(value = "/findTopic", produces = "application/json;charset=UTF-8")
     @ApiOperation(value = "查询全部栏目名称和id", httpMethod = "POST", notes = "供添加子栏目时调用")
-    public Map<Long,String> findTopic() {
-        return operationTopicService.findAll();
+    public AjaxResult<Object> findTopic() {
+        return AjaxUtils.process(new Func_T<Object>() {
+
+            @Override
+            public Object invoke() throws Exception {
+                return operationTopicService.findAll();
+            }
+        });
     }
 }

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 码神资料列表
@@ -50,4 +51,21 @@ public class OperationCodeGodDataEntity extends AbstractEntity implements Serial
 	@ApiModelProperty(value = "全国服务团队数量")
 	@Column(name = "amount_team", nullable = true, length = 20)
 	private Long amountTeam;
+
+	/**
+	 * 创建时间
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "创建时间")
+	@Column(name = "create_time", nullable = true)
+	private Date createTime;
+
+
+	/**
+	 * 更新时间
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "更新时间")
+	@Column(name = "modify_time", nullable = true)
+	private Date modifyTime;
 }

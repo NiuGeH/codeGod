@@ -91,11 +91,7 @@ public class OperationResourceServiceImpl implements OperationResourceService {
             resourceEntity.setResourcePhoto(uploadFile);
         }
         //人数
-        if(ObjectUtils.isEmpty(amount)){
-            resourceEntity.setAmount((long)OperationEnum.OPERATION_RESOURCE_AMOUNT.getIndex());
-        }else {
-            resourceEntity.setAmount(amount);
-        }
+        resourceEntity.setAmount(amount);
         //排序
         if(ObjectUtils.isEmpty(order)){
             resourceEntity.setResourceOrder(operationResourceRepository.findMaxResourceOrder()+1);

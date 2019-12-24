@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lixin
@@ -116,7 +115,13 @@ public class OperationSkillController extends OperationBase {
 
     @PostMapping(value = "/findSkill", produces = "application/json;charset=UTF-8")
     @ApiOperation(value = "查询全部技术栈id和名称", httpMethod = "POST", notes = "供添加资源类型时调用")
-    public Map<Long,String> findSkill() {
-        return operationTopicService.findAll();
+    public AjaxResult<Object> findSkill() {
+        return AjaxUtils.process(new Func_T<Object>() {
+
+            @Override
+            public Object invoke() throws Exception {
+                return operationSkillService.findAll();
+            }
+        });
     }
 }
