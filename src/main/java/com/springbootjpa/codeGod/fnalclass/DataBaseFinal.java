@@ -50,4 +50,6 @@ public class DataBaseFinal {
 
     public static final String OPERATION_COMPANY_DISPLAY = "operation_company.company_display";
 
+    public static final String OPERATION_PERSONAL_MENU_DISPLAY = "operation_personal_menu.display";
+
 }

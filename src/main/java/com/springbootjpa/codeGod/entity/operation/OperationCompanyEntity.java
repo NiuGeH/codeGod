@@ -69,6 +69,16 @@ public class OperationCompanyEntity extends AbstractEntity implements Serializab
 	@Column(name = "account_number", nullable = true, length = 100)
 	private String accountNumber;
 
+    /**
+     * 是否显示：0显示，1不显示
+     * default value: null
+     */
+    @ApiModelProperty(value = "是否显示：0显示，1不显示")
+    @Column(name = "company_display", nullable = true, length = 11)
+    private Integer companyDisplay;
+    @Transient
+    private String companyDisplayStr;
+
 	/**
 	 * 创建时间
 	 * default value: null
@@ -84,15 +94,5 @@ public class OperationCompanyEntity extends AbstractEntity implements Serializab
 	@ApiModelProperty(value = "更新时间")
 	@Column(name = "modify_time", nullable = true)
 	private Date modifyTime;
-
-	/**
-	 * 是否显示：0显示，1不显示
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "是否显示：0显示，1不显示")
-	@Column(name = "company_display", nullable = true, length = 11)
-	private Integer companyDisplay;
-	@Transient
-	private String companyDisplayStr;
 
 }

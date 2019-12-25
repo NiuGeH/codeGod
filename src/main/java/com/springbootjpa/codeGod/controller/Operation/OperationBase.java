@@ -46,4 +46,7 @@ public class OperationBase {
     @Autowired
     protected OperationCompanyService operationCompanyService;
 
+    @Autowired
+    protected OperationPersonalMenuService operationPersonalMenuService;
+
 }

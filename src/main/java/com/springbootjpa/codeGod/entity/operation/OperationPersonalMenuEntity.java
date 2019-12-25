@@ -41,6 +41,16 @@ public class OperationPersonalMenuEntity extends AbstractEntity implements Seria
 	private UploadFile menuPhoto;
 
 	/**
+	 * 是否显示：0是，1否
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "是否显示：0是，1否")
+	@Column(name = "display", nullable = true, length = 11)
+	private Integer display;
+	@Transient
+	private String displayStr;
+
+	/**
 	 * 创建时间
 	 * default value: null
 	 */
