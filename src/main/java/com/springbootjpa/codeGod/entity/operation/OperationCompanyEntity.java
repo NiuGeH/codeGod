@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -91,5 +92,7 @@ public class OperationCompanyEntity extends AbstractEntity implements Serializab
 	@ApiModelProperty(value = "是否显示：0显示，1不显示")
 	@Column(name = "company_display", nullable = true, length = 11)
 	private Integer companyDisplay;
+	@Transient
+	private String companyDisplayStr;
 
 }

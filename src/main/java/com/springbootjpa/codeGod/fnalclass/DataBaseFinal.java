@@ -48,4 +48,6 @@ public class DataBaseFinal {
 
     public static final String OPERATION_RESOURCE_DISPLAY = "operation_resource.display";
 
+    public static final String OPERATION_COMPANY_DISPLAY = "operation_company.company_display";
+
 }
