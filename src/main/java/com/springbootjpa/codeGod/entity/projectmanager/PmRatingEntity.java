@@ -1,6 +1,7 @@
 package com.springbootjpa.codeGod.entity.projectmanager;
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
+import com.springbootjpa.codeGod.entity.UploadFile;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.swing.*;
@@ -46,13 +48,27 @@ public class PmRatingEntity extends AbstractEntity implements Serializable {
 	@Column(name = "shows", nullable = true, length = 11)
 	private Integer shows;
 
+
+	/**
+	 * 展示图片
+	 */
+	@ApiModelProperty(value = "展示图片")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "photos")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile photos;
+
+
 	/**
 	 * 成果展示
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "成果展示")
-	@Column(name = "performance_id", nullable = true, length = 11)
-	private Integer performanceId;
+	@Column(name = "performance", nullable = true, length = 255)
+	private String performance;
+	@ApiModelProperty(value = "个人资料uploadFile 集合")
+	@Transient
+	private List<UploadFile> performanceList ;
 
 	/**
 	 * 项目ID

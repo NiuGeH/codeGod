@@ -11,6 +11,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -108,6 +109,9 @@ public class PmTeamEntity extends AbstractEntity implements Serializable {
     @ApiModelProperty(value = "结算方式")
     @Column(name = "clearing_form", nullable = true, length = 11)
     private Integer clearingForm;
+    @Transient
+    private String clearingFormString;
+
 
     /**
      * 驻场要求
@@ -116,15 +120,17 @@ public class PmTeamEntity extends AbstractEntity implements Serializable {
     @ApiModelProperty(value = "驻场要求")
     @Column(name = "site_requirements", nullable = true, length = 11)
     private Integer siteRequirements;
+    @Transient
+    private String siteRequirementsString;
 
-    /**
-     * 模块ID
-     * default value: null
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "module_id")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private PmModulesEntity pmModulesEntity;
+//    /**
+//     * 模块ID
+//     * default value: null
+//     */
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "module_id")
+//    @NotFound(action = NotFoundAction.IGNORE)
+//    private List<PmModulesEntity> pmModulesEntity;
 
     /**
      * 项目贡献度

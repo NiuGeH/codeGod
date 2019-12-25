@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 
+/**
+ * 合同
+ */
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PmContractServiceIml implements PmContractService {

@@ -11,6 +11,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -53,8 +54,19 @@ public class PmIterationEntity extends AbstractEntity implements Serializable {
 	 */
 //	@ApiModelProperty(value = "模块ID")
 //	@Column(name = "module_id", nullable = true, length = 20)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "module_id")
 	@NotFound(action = NotFoundAction.IGNORE)
-	private PmModulesEntity pmModulesEntity;
+	private List<PmModulesEntity> pmModulesEntity;
+
+	/**
+	 * 项目ID
+	 * default value: null
+	 */
+//	@ApiModelProperty(value = "模块ID")
+//	@Column(name = "module_id", nullable = true, length = 20)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private PmProjectEntity pmProjectEntity;
 }

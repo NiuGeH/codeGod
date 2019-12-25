@@ -25,6 +25,9 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 产品经理报名
+ */
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PmApplicationIml implements PmApplicationService {

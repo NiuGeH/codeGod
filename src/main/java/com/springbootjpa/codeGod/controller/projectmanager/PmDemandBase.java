@@ -24,12 +24,18 @@ public class PmDemandBase {
     protected BaseDataDirctionaryService baseDataDirctionaryService;
     @Autowired
     protected PmRecruitmentService pmRecruitmentService;
-
     @Autowired
-    protected  PmModulesService pmModulesService;
-
-
+    protected PmModulesService pmModulesService;
     @Autowired
     protected PmTeamService pmTeamService;
-
+    @Autowired
+    protected PmSalaryService pmSalaryService;
+    @Autowired
+    protected PmEvaluateService pmEvaluateService;
+    @Autowired
+    protected PmRepairOrderService pmRepairOrderService;
+    @Autowired
+    protected PmIterationService pmIterationService;
+    @Autowired
+    protected PmRatingService pmRatingService;
 }

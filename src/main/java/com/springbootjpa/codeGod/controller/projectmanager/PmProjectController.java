@@ -1,9 +1,12 @@
 package com.springbootjpa.codeGod.controller.projectmanager;
+
+import afu.org.checkerframework.checker.oigj.qual.O;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
 import com.springbootjpa.codeGod.entity.projectmanager.*;
 import com.springbootjpa.codeGod.eunm.ProjectStatus;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -16,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.HashMap;
 
 @Api(description = "项目管理Controller")
@@ -30,8 +34,7 @@ public class PmProjectController extends PmDemandBase {
     @ResponseBody
     @ApiOperation(value = "项目管理分页", httpMethod = "POST", notes = "项目分页全查询接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5','projectStatus':'0'}" +
-                    "\n0Gj755mNLsrxeUhCgPQWXjnLLz29mLKqw++5mAdbk8k="
+            @ApiImplicitParam(name = "json", value = "{'page':'1','rows':'5','projectStatus':'0'}"
                     , required = true, paramType = "body")
     })
     public PageResult<PmProjectEntity> doPage(@RequestBody String json) throws CodeGodException {
@@ -58,13 +61,11 @@ public class PmProjectController extends PmDemandBase {
         });
     }
 
-
     @PostMapping(value = "/findOneProjectById", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "项目数据回显", httpMethod = "POST", notes = "项目数据回显接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "json", value = "{'id':'1'}" +
-                    "\n0Gj755mNLsrxeUhCgPQWXjnLLz29mLKqw++5mAdbk8k="
+            @ApiImplicitParam(name = "json", value = "{'id（项目ID）':'1'}"
                     , required = true, paramType = "body")
     })
     public AjaxResult<Object> findOneProjectById(@RequestBody String json) {
@@ -85,8 +86,7 @@ public class PmProjectController extends PmDemandBase {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "json", value = "{'id':1,'productManagerId':41,'demandId':1,'projectName':'会员系统','projectBudget':1000.0,'projectType':1,'projectPeriod':'30天'," +
                     "'projectDelivery_time':'2019-12-01','projectAdderss':'重庆','projectDevelopmentModel':1,'projectRemark':'很简单的','projectKeyword':'牛逼，贼牛逼，老牛逼了'," +
-                    "'projectIntroduce':'这是个贼牛逼的项目','projectDesignDocumentId':'','privateProject':0,'projectPassword':''}" +
-                    "\n0Gj755mNLsrxeUhCgPQWXjnLLz29mLKqw++5mAdbk8k="
+                    "'projectIntroduce':'这是个贼牛逼的项目','projectDesignDocumentId':'','privateProject':0,'projectPassword':''}"
                     , required = true, paramType = "body")
     })
     public AjaxResult<Object> updateProjectById(@RequestBody String json, @RequestParam("requirementDocument") MultipartFile[] requirementDocument) {
@@ -95,7 +95,7 @@ public class PmProjectController extends PmDemandBase {
             public Object invoke() throws Exception {
                 logger.info("url:/PmProjectController/updateProjectById 请求参数" + json);
                 PmProjectEntity pmProjectEntity = gson.fromJson(json, PmProjectEntity.class);
-                boolean flag = pmProjectService.saveProject(pmProjectEntity,requirementDocument);
+                boolean flag = pmProjectService.saveProject(pmProjectEntity, requirementDocument);
                 if (flag) {
                     return "success";
                 }
@@ -114,14 +114,14 @@ public class PmProjectController extends PmDemandBase {
                     "'paymentMethod':'10%20%20%10%10%','explains':'重庆','contractDocument_id':1}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> addContract(@RequestBody String json,@RequestParam("contractDocument") MultipartFile contractDocument) {
+    public AjaxResult<Object> addContract(@RequestBody String json, @RequestParam("contractDocument") MultipartFile contractDocument) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
                 logger.info("url:/PmProjectController/addContract 请求参数" + json);
                 PmContractEntity pmContractEntity = gson.fromJson(json, PmContractEntity.class);
-                HashMap<String,String> map = gson.fromJson(json, HashMap.class);
-                boolean save = pmContractService.save(pmContractEntity,Long.valueOf(map.get("projectId")), ProjectStatus.筹备中.getIndex(),contractDocument);
+                HashMap<String, String> map = gson.fromJson(json, HashMap.class);
+                boolean save = pmContractService.save(pmContractEntity, Long.valueOf(map.get("projectId")), ProjectStatus.筹备中.getIndex(), contractDocument);
                 if (save) {
                     return "SUCCESS";
                 }
@@ -168,15 +168,15 @@ public class PmProjectController extends PmDemandBase {
                     , required = true, paramType = "body")
     })
     public AjaxResult<HashMap<String, Object>> addRecruitment(@RequestBody String json) {
-        return AjaxUtils.process(new Func_T<HashMap<String,  Object>>() {
+        return AjaxUtils.process(new Func_T<HashMap<String, Object>>() {
             @Override
-            public HashMap<String,  Object> invoke() throws Exception {
+            public HashMap<String, Object> invoke() throws Exception {
                 logger.info("url:/PmProjectController/addRecruitment 请求参数" + json);
-                HashMap<String,Object> map = new HashMap<String, Object>();
-                map.put("duty",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_RECRUITMENTRECRUITMENT_DUTY));
-                map.put("rule",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGPOST));
-                map.put("stationing",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_CONTRACTCONTRACT_COURT));
-                map.put("display",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.OPERATION_TOPIC_DISPLAY));
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                map.put("duty", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_RECRUITMENTRECRUITMENT_DUTY));
+                map.put("rule", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_MEMBERSIGNINGPOST));
+                map.put("stationing", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBER_CONTRACTCONTRACT_COURT));
+                map.put("display", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.OPERATION_CASEDISPLAY));
                 return map;
             }
         });
@@ -189,14 +189,14 @@ public class PmProjectController extends PmDemandBase {
             @ApiImplicitParam(name = "json", value = "{'id':'1'}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> submitRecruitment(@RequestBody String json){
+    public AjaxResult<Object> submitRecruitment(@RequestBody String json) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                logger.info("URL:/PmProjectController/submitRecruitment 请求参数"+json);
-                PmRecruitmentEntity pmRecruitmentEntity = gson.fromJson(json,PmRecruitmentEntity.class);
+                logger.info("URL:/PmProjectController/submitRecruitment 请求参数" + json);
+                PmRecruitmentEntity pmRecruitmentEntity = gson.fromJson(json, PmRecruitmentEntity.class);
                 boolean b = pmRecruitmentService.saveRecruitment(pmRecruitmentEntity);
-                if(b){
+                if (b) {
                     return "SUCCESS";
                 }
                 return "ERROR";
@@ -215,16 +215,12 @@ public class PmProjectController extends PmDemandBase {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                logger.info("URL:/PmProjectController/updateRecruitment 请求参数"+json);
-                HashMap<String,String> param = gson.fromJson(json,HashMap.class);
+                logger.info("URL:/PmProjectController/updateRecruitment 请求参数" + json);
+                HashMap<String, String> param = gson.fromJson(json, HashMap.class);
                 return pmRecruitmentService.findOne(Long.valueOf(param.get("id")));
             }
         });
     }
-
-
-
-
 
 
     @PostMapping(value = "/findAllModules", produces = "application/json;charset=UTF-8")
@@ -247,11 +243,14 @@ public class PmProjectController extends PmDemandBase {
         return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<PmModulesEntity>>() {
             @Override
             public Page<PmModulesEntity> invoke(Pageable var1) throws Exception {
-                Page<PmModulesEntity> pmModulesEntities = pmModulesService.doPage(var1, Long.valueOf(map.get("projectId")));
+                PmModulesEntity pmModulesEntity = new PmModulesEntity();
+                pmModulesEntity.setProjectId(Long.valueOf(map.get("projectId")));
+                Page<PmModulesEntity> pmModulesEntities = pmModulesService.doPage(var1, pmModulesEntity);
                 return pmModulesEntities;
             }
         });
     }
+
     @PostMapping(value = "/saveModules", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "保存模块信息", httpMethod = "POST", notes = "保存模块信息接口")
@@ -259,20 +258,21 @@ public class PmProjectController extends PmDemandBase {
             @ApiImplicitParam(name = "json", value = "{'id':'1'}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> saveModule(@RequestBody String json){
+    public AjaxResult<Object> saveModule(@RequestBody String json) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
                 logger.info("url:/PmProjectController/saveModules 请求参数" + json);
-                PmModulesEntity pmModulesEntity = gson.fromJson(json,PmModulesEntity.class);
+                PmModulesEntity pmModulesEntity = gson.fromJson(json, PmModulesEntity.class);
                 boolean flag = pmModulesService.saveModelus(pmModulesEntity);
-                if(flag){
+                if (flag) {
                     return "SUCCESS";
                 }
                 return "ERROR";
             }
         });
     }
+
     @PostMapping(value = "/addModules", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "添加模块信息", httpMethod = "POST", notes = "添加模块信息接口")
@@ -280,15 +280,15 @@ public class PmProjectController extends PmDemandBase {
             @ApiImplicitParam(name = "json", value = "{'id':'1'}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<HashMap<String,Object>> addModules(@RequestBody String json){
+    public AjaxResult<HashMap<String, Object>> addModules(@RequestBody String json) {
         return AjaxUtils.process(new Func_T<HashMap<String, Object>>() {
             @Override
             public HashMap<String, Object> invoke() throws Exception {
                 logger.info("url:/PmProjectController/addModules 请求参数" + json);
-                HashMap<String,Object> map = new HashMap<>();
-                map.put("moduleType ",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_MODULESMODULE_TYPE));
-                map.put("technologyStack",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_MODULESTECHNOLOGY_STACK));
-                map.put("duty",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_RECRUITMENTRECRUITMENT_DUTY));
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("moduleType ", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_MODULESMODULE_TYPE));
+                map.put("technologyStack", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_MODULESTECHNOLOGY_STACK));
+                map.put("duty", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PM_RECRUITMENTRECRUITMENT_DUTY));
                 return map;
             }
         });
@@ -301,16 +301,189 @@ public class PmProjectController extends PmDemandBase {
             @ApiImplicitParam(name = "json", value = "{'id':'1'}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> updateModules(@RequestBody String json){
+    public AjaxResult<Object> updateModules(@RequestBody String json) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                HashMap<String,String> map = gson.fromJson(json,HashMap.class);
+                HashMap<String, String> map = gson.fromJson(json, HashMap.class);
                 return pmModulesService.findOne(Long.valueOf(map.get("id")));
             }
         });
     }
 
+    @PostMapping(value = "/updateModulesSchedule", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "更新模块进度信息", httpMethod = "POST", notes = "更新模块进度接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{'模块ID','是否完成','当前进度','开发描述','外显设置'}"
+                    , required = true, paramType = "body")
+    })
+    public AjaxResult<Object> updateSchedule(@RequestBody String json) {
+        HashMap<String, String> map = gson.fromJson(json, HashMap.class);
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                boolean b = pmModulesService.updateModulesSchedule(map);
+                if (b) {
+                    return "SUCCESS";
+                }
+                return "ERROR";
+            }
+        });
+    }
+
+
+    @PostMapping(value = "/findAllIteration", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "模块迭代信息", httpMethod = "POST", notes = "模块迭代信息接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{'项目ID':'1','模块ID':}"
+                    , required = true, paramType = "body")
+    })
+    public PageResult<PmIterationEntity> doPageIteration(@RequestBody String json) throws CodeGodException {
+        logger.info("url:/PmProjectController/findAllIteration 请求参数" + json);
+        HashMap<String, String> map = gson.fromJson(json, HashMap.class);
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        PageRequestParam pages = null;
+        try {
+            pages = gson.fromJson(json, PageRequestParam.class);
+        } catch (Exception e) {
+            throw new CodeGodException("Gson格式转换错误，请求参数为：" + json, this.getClass());
+        }
+        return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<PmIterationEntity>>() {
+            @Override
+            public Page<PmIterationEntity> invoke(Pageable var1) throws Exception {
+                return pmIterationService.doPage(var1, Long.valueOf(map.get("projectId")));
+            }
+        });
+    }
+
+
+
+    @PostMapping(value = "/addIteration", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "添加模块迭代信息", httpMethod = "POST", notes = "添加模块迭代信息接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{'项目ID':'1','模块ID':}"
+                    , required = true, paramType = "body")
+    })
+    public AjaxResult<Object> addIteration(@RequestBody String json) {
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                try {
+                    HashMap<String,String> map = gson.fromJson(json,HashMap.class);
+                    boolean b = pmIterationService.saveIteration(map);
+                    if(b){
+                        return "SUCCESS";
+                    }
+                    return "ERROR";
+                }catch (Exception e){
+                    throw new CodeGodException("Gson格式转换错误，请求参数为：" + json, this.getClass());
+                }
+            }
+        });
+    }
+    @PostMapping(value = "/compileIteration", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "编辑模块迭代信息", httpMethod = "POST", notes = "编辑模块迭代信息接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{'项目ID':'1','模块ID':}"
+                    , required = true, paramType = "body")
+    })
+    public AjaxResult<Object> compileIteration(@RequestBody String json) {
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                HashMap<String,String> map = gson.fromJson(json,HashMap.class);
+                return pmIterationService.findOneById(Long.valueOf(map.get("id")));
+            }
+        });
+    }
+
+    @PostMapping(value = "/deleteIteration", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "删除模块迭代信息", httpMethod = "POST", notes = "删除模块迭代信息接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{''}"
+                    , required = true, paramType = "body")
+    })
+    public AjaxResult<Object> deleteIteration(@RequestBody String json) {
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                HashMap<String,String> map = gson.fromJson(json,HashMap.class);
+                pmIterationService.delete(Long.valueOf(map.get("id")));
+                return "SUCCESS";
+            }
+        });
+    }
+
+
+    @PostMapping(value = "/doPageRepairOrder", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "工单管理", httpMethod = "POST", notes = "工单管理接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{'page':'1','rows':}"
+                    , required = true, paramType = "body")
+    })
+    public PageResult<PmRepairOrderEntity> doPageRepairOrder(@RequestBody String json) throws CodeGodException {
+        logger.info("url:/PmProjectController/doPageRepairOrder 请求参数" + json);
+        HashMap<String, String> map = gson.fromJson(json, HashMap.class);
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        PageRequestParam pages = null;
+        try {
+            pages = gson.fromJson(json, PageRequestParam.class);
+        } catch (Exception e) {
+            throw new CodeGodException("Gson格式转换错误，请求参数为：" + json, this.getClass());
+        }
+        return AjaxUtils.process(pages, sort, new Func_T1<Pageable, Page<PmRepairOrderEntity>>() {
+            @Override
+            public Page<PmRepairOrderEntity> invoke(Pageable var1) throws Exception {
+                return pmRepairOrderService.doPage(var1, Long.valueOf(map.get("projectId")));
+            }
+        });
+    }
+    @PostMapping(value = "/examineRepairOrder", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "查看工单详细信息", httpMethod = "POST", notes = "查看工单详细信息接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{'工单ID':'1'}"
+                    , required = true, paramType = "body")
+    })
+    public AjaxResult<Object> examineRepairOrder(@RequestBody String json) {
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                HashMap<String, Object> map = gson.fromJson(json, HashMap.class);
+                return pmRepairOrderService.findRepairOrder(Long.valueOf(map.get("id").toString()));
+            }
+        });
+    }
+
+
+    @PostMapping(value = "/addProjectEvaluation", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @ApiOperation(value = "添加项目评价", httpMethod = "POST", notes = "添加项目评价接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json", value = "{'工单ID':'1'}"
+                    , required = true, paramType = "body")
+    })
+    public AjaxResult<Object>  addProjectEvaluation(@RequestBody String json,@RequestParam("performance") MultipartFile[] performance,@RequestParam("photos") MultipartFile photos){
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                logger.info("url:/PmProjectController/addProjectEvaluation 请求参数" + json);
+                HashMap<String,String> map = gson.fromJson(json,HashMap.class);
+                boolean b = pmRatingService.saveRating(performance, photos, map);
+                if(b){
+                    return "SUCCESS";
+                }
+                return "ERROR";
+            }
+        });
+
+    }
 
 
 

@@ -1,31 +1,24 @@
 package com.springbootjpa.codeGod.service.projectmanager.Impl;
 
-import com.alibaba.druid.util.StringUtils;
-import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
-import com.springbootjpa.codeGod.entity.projectmanager.PmProjectEntity;
 import com.springbootjpa.codeGod.entity.projectmanager.PmRecruitmentEntity;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
 import com.springbootjpa.codeGod.repository.projectmanager.PmRecruitmententityRepository;
-import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
 import com.springbootjpa.codeGod.service.projectmanager.PmRecruitmentService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 招聘
+ */
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PmRecruitmentServiceIml implements PmRecruitmentService {

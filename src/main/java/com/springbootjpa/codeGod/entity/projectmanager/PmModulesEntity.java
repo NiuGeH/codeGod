@@ -50,7 +50,8 @@ public class PmModulesEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "模块分类（招聘的岗位）")
 	@Column(name = "recruitmen_id", nullable = true, length = 11)
 	private Integer recruitmenId;
-
+	@Transient
+	private String recruitmenString;
 	/**
 	 * 技术栈
 	 * default value: null
@@ -128,4 +129,18 @@ public class PmModulesEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "project_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PmProjectEntity pmProjectEntity;
+	@Transient
+	private Long projectId;
+
+	/**
+	 * 团队人ID
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "team_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private PmTeamEntity pmTeamEntity;
+	@Transient
+	private Long teamId;
+
+
 }

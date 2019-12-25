@@ -12,5 +12,12 @@ public interface PmTeamService {
     Page<PmTeamEntity> doPage(Pageable pageable,Long projectId);
 
 
-    HashMap<String,Object> DataRendering(Long memberId,String dutyName);
+    HashMap<String,Object> DataRendering(Long memberId,String dutyName,Long projectId);
+
+
+    boolean saveTeam(PmTeamEntity pmTeamEntity);
+
+
+    PmTeamEntity findOne(Long teamId);
+
 }

@@ -42,10 +42,13 @@ public class DataBaseFinal {
 
     public static final String PM_TEAMSTATUS = "pm_team.status";
 
+    public static final String PM_TEAMCLEARING_FORM = "pm_team.clearing_form";
+
     public static final String OPERATION_NEWS_DISPLAY = "operation_news.display";
 
     public static final String OPERATION_SKILL_DISPLAY = "operation_skill.display";
 
+    public static final String OPERATION_CASEDISPLAY = "operation_case.display";
     public static final String OPERATION_RESOURCE_DISPLAY = "operation_resource.display";
 
     public static final String OPERATION_COMPANY_DISPLAY = "operation_company.company_display";

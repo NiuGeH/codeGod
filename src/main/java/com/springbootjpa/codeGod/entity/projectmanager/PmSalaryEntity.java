@@ -103,6 +103,24 @@ public class PmSalaryEntity extends AbstractEntity implements Serializable {
 	private Integer certificate;
 
 	/**
+	 * 支付状态
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "支付状态")
+	@Column(name = "status", nullable = true, length = 11)
+	private Integer status;
+	/**
+	 * 支付状态
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "是否删除")
+	@Column(name = "salary_status", nullable = true, length = 11)
+	private Integer salaryStatus;
+
+
+
+
+	/**
 	 * 人员ID
 	 * default value: null
 	 */
@@ -110,4 +128,7 @@ public class PmSalaryEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "team_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PmTeamEntity pmTeamEntity;
+	@Transient
+	private Long teamId;
+
 }
