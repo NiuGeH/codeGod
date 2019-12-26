@@ -49,4 +49,7 @@ public class OperationBase {
     @Autowired
     protected OperationPersonalMenuService operationPersonalMenuService;
 
+    @Autowired
+    protected OperationTeamService operationTeamService;
+
 }

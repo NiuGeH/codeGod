@@ -25,7 +25,7 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "团队名称")
-	@Column(name = "team_name", nullable = true, length = 100)
+	@Column(name = "team_name", nullable = true, length = 255)
 	private String teamName;
 
 	/**
@@ -44,7 +44,7 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "团队电话")
-	@Column(name = "team_phone", nullable = true, length = 20)
+	@Column(name = "team_phone", nullable = true, length = 255)
 	private String teamPhone;
 
 	/**
@@ -52,7 +52,7 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "团队邮箱")
-	@Column(name = "team_email", nullable = true, length = 20)
+	@Column(name = "team_email", nullable = true, length = 255)
 	private String teamEmail;
 
 	/**
@@ -60,7 +60,7 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "团队地址")
-	@Column(name = "team_address", nullable = true, length = 100)
+	@Column(name = "team_address", nullable = true, length = 255)
 	private String teamAddress;
 
 	/**
@@ -68,7 +68,7 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "经度")
-	@Column(name = "longitude", nullable = true, length = 20)
+	@Column(name = "longitude", nullable = true, length = 255)
 	private String longitude;
 
 	/**
@@ -76,7 +76,7 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "纬度")
-	@Column(name = "latitude", nullable = true, length = 20)
+	@Column(name = "latitude", nullable = true, length = 255)
 	private String latitude;
 
 	/**
@@ -86,6 +86,8 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	@ApiModelProperty(value = "当前状态：0启用，1冻结")
 	@Column(name = "state", nullable = true, length = 2)
 	private Integer state;
+	@Transient
+	private String stateStr;
 
 	/**
 	 * 备注或口号

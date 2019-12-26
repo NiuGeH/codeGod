@@ -21,8 +21,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @author lixin
@@ -126,7 +125,7 @@ public class OperationRegionServiceImpl implements OperationRegionService {
     }
 
     /**
-     * 查询全部城市
+     * 查询全部城市分页
      * @return
      */
     @Override
@@ -146,5 +145,21 @@ public class OperationRegionServiceImpl implements OperationRegionService {
             }
         }
         return all;
+    }
+
+    /**
+     * 查询全部城市id和名称
+     * @return
+     */
+    @Override
+    public Map<Long, String> findAll() {
+        List<OperationRegionEntity> list = operationRegionRepository.findAll();
+        Map<Long, String> map = new HashMap<>();
+        if(!ObjectUtils.isEmpty(list) && list.size()>0){
+            for(OperationRegionEntity regionEntity : list){
+                map.put(regionEntity.getId(),regionEntity.getCityName());
+            }
+        }
+        return map;
     }
 }

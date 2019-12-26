@@ -42,8 +42,8 @@ public class OperationCompanyEntity extends AbstractEntity implements Serializab
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "企业电话")
-	@Column(name = "team_phone", nullable = true, length = 20)
-	private String teamPhone;
+	@Column(name = "company_phone", nullable = true, length = 20)
+	private String companyPhone;
 
 	/**
 	 * 开户名称

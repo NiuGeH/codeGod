@@ -111,4 +111,17 @@ public class OperationRegionController extends OperationBase{
             }
         });
     }
+
+
+    @PostMapping(value = "/findCity", produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "查询全部城市名称和id", httpMethod = "POST", notes = "")
+    public AjaxResult<Object> findCity() {
+        return AjaxUtils.process(new Func_T<Object>() {
+
+            @Override
+            public Object invoke() throws Exception {
+                return operationRegionService.findAll();
+            }
+        });
+    }
 }

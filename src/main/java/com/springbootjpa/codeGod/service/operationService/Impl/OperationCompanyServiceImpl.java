@@ -44,7 +44,7 @@ public class OperationCompanyServiceImpl implements OperationCompanyService {
      * 添加合作企业
      * @param companyName 企业名称
      * @param companyAddress 企业地址
-     * @param teamPhone 企业电话
+     * @param companyPhone 企业电话
      * @param accountName 开户名称
      * @param bank 开户行
      * @param accountNumber 收款账户
@@ -52,7 +52,7 @@ public class OperationCompanyServiceImpl implements OperationCompanyService {
      * @return
      */
     @Override
-    public OperationCompanyEntity addCompany(String companyName, String companyAddress, String teamPhone, String accountName, String bank, String accountNumber, Integer companyDisplay) {
+    public OperationCompanyEntity addCompany(String companyName, String companyAddress, String companyPhone, String accountName, String bank, String accountNumber, Integer companyDisplay) {
         //参数验证
         if(ObjectUtils.isEmpty(companyName)) throw new CodeGodRunTimExcetion("企业名称不能为空", this.getClass());
 
@@ -67,7 +67,7 @@ public class OperationCompanyServiceImpl implements OperationCompanyService {
         //企业地址
         companyEntity.setCompanyAddress(companyAddress);
         //企业电话
-        companyEntity.setTeamPhone(teamPhone);
+        companyEntity.setCompanyPhone(companyPhone);
         //开户名称
         companyEntity.setAccountName(accountName);
         //开户行
@@ -94,7 +94,7 @@ public class OperationCompanyServiceImpl implements OperationCompanyService {
      * @param id 被修改的合作企业id
      * @param companyName 企业名称
      * @param companyAddress 企业地址
-     * @param teamPhone 企业电话
+     * @param companyPhone 企业电话
      * @param accountName 开户名称
      * @param bank 开户行
      * @param accountNumber 收款账户
@@ -102,7 +102,7 @@ public class OperationCompanyServiceImpl implements OperationCompanyService {
      * @return
      */
     @Override
-    public OperationCompanyEntity updateCompany(Long id, String companyName, String companyAddress, String teamPhone, String accountName, String bank, String accountNumber, Integer companyDisplay) {
+    public OperationCompanyEntity updateCompany(Long id, String companyName, String companyAddress, String companyPhone, String accountName, String bank, String accountNumber, Integer companyDisplay) {
         //参数验证
         if(ObjectUtils.isEmpty(id)) throw new CodeGodRunTimExcetion("被修改的合作企业id不能为空", this.getClass());
         if(ObjectUtils.isEmpty(companyName)) throw new CodeGodRunTimExcetion("企业名称不能为空", this.getClass());
@@ -115,7 +115,7 @@ public class OperationCompanyServiceImpl implements OperationCompanyService {
             companyEntity.setCompanyName(companyName);
         }
         companyEntity.setCompanyAddress(companyAddress);
-        companyEntity.setTeamPhone(teamPhone);
+        companyEntity.setCompanyPhone(companyPhone);
         companyEntity.setAccountName(accountName);
         companyEntity.setBank(bank);
         companyEntity.setAccountNumber(accountNumber);

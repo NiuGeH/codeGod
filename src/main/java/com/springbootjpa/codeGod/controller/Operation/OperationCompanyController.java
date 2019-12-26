@@ -33,11 +33,11 @@ public class OperationCompanyController extends OperationBase {
 
     @PostMapping(value = "/addCompany", produces = "application/json;charset=UTF-8")
     @ApiOperation(value = "添加合作企业", httpMethod = "POST", notes = "companyName 企业名称  \n  companyAddress 企业地址  \n  " +
-            "teamPhone 企业电话  \n  accountName 开户名称  \n  bank 开户行  \n  accountNumber 收款账户  \n  companyDisplay/是否显示，0是，1否")
+            "companyPhone 企业电话  \n  accountName 开户名称  \n  bank 开户行  \n  accountNumber 收款账户  \n  companyDisplay/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
-                    value = "{'companyName':'酷贝科技','companyAddress':'重庆沙坪坝汉语路','teamPhone':'15922873234','accountName':'重庆酷贝科技发展有限公司','bank':'工行××支行','accountNumber':'53784732874328','companyDisplay':'0'}",
+                    value = "{'companyName':'酷贝科技','companyAddress':'重庆沙坪坝汉语路','companyPhone':'15922873234','accountName':'重庆酷贝科技发展有限公司','bank':'工行××支行','accountNumber':'53784732874328','companyDisplay':'0'}",
                     required = true,
                     paramType = "body")
     })
@@ -51,7 +51,7 @@ public class OperationCompanyController extends OperationBase {
                 OperationCompanyEntity companyEntity = operationCompanyService.addCompany(
                         String.valueOf(hashMap.get("companyName")),
                         String.valueOf(hashMap.get("companyAddress")),
-                        String.valueOf(hashMap.get("teamPhone")),
+                        String.valueOf(hashMap.get("companyPhone")),
                         String.valueOf(hashMap.get("accountName")),
                         String.valueOf(hashMap.get("bank")),
                         String.valueOf(hashMap.get("accountNumber")),
@@ -64,11 +64,11 @@ public class OperationCompanyController extends OperationBase {
 
     @PostMapping(value = "/updateCompany", produces = "application/json;charset=UTF-8")
     @ApiOperation(value = "修改合作企业", httpMethod = "POST", notes = "id 被修改的合作企业id  \n  companyName 企业名称  \n  companyAddress 企业地址  \n  " +
-            "teamPhone 企业电话  \n  accountName 开户名称  \n  bank 开户行  \n  accountNumber 收款账户  \n  companyDisplay/是否显示，0是，1否")
+            "companyPhone 企业电话  \n  accountName 开户名称  \n  bank 开户行  \n  accountNumber 收款账户  \n  companyDisplay/是否显示，0是，1否")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
-                    value = "{'id':'1','companyName':'酷贝科技','companyAddress':'重庆沙坪坝汉语路','teamPhone':'15922873234','accountName':'重庆酷贝科技发展有限公司','bank':'工行××支行','accountNumber':'53784732874328','companyDisplay':'0'}",
+                    value = "{'id':'1','companyName':'酷贝科技','companyAddress':'重庆沙坪坝汉语路','companyPhone':'15922873234','accountName':'重庆酷贝科技发展有限公司','bank':'工行××支行','accountNumber':'53784732874328','companyDisplay':'0'}",
                     required = true,
                     paramType = "body")
     })
@@ -83,7 +83,7 @@ public class OperationCompanyController extends OperationBase {
                         ObjectUtils.isEmpty(hashMap.get("id")) ? null : Long.valueOf(hashMap.get("id")),
                         String.valueOf(hashMap.get("companyName")),
                         String.valueOf(hashMap.get("companyAddress")),
-                        String.valueOf(hashMap.get("teamPhone")),
+                        String.valueOf(hashMap.get("companyPhone")),
                         String.valueOf(hashMap.get("accountName")),
                         String.valueOf(hashMap.get("bank")),
                         String.valueOf(hashMap.get("accountNumber")),

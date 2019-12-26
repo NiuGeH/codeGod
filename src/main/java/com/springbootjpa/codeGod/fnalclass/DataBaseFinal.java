@@ -54,7 +54,6 @@ public class DataBaseFinal {
 
     public static final String OPERATION_SKILL_DISPLAY = "operation_skill.display";
 
-    public static final String OPERATION_CASEDISPLAY = "operation_case.display";
     public static final String OPERATION_RESOURCE_DISPLAY = "operation_resource.display";
 
     public static final String OPERATION_COMPANY_DISPLAY = "operation_company.company_display";
@@ -64,4 +63,6 @@ public class DataBaseFinal {
     public static final String MEMBER_CONTRACT_CONTRACT_CLOSE_WAY = "member_contract.contract_close_way";
 
     public static final String MEMBER_EMPLOY_PERSONNEL_DEVELOPMENT_WAY = "member_employ_personnel.employ_development_way";
+
+    public static final String OPERATION_TEAM_STATE = "operation_team.state";
 }

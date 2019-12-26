@@ -4,6 +4,8 @@ import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Map;
+
 /**
  * @author lixin
  * @version 1.0
@@ -32,8 +34,14 @@ public interface OperationRegionService {
     OperationRegionEntity updateCity(Long id, String newName, Long order, Integer display);
 
     /**
-     * 查询全部城市
+     * 查询全部城市分页
      * @return
      */
     Page<OperationRegionEntity> findAll(Pageable pageable);
+
+    /**
+     * 查询全部城市id和名称
+     * @return
+     */
+    Map<Long,String> findAll();
 }
