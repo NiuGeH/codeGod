@@ -53,12 +53,12 @@ public class OperationTeamServiceImpl implements OperationTeamService {
      * @param teamAddress 团队地址
      * @param longitude 经度
      * @param latitude 纬度
-     * @param state 状态
+     * @param display 是否显示：0是，1否
      * @param remark 备注或口号
      * @return
      */
     @Override
-    public OperationTeamEntity addTeam(Long cityId, String teamName, String teamPhone, String teamEmail, String teamAddress, String longitude, String latitude, Integer state, String remark) {
+    public OperationTeamEntity addTeam(Long cityId, String teamName, String teamPhone, String teamEmail, String teamAddress, String longitude, String latitude, Integer display, String remark) {
         //参数验证
         if(ObjectUtils.isEmpty(teamName)) throw new CodeGodRunTimExcetion("团队名称不能为空", this.getClass());
 
@@ -76,10 +76,10 @@ public class OperationTeamServiceImpl implements OperationTeamService {
         team.setLongitude(longitude);
         team.setLatitude(latitude);
         team.setRemark(remark);
-        if(ObjectUtils.isEmpty(state)){
-            team.setState(OperationEnum.OPERATION_STATE_ZC.getIndex());
+        if(ObjectUtils.isEmpty(display)){
+            team.setDisplay(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
         }else {
-            team.setState(state);
+            team.setDisplay(display);
         }
         team.setCreateTime(Calendar.getInstance().getTime());
 
@@ -99,12 +99,12 @@ public class OperationTeamServiceImpl implements OperationTeamService {
      * @param teamAddress 团队地址
      * @param longitude 经度
      * @param latitude 纬度
-     * @param state 状态
+     * @param display 是否显示：0是，1否
      * @param remark 备注或口号
      * @return
      */
     @Override
-    public OperationTeamEntity updateTeam(Long teamId, Long cityId, String teamName, String teamPhone, String teamEmail, String teamAddress, String longitude, String latitude, Integer state, String remark) {
+    public OperationTeamEntity updateTeam(Long teamId, Long cityId, String teamName, String teamPhone, String teamEmail, String teamAddress, String longitude, String latitude, Integer display, String remark) {
         //参数验证
         if(ObjectUtils.isEmpty(teamId)) throw new CodeGodRunTimExcetion("需要修改的团队id不能为空", this.getClass());
         if(ObjectUtils.isEmpty(teamName)) throw new CodeGodRunTimExcetion("团队名称不能为空", this.getClass());
@@ -123,10 +123,10 @@ public class OperationTeamServiceImpl implements OperationTeamService {
         teamEntity.setLongitude(longitude);
         teamEntity.setLatitude(latitude);
         teamEntity.setRemark(remark);
-        if(ObjectUtils.isEmpty(state)){
-            teamEntity.setState(OperationEnum.OPERATION_STATE_ZC.getIndex());
+        if(ObjectUtils.isEmpty(display)){
+            teamEntity.setDisplay(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
         }else {
-            teamEntity.setState(state);
+            teamEntity.setDisplay(display);
         }
         teamEntity.setModifyTime(Calendar.getInstance().getTime());
         //保存
@@ -151,8 +151,8 @@ public class OperationTeamServiceImpl implements OperationTeamService {
         Page<OperationTeamEntity> all = operationTeamRepository.findAll(specification, pageable);
         if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
             for(OperationTeamEntity operationTeamEntity : all){
-                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTeamEntity.getState().toString(), DataBaseFinal.OPERATION_TEAM_STATE);
-                operationTeamEntity.setStateStr(bdd.getDataValue());
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTeamEntity.getDisplay().toString(), DataBaseFinal.OPERATION_TEAM_DISPLAY);
+                operationTeamEntity.setDisplayStr(bdd.getDataValue());
             }
         }
         return all;

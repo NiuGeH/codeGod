@@ -21,11 +21,11 @@ public interface OperationTeamService {
      * @param teamAddress 团队地址
      * @param longitude 经度
      * @param latitude 纬度
-     * @param state 状态
+     * @param display 是否显示：0是，1否
      * @param remark 备注或口号
      * @return
      */
-    OperationTeamEntity addTeam(Long cityId, String teamName, String teamPhone, String teamEmail, String teamAddress, String longitude, String latitude, Integer state, String remark);
+    OperationTeamEntity addTeam(Long cityId, String teamName, String teamPhone, String teamEmail, String teamAddress, String longitude, String latitude, Integer display, String remark);
 
     /**
      * 修改服务团队
@@ -37,11 +37,11 @@ public interface OperationTeamService {
      * @param teamAddress 团队地址
      * @param longitude 经度
      * @param latitude 纬度
-     * @param state 状态
+     * @param display 是否显示：0是，1否
      * @param remark 备注或口号
      * @return
      */
-    OperationTeamEntity updateTeam(Long teamId, Long cityId, String teamName, String teamPhone, String teamEmail, String teamAddress, String longitude, String latitude, Integer state, String remark);
+    OperationTeamEntity updateTeam(Long teamId, Long cityId, String teamName, String teamPhone, String teamEmail, String teamAddress, String longitude, String latitude, Integer display, String remark);
 
     /**
      * 查询全部服务团队分页

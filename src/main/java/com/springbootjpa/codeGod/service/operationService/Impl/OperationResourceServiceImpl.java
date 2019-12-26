@@ -76,6 +76,7 @@ public class OperationResourceServiceImpl implements OperationResourceService {
     public OperationResourceEntity addResource(String name, MultipartFile resourcePhotoFile, Long amount, Long order, Map<Long,String> skillMap, Integer display) throws CodeGodException {
         //参数验证
         if(ObjectUtils.isEmpty(name)) throw new CodeGodRunTimExcetion("资源类型名称不能为空", this.getClass());
+        if(ObjectUtils.isEmpty(resourcePhotoFile) || resourcePhotoFile.getSize()==0) throw new CodeGodRunTimExcetion("资源类型图标不能为空", this.getClass());
         //判断资源类型是否存在
         OperationResourceEntity re = operationResourceRepository.findByResourceName(name);
         if(!ObjectUtils.isEmpty(re)){
@@ -86,10 +87,8 @@ public class OperationResourceServiceImpl implements OperationResourceService {
         //资源类型名称
         resourceEntity.setResourceName(name);
         //上传图标文件
-        if(!ObjectUtils.isEmpty(resourcePhotoFile)){
-            UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(resourcePhotoFile));
-            resourceEntity.setResourcePhoto(uploadFile);
-        }
+        UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(resourcePhotoFile));
+        resourceEntity.setResourcePhoto(uploadFile);
         //人数
         resourceEntity.setAmount(amount);
         //排序
@@ -146,6 +145,8 @@ public class OperationResourceServiceImpl implements OperationResourceService {
         //参数验证
         if(ObjectUtils.isEmpty(id)) throw new CodeGodRunTimExcetion("被修改的资源类型id不能为空",this.getClass());
         if(ObjectUtils.isEmpty(newName)) throw new CodeGodRunTimExcetion("资源类型名称不能为空", this.getClass());
+        if(ObjectUtils.isEmpty(resourcePhotoFile) || resourcePhotoFile.getSize()==0) throw new CodeGodRunTimExcetion("资源类型图标不能为空", this.getClass());
+
         OperationResourceEntity resource = operationResourceRepository.findById(id).orElseThrow(()->new CodeGodRunTimExcetion("资源类型id错误，未查到匹配资源类型", this.getClass()));
 
         //修改资源类型
@@ -156,14 +157,10 @@ public class OperationResourceServiceImpl implements OperationResourceService {
             resource.setResourceName(newName);
         }
         //上传图标文件
-        if(!ObjectUtils.isEmpty(resourcePhotoFile)){
-            UploadFile uploadFile = resource.getResourcePhoto();
-            Long fileId = uploadFile.getId();
-            uploadFile = saveFileUtils.saveFile(resourcePhotoFile);
-            uploadFile.setId(fileId);
-            uploadFileRepository.save(uploadFile);
-            resource.setResourcePhoto(uploadFile);
-        }
+        UploadFile uploadFile = saveFileUtils.saveFile(resourcePhotoFile);
+        uploadFile.setId(resource.getResourcePhoto().getId());
+        uploadFileRepository.save(uploadFile);
+        resource.setResourcePhoto(uploadFile);
         //人数
         resource.setAmount(amount);
         //资源排序

@@ -57,6 +57,7 @@ public class OperationMedalServiceImpl implements OperationMedalService {
         if(ObjectUtils.isEmpty(name)){
             throw new CodeGodRunTimExcetion("勋章名称不能为空", this.getClass());
         }
+        if(ObjectUtils.isEmpty(medalPhotoFile) || medalPhotoFile.getSize()==0) throw new CodeGodRunTimExcetion("勋章图标不能为空", this.getClass());
 
         //判断新添加的勋章名称是否存在
         OperationMedalEntity medalEntity = operationMedalRepository.findByMedalName(name);
@@ -67,10 +68,10 @@ public class OperationMedalServiceImpl implements OperationMedalService {
         //添加
         OperationMedalEntity medal = new OperationMedalEntity();
         medal.setMedalName(name);
-        if(!ObjectUtils.isEmpty(medalPhotoFile)){
-            UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(medalPhotoFile));
-            medal.setMedalPhoto(uploadFile);
-        }
+
+        UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(medalPhotoFile));
+        medal.setMedalPhoto(uploadFile);
+
         medal.setState(OperationEnum.OPERATION_STATE_ZC.getIndex());
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
@@ -98,6 +99,8 @@ public class OperationMedalServiceImpl implements OperationMedalService {
         if(ObjectUtils.isEmpty(newName)){
             throw new CodeGodRunTimExcetion("勋章名称不能为空", this.getClass());
         }
+        if(ObjectUtils.isEmpty(medalPhotoFile) || medalPhotoFile.getSize()==0) throw new CodeGodRunTimExcetion("勋章图标不能为空", this.getClass());
+
         OperationMedalEntity medalEntity = operationMedalRepository.findByIdAndState(id, OperationEnum.OPERATION_STATE_ZC.getIndex());
         if(ObjectUtils.isEmpty(medalEntity)){
             throw new CodeGodRunTimExcetion("未查到匹配勋章",this.getClass());
@@ -110,14 +113,12 @@ public class OperationMedalServiceImpl implements OperationMedalService {
             if(!ObjectUtils.isEmpty(me)) throw new CodeGodRunTimExcetion("该勋章名称已存在",this.getClass());
             medalEntity.setMedalName(newName);
         }
-        if(!ObjectUtils.isEmpty(medalPhotoFile)){
-            UploadFile uploadFile = medalEntity.getMedalPhoto();
-            Long fileId = uploadFile.getId();
-            uploadFile = saveFileUtils.saveFile(medalPhotoFile);
-            uploadFile.setId(fileId);
-            uploadFileRepository.save(uploadFile);
-            medalEntity.setMedalPhoto(uploadFile);
-        }
+
+        UploadFile uploadFile = saveFileUtils.saveFile(medalPhotoFile);
+        uploadFile.setId(medalEntity.getMedalPhoto().getId());
+        uploadFileRepository.save(uploadFile);
+        medalEntity.setMedalPhoto(uploadFile);
+
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         medalEntity.setModifyTime(now);

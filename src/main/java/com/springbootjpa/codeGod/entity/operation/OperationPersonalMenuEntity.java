@@ -13,42 +13,83 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 个人中心的菜单列表
+ * 个人中心的菜单图标列表
  */
 @Data
-@ApiModel(value = "个人中心的菜单列表")
+@ApiModel(value = "个人中心的菜单图标列表")
 @Entity
 @Table(name = "operation_personal_menu")
 public class OperationPersonalMenuEntity extends AbstractEntity implements Serializable {
 
 	/**
-	 * 菜单名称
+	 * 我的邀请图标，关联上传文件id
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "菜单名称")
-	@Column(name = "menu_name", nullable = true, length = 100)
-	private String menuName;
-
-	/**
-	 * 图标，上传文件id
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "图标，上传文件id")
-//	@Column(name = "menu_photo", nullable = true, length = 20)
+	@ApiModelProperty(value = "我的邀请图标，关联上传文件id")
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "menu_photo")
+	@JoinColumn(name = "my_invitation")
 	@NotFound(action = NotFoundAction.IGNORE)
-	private UploadFile menuPhoto;
+	private UploadFile myInvitation;
 
 	/**
-	 * 是否显示：0是，1否
+	 * 需求列表图标，关联上传文件id
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "是否显示：0是，1否")
-	@Column(name = "display", nullable = true, length = 11)
-	private Integer display;
-	@Transient
-	private String displayStr;
+	@ApiModelProperty(value = "需求列表图标，关联上传文件id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "demand_list")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile demandList;
+
+	/**
+	 * 推荐项目图标，关联上传文件id
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "推荐项目图标，关联上传文件id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "recommend_project")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile recommendProject;
+
+	/**
+	 * 发起工单图标，关联上传文件id
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "发起工单图标，关联上传文件id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "publish_order")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile publishOrder;
+
+	/**
+	 * 我的经纪人图标，关联上传文件id
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "我的经纪人图标，关联上传文件id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "my_agent")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile myAgent;
+
+	/**
+	 * 发布需求图标，关联上传文件id
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "发布需求图标，关联上传文件id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "publish_demand")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile publishDemand;
+
+	/**
+	 * 运维需求图标，关联上传文件id
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "运维需求图标，关联上传文件id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "operation_demand")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile operationDemand;
 
 	/**
 	 * 创建时间

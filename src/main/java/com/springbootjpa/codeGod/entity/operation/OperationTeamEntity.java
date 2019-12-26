@@ -80,14 +80,14 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	private String latitude;
 
 	/**
-	 * 当前状态：0启用，1冻结
+	 * 是否显示：0显示，1不显示
 	 * default value: null
 	 */
-	@ApiModelProperty(value = "当前状态：0启用，1冻结")
-	@Column(name = "state", nullable = true, length = 2)
-	private Integer state;
+	@ApiModelProperty(value = "是否显示：0显示，1不显示")
+	@Column(name = "display", nullable = true, length = 2)
+	private Integer display;
 	@Transient
-	private String stateStr;
+	private String displayStr;
 
 	/**
 	 * 备注或口号

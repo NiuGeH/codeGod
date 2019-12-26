@@ -2,8 +2,6 @@ package com.springbootjpa.codeGod.service.operationService;
 
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.entity.operation.OperationPersonalMenuEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -15,28 +13,22 @@ import org.springframework.web.multipart.MultipartFile;
 public interface OperationPersonalMenuService {
 
     /**
-     * 添加个人中心菜单
-     * @param menuName 菜单名称
-     * @param menuPhotoFile 上传的菜单图标文件
-     * @param display 是否显示：0是，1否
+     * 设置个人中心菜单图标
+     * @param myInvitation 我的邀请图标
+     * @param demandList 需求列表图标
+     * @param recommendProject 推荐项目图标
+     * @param publishOrder 发起工单图标
+     * @param myAgent 我的经纪人图标
+     * @param publishDemand 发布需求图标
+     * @param operationDemand 运维需求图标
      * @return
+     * @throws CodeGodException
      */
-    OperationPersonalMenuEntity addPersonalMenu(String menuName, MultipartFile menuPhotoFile, Integer display) throws CodeGodException;
+    OperationPersonalMenuEntity setMenuIcon(MultipartFile myInvitation, MultipartFile demandList, MultipartFile recommendProject, MultipartFile publishOrder, MultipartFile myAgent, MultipartFile publishDemand, MultipartFile operationDemand) throws CodeGodException;
 
     /**
-     * 修改个人中心菜单
-     * @param id 被修改的菜单id
-     * @param menuName 菜单名称
-     * @param menuPhotoFile 上传的菜单图标文件
-     * @param display 是否显示：0是，1否
+     * 查询个人中心菜单图标
      * @return
      */
-    OperationPersonalMenuEntity updateMenu(Long id, String menuName, MultipartFile menuPhotoFile, Integer display) throws CodeGodException;
-
-    /**
-     * 查询全部菜单分页
-     * @param pageable
-     * @return
-     */
-    Page<OperationPersonalMenuEntity> findAll(Pageable pageable);
+    OperationPersonalMenuEntity findAll();
 }

@@ -33,12 +33,12 @@ public class OperationTeamController extends OperationBase {
 
     @PostMapping(value = "/addTeam", produces = "application/json;charset=UTF-8")
     @ApiOperation(value = "添加服务团队", httpMethod = "POST", notes = "teamName 团队名称  \n  cityId 所属城市id  \n  " +
-            "teamPhone 团队电话  \n  teamEmail 团队邮箱  \n  teamAddress 团队地址  \n  longitude 经度  \n  latitude 纬度  \n  state 状态  \n  remark 备注或口号")
+            "teamPhone 团队电话  \n  teamEmail 团队邮箱  \n  teamAddress 团队地址  \n  longitude 经度  \n  latitude 纬度  \n  display 是否显示：0是，1否  \n  remark 备注或口号")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
                     value = "{'teamName':'战狼团队','cityId':'1','teamPhone':'15922873234','teamEmail':'123@123.com'," +
-                            "'teamAddress':'重庆沙坪坝汉语路','longitude':'123.3434','latitude':'23.343243','state':'0','remark':'1111111111111111'}",
+                            "'teamAddress':'重庆沙坪坝汉语路','longitude':'123.3434','latitude':'23.343243','display':'0','remark':'1111111111111111'}",
                     required = true,
                     paramType = "body")
     })
@@ -57,7 +57,7 @@ public class OperationTeamController extends OperationBase {
                         String.valueOf(hashMap.get("teamAddress")),
                         String.valueOf(hashMap.get("longitude")),
                         String.valueOf(hashMap.get("latitude")),
-                        ObjectUtils.isEmpty(hashMap.get("state")) ? null : Integer.valueOf(hashMap.get("state")),
+                        ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")),
                         String.valueOf(hashMap.get("remark")));
                 return teamEntity;
             }
@@ -67,12 +67,12 @@ public class OperationTeamController extends OperationBase {
 
     @PostMapping(value = "/updateTeam", produces = "application/json;charset=UTF-8")
     @ApiOperation(value = "修改服务团队", httpMethod = "POST", notes = "teamId 团队id  \n  teamName 团队名称  \n  cityId 所属城市id  \n  " +
-            "teamPhone 团队电话  \n  teamEmail 团队邮箱  \n  teamAddress 团队地址  \n  longitude 经度  \n  latitude 纬度  \n  state 状态  \n  remark 备注或口号")
+            "teamPhone 团队电话  \n  teamEmail 团队邮箱  \n  teamAddress 团队地址  \n  longitude 经度  \n  latitude 纬度  \n  display 是否显示：0是，1否  \n  remark 备注或口号")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "json",
                     value = "{'teamId':'2','teamName':'战狼团队','cityId':'1','teamPhone':'15922873234','teamEmail':'123@123.com'," +
-                            "'teamAddress':'重庆沙坪坝汉语路','longitude':'123.3434','latitude':'23.343243','state':'0','remark':'1111111111111111'}",
+                            "'teamAddress':'重庆沙坪坝汉语路','longitude':'123.3434','latitude':'23.343243','display':'0','remark':'1111111111111111'}",
                     required = true,
                     paramType = "body")
     })
@@ -92,7 +92,7 @@ public class OperationTeamController extends OperationBase {
                         String.valueOf(hashMap.get("teamAddress")),
                         String.valueOf(hashMap.get("longitude")),
                         String.valueOf(hashMap.get("latitude")),
-                        ObjectUtils.isEmpty(hashMap.get("state")) ? null : Integer.valueOf(hashMap.get("state")),
+                        ObjectUtils.isEmpty(hashMap.get("display")) ? null : Integer.valueOf(hashMap.get("display")),
                         String.valueOf(hashMap.get("remark")));
                 return teamEntity;
             }
