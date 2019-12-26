@@ -7,6 +7,8 @@ import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberResourceEentity;
+import com.springbootjpa.codeGod.entity.humanResources.MemberResourceSkillEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationResourceEntity;
 import com.springbootjpa.codeGod.eunm.HumanRecourcesStatus;
 import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
@@ -41,40 +43,9 @@ import java.util.List;
 @Service
 @Transactional(rollbackOn = Exception.class)
 @Slf4j
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl extends MemberServiceBase implements MemberService {
 
-    @Autowired
-    private MemberentityRepository memberentityRepository;
 
-    @Autowired
-    private UploadFileRepository uploadFileRepository;
-
-    @Autowired
-    private BaseDataDirctionaryService baseDataDirctionaryService;
-
-    @Autowired
-    private OperationMedalRepository operationMedalRepository;
-
-    @Autowired
-    private OperationTeamRepository operationTeamRepository;
-
-    @Autowired
-    private OperationRegionRepository operationRegionRepository;
-
-    @Autowired
-    private OperationCompanyRepository operationCompanyRepository;
-
-    @Autowired
-    private MemberResourceentityRepository memberResourceentityRepository;
-
-    @Autowired
-    private MemberResourceSkillentityRepository memberResourceSkillentityRepository;
-
-    @Autowired
-    private OperationResourceRepository operationResourceRepository;
-
-    @Autowired
-    private OperationSkillRepository operationSkillRepository;
 
     private Specification<MemberEntity> getSpecification( String memberDisplay, String memberStationing, String memberSigningPost, String memberType, String keyWord, String memebrCityEntityId) {
         return new Specification<MemberEntity>() {
@@ -186,6 +157,18 @@ public class MemberServiceImpl implements MemberService {
         Gson gson = new Gson();
         HashMap<String,Object> hashMap = gson.fromJson(str, HashMap.class);
         String memberId = (String)hashMap.get("memberId");
+        if(StringUtils.isEmpty("memberId")){
+            throw new CodeGodRunTimExcetion("memberId为空",this.getClass());
+        }
+        List<MemberResourceEentity> allByMemberId = memberResourceentityRepository.findAllByMemberId(Long.valueOf(memberId));
+        for (MemberResourceEentity memberResourceEentity : allByMemberId) {
+            List<MemberResourceSkillEntity> allByMemberResourceId = memberResourceSkillentityRepository.findAllByMemberResourceId(memberResourceEentity.getId());
+            OperationResourceEntity op = operationResourceRepository.findById(memberResourceEentity.getMemberOperationResource().getId()).orElseThrow(() -> new CodeGodRunTimExcetion("资源Id不存在", this.getClass()));
+            op.setAmount(op.getAmount()-1);
+            memberResourceSkillentityRepository.deleteAll(allByMemberResourceId);
+            memberResourceentityRepository.deleteAll(allByMemberId);
+        }
+
         List<LinkedTreeMap> json1 = (List<LinkedTreeMap>)hashMap.get("ResourceAndListSkill");
         for (LinkedTreeMap linkedTreeMap : json1) {
             //资源Id
@@ -193,19 +176,42 @@ public class MemberServiceImpl implements MemberService {
             //资源的定位
             String resourceProficiency = (String) linkedTreeMap.get("resourceProficiency");
             MemberResourceEentity memberResourceEentity = new MemberResourceEentity();
-            if(StringUtils.isEmpty(memberId)){
-                throw new CodeGodRunTimExcetion("用户Id为空",this.getClass());
-            }
             memberResourceEentity.setMemberId(Long.valueOf(memberId));
-            memberResourceEentity.setMemberOperationResource(operationResourceRepository.findById(Long.valueOf(resourceId)).orElseThrow(() -> new CodeGodRunTimExcetion("resourceId 不存在",this.getClass())));
+            OperationResourceEntity operationResourceEntity = operationResourceRepository.findById(Long.valueOf(resourceId)).orElseThrow(() -> new CodeGodRunTimExcetion("resourceId 不存在", this.getClass()));
+            operationResourceEntity.setAmount(operationResourceEntity.getAmount()+1);
+            memberResourceEentity.setMemberOperationResource(operationResourceEntity);
             memberResourceEentity.setMemberProficiency(Integer.valueOf(resourceProficiency));
             MemberResourceEentity save = memberResourceentityRepository.save(memberResourceEentity);
 
             List<LinkedTreeMap> k =(List<LinkedTreeMap>) linkedTreeMap.get("skillList");
             for (LinkedTreeMap treeMap : k) {
                 //技术Id
-                System.err.println("sdasdasd "+treeMap.get("skillProficiency"));
+                String skillId = (String)treeMap.get("skillId");
+                //技术定位
+                String skillProficiency = (String)treeMap.get("skillProficiency");
+                MemberResourceSkillEntity memberResourceSkillEntity = new MemberResourceSkillEntity();
+                memberResourceSkillEntity.setMemberResourceId(save.getId());
+                memberResourceSkillEntity.setSkillProficiency(Integer.valueOf(skillProficiency));
+                if(StringUtils.isEmpty(skillId)) throw new CodeGodRunTimExcetion("技术Id为空",this.getClass());
+                memberResourceSkillEntity.setSkillId(operationSkillRepository.findById(Long.valueOf(skillId)).orElseThrow(() -> new CodeGodRunTimExcetion("资源技术Id不存在",this.getClass())));
+                memberResourceSkillentityRepository.save(memberResourceSkillEntity);
             }
         }
+    }
+
+    @Override
+    public MemberEntity doItengerCoanvarToData(MemberEntity memberEntity) {
+
+        return null;
+    }
+
+    @Override
+    public List<MemberResourceEentity> findByMemberIdReturnResourceAndKill(Long memberId) {
+        List<MemberResourceEentity> allByMemberId = memberResourceentityRepository.findAllByMemberId(memberId);
+        for (MemberResourceEentity memberResourceEentity : allByMemberId) {
+            List<MemberResourceSkillEntity> allByMemberResourceId = memberResourceSkillentityRepository.findAllByMemberResourceId(memberResourceEentity.getId());
+            memberResourceEentity.setMemberResourceSkillEntityList(allByMemberResourceId);
+        }
+        return allByMemberId;
     }
 }

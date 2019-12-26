@@ -4,9 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
-import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
-import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
-import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
+import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
+import com.springbootjpa.codeGod.entity.humanResources.*;
 import com.springbootjpa.codeGod.entity.operation.OperationResourceEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationResourceSkillEntity;
 import com.springbootjpa.codeGod.entity.operation.OperationSkillEntity;
@@ -213,14 +212,28 @@ public class MemberController extends MemberBase {
         });
     }
 
-    @PostMapping(value = "/findResourceAll" )
-    @ApiOperation(value = "技能管理参数列表" , httpMethod = "POST" )
+    @PostMapping(value = "/findResourceAll" ,produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "技能管理参数列表" , httpMethod = "POST" , notes = "allResourceAndSkill ==> 返回用户和所有资源对应的技术 allResourceAndSkill --> 下的resource 职位 resourceProficiency 对应的熟练度  \n  " +
+            "allResourceAndSkill --> operationSkillEntityList 对应的技术 operationSkillEntityList --> skillProficiency 对应的熟练度 为空就为未选中  \n  resourceProficiencyList 对应职位的熟练度集合  \n  " +
+            "skillProficiencyList 对应技术的熟练度集合")
     @ResponseBody
-    public AjaxResult<Object> findResourceAll(){
-        log.info("URL:/memberController/findResourceAll ");
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json",value = "{'memberId':'2'}")
+    })
+    public AjaxResult<Object> findResourceAll(@RequestBody String json){
+        log.info("URL:/memberController/findResourceAll 请求参数:"+json);
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
+                HashMap<String ,String > hashMap1 = gson.fromJson(json, HashMap.class);
+                String memberId = null;
+                if(ObjectUtils.isEmpty(hashMap1.get("memberId"))){
+                    throw new CodeGodException("memberId 为空",this.getClass());
+                }else{
+                     memberId = hashMap1.get("memberId");
+
+                }
+                HashMap<String , Object> endHash = new HashMap<>();
                 List<OperationResourceSkillEntity> allByResourceAnAndOrderBySkill = operationResourceSkillRepository.findAllByResourceAnAndOrderBySkill(OperationEnum.OPERATION_ENUM_REGION_DISPLAY_XS.getIndex(), OperationEnum.OPERATION_ENUM_REGION_DISPLAY_XS.getIndex());
                 HashMap<Object , Object> hashMap = new HashMap<>();
                 for (OperationResourceSkillEntity operationResourceSkillEntity : allByResourceAnAndOrderBySkill) {
@@ -241,8 +254,22 @@ public class MemberController extends MemberBase {
                 List<OperationResourceSkillEntity> list = new ArrayList<>();
                 for (Map.Entry<Object, Object> objectObjectEntry : hashMap.entrySet()) {
                     OperationResourceSkillEntity os = new OperationResourceSkillEntity();
-                    os.setResource((OperationResourceEntity) objectObjectEntry.getKey());
-                    os.setOperationSkillEntityList((List<OperationSkillEntity>)objectObjectEntry.getValue());
+                    OperationResourceEntity key = (OperationResourceEntity) objectObjectEntry.getKey();
+//                    os.setResource();
+                    MemberResourceEentity allByMemberIdAndMemberOperationResource = memberResourceentityRepository.findAllByMemberIdAndMemberOperationResource(Long.valueOf(memberId), (OperationResourceEntity) objectObjectEntry.getKey());
+                    if(!ObjectUtils.isEmpty(allByMemberIdAndMemberOperationResource)){
+                        key.setResourceProficiency(allByMemberIdAndMemberOperationResource.getMemberProficiency());
+                    }
+                    os.setResource(key);
+                    List<OperationSkillEntity> value = (List<OperationSkillEntity>) objectObjectEntry.getValue();
+                    for (int i = 0; i < value.size(); i++) {
+                        OperationSkillEntity operationSkillEntity = value.get(i);
+                        MemberResourceSkillEntity allBySkillIdAndMemberResourceId = memberResourceSkillentityRepository.findAllBySkillIdAndMemberResourceId(operationSkillEntity, allByMemberIdAndMemberOperationResource.getId());
+                        if(!ObjectUtils.isEmpty(allBySkillIdAndMemberResourceId)){
+                            operationSkillEntity.setSkillProficiency(allBySkillIdAndMemberResourceId.getSkillProficiency());
+                        }
+                    }
+                    os.setOperationSkillEntityList(value);
                     list.add(os);
                 }
                 list.sort(new Comparator<OperationResourceSkillEntity>() {
@@ -259,16 +286,24 @@ public class MemberController extends MemberBase {
                         return 0;
                     }
                 });
-                return list;
+                endHash.put("allResourceAndSkill",list);
+                endHash.put("skillProficiencyList",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBERRESOURCESKILL_SKILLPROFICIENCY));
+                endHash.put("resourceProficiencyList",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.MEMBERRESOURCE_MEMBERPROFICIENCY));
+
+//                memberResourceentityRepository.
+                return endHash;
             }
         });
     }
 
-    @ApiOperation(value = "技能管理提交 " , httpMethod = "POST")
+    @ApiOperation(value = "技能管理提交 " , httpMethod = "POST" , notes = "memberId ==> 用户Id 必须  ResourceAndListSkill 值存放集合  \n  " +
+            "resourceId ==> 职位Id resourceProficiency ==> 职位对应的熟练度  \n  skillList ==> 存放职位所对应的技能集合  \n  skillId ==> 技能的Id  skillProficiency ==> 技能对应的熟练度")
     @ResponseBody
     @PostMapping(value = "doSaveResourceAndSkill",produces = "application/json;charset=UTF-8")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "json" , value = "")
+            @ApiImplicitParam(name = "str" , value = "{ \"memberId\":\"2\" , \"ResourceAndListSkill\":[{ \"resourceId\":\"1\", \"resourceProficiency\":\"1\", \"skillList\":[{ \"skillId\":\"20\", \"skillProficiency\":\"2\" }] }]\n" +
+                    "\n" +
+                    "}")
     })
     public AjaxResult<Object> doSaveResourceAndSkill (@RequestBody String str){
         log.info("URL: /memberController/doSaveResourceAndSkill 参数列表: "+str);
@@ -276,8 +311,10 @@ public class MemberController extends MemberBase {
             @Override
             public Object invoke() throws Exception {
                 memberService.doSaveResourceAndSkillList(str);
-                return null;
+                return "success";
             }
         });
     }
+
+
 }

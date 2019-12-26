@@ -89,4 +89,7 @@ public class OperationResourceEntity extends AbstractEntity implements Serializa
 	@Column(name = "modify_time", nullable = true)
 	private Date modifyTime;
 
+	@Transient
+	private Integer resourceProficiency;
+
 }

@@ -1,6 +1,8 @@
 package com.springbootjpa.codeGod.entity.humanResources;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springbootjpa.codeGod.entity.AbstractEntity;
 import com.springbootjpa.codeGod.entity.UploadFile;
+import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
@@ -57,6 +59,7 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
      */
     @ApiModelProperty(value = "合同周期 start")
     @Column(name = "contract_cycle_start", nullable = true )
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private java.util.Date contractCycleStart;
 
     /**
@@ -65,6 +68,7 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
      */
     @ApiModelProperty(value = "合同周期 end")
     @Column(name = "contract_cycle_end", nullable = true )
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private java.util.Date contractCycleEnd;
 
     /**
@@ -75,13 +79,23 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
     @Column(name = "contract_close_way", nullable = true, length = 10)
     private Integer contractCloseWay;
 
+    @Transient
+    private String contractCloseWayData;
+
+    public String getContractCloseWayData() {
+        return contractCloseWayData;
+    }
+
     /**
      * 项目地址
      * default value: null
      */
     @ApiModelProperty(value = "项目地址")
-    @Column(name = "contract_address", nullable = true, length = 20)
-    private String contractAddress;
+//    @Column(name = "contract_address", nullable = true, length = 20)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contract_address")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private OperationRegionEntity contractAddress;
 
     /**
      * 是否驻场 0 驻场 1 远程
@@ -109,4 +123,20 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
     @Column(name = "contract_number",nullable = true,length = 20)
     private Integer contractNumber;
 
+    @Override
+    public String toString() {
+        return "MemberContractEntity{" +
+                "memberId=" + memberId +
+                ", employId=" + employId +
+                ", contractUnit='" + contractUnit + '\'' +
+                ", contractCycleStart=" + contractCycleStart +
+                ", contractCycleEnd=" + contractCycleEnd +
+                ", contractCloseWay=" + contractCloseWay +
+                ", contractAddress='" + contractAddress + '\'' +
+                ", contractCourt=" + contractCourt +
+                ", contractPact=" + contractPact +
+                ", contractNumber=" + contractNumber +
+                ", id=" + id +
+                '}';
+    }
 }

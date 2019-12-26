@@ -1,12 +1,16 @@
 package com.springbootjpa.codeGod.entity.humanResources;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springbootjpa.codeGod.entity.AbstractEntity;
+import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
 import com.springbootjpa.codeGod.entity.sys.SysUsersEntity;
+import com.springbootjpa.codeGod.eunm.HumanRecourcesStatus;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.Proxy;
 
 import java.io.Serializable;
 
@@ -46,6 +50,7 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
      */
     @ApiModelProperty(value = "委托时间")
     @Column(name = "employ_entrust_time", nullable = true )
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT+8")
     private java.util.Date employEntrustTime;
 
     /**
@@ -70,6 +75,7 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
      */
     @ApiModelProperty(value = "到岗时间")
     @Column(name = "employ_come_to_position", nullable = true )
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private java.util.Date employComeToPosition;
 
     /**
@@ -78,6 +84,7 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
      */
     @ApiModelProperty(value = "截止日")
     @Column(name = "employ_abort", nullable = true )
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private java.util.Date employAbort;
 
     /**
@@ -85,8 +92,11 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
      * default value: null
      */
     @ApiModelProperty(value = "项目地址")
-    @Column(name = "employ_item_address", nullable = true, length = 100)
-    private String employItemAddress;
+//    @Column(name = "employ_item_address", nullable = true, length = 100)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employ_item_address")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private OperationRegionEntity employItemAddress;
 
     /**
      * 雇佣人数
@@ -102,7 +112,19 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
      */
     @ApiModelProperty(value = "开发方式")
     @Column(name = "employ_mode", nullable = true, length = 20)
-    private String employMode;
+    private Integer employMode;
+
+    @Transient
+    private String employModeData;
+
+    public String getEmployModeData() {
+        if(getEmployMode() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYMODE_ZC.getIndex()){
+            return HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYMODE_ZC.getName();
+        }else if (getEmployMode() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYMODE_YC.getIndex()){
+            return HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYMODE_YC.getName();
+        }
+        return employModeData;
+    }
 
     /**
      * 简述要求
@@ -119,6 +141,20 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
     @ApiModelProperty(value = "状态 0 未处理 1已拒绝 2 已签合同")
     @Column(name = "employ_status", nullable = true, length = 20)
     private Integer employStatus;
+
+    @Transient
+    private String employStatusData;
+
+    public String getEmployStatusData() {
+        if(getEmployStatus() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_WCL.getIndex()){
+            return HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_WCL.getName();
+        }else if(getEmployStatus() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_YJJ.getIndex()){
+            return HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_YJJ.getName();
+        }else if(getEmployStatus() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_YQHT.getIndex()){
+            return HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_YQHT.getName();
+        }
+        return employStatusData;
+    }
 
     /**
      * 处理人
@@ -137,6 +173,7 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
      */
     @ApiModelProperty(value = "处理时间")
     @Column(name = "employ_dispose_tiem", nullable = true)
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT+8")
     private java.util.Date employDisposeTiem;
 
     /**

@@ -67,7 +67,7 @@ public class PmTeamServiceIml implements PmTeamService {
         Page<PmTeamEntity> all = pmTeamentityRepository.findAll(sp, pageable);
         ArrayList<PmTeamEntity> list = new ArrayList<>();
         for (PmTeamEntity pmTeamEntity : all) {
-            pmTeamEntity.getMemberEntity().setMemberSigningModeString(baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey((pmTeamEntity.getMemberEntity().getMemberSigningMode()).toString(), DataBaseFinal.MEMBER_MEMBERSIGNINGMODE).getDataValue());
+//            pmTeamEntity.getMemberEntity().setMemberSigningModeString(baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey((pmTeamEntity.getMemberEntity().getMemberSigningMode()).toString(), DataBaseFinal.MEMBER_MEMBERSIGNINGMODE).getDataValue());
             pmTeamEntity.setDutyString(baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(pmTeamEntity.getDuty().toString(),DataBaseFinal.PM_RECRUITMENTRECRUITMENT_DUTY).getDataValue());
             pmTeamEntity.setRoleString(baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(pmTeamEntity.getRole().toString(),DataBaseFinal.MEMBER_MEMBERSIGNINGPOST).getDataValue());
             pmTeamEntity.setStatusString(baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(pmTeamEntity.getStatus().toString(),DataBaseFinal.PM_TEAMSTATUS).getDataValue());

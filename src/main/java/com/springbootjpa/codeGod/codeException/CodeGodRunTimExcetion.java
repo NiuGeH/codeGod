@@ -18,7 +18,7 @@ public class CodeGodRunTimExcetion extends RuntimeException {
     //用指定的详细信息和原因构造一个新的异常
     public CodeGodRunTimExcetion(String message, Throwable cause,Class<?> c){
         super(message,cause);
-        logger.error(c.toString()+": "+message,cause);
+        logger.debug(c.toString()+": "+message,cause);
 
     }
     //用指定原因构造一个新的异常

@@ -1,17 +1,12 @@
 package com.springbootjpa.codeGod.controller.HumanResources;
 
 import com.google.gson.Gson;
-import com.springbootjpa.codeGod.repository.HumanResources.MemberPrivacyentityRepository;
-import com.springbootjpa.codeGod.repository.HumanResources.MemberResourceSkillentityRepository;
-import com.springbootjpa.codeGod.repository.HumanResources.MemberSignContractentityRepository;
-import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
+import com.springbootjpa.codeGod.repository.HumanResources.*;
 import com.springbootjpa.codeGod.repository.Operation.*;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
 import com.springbootjpa.codeGod.service.baseService.BaseDataDirctionaryService;
 import com.springbootjpa.codeGod.service.baseService.Impl.BaseDataDirctionaryServiceImpl;
-import com.springbootjpa.codeGod.service.humanResourcesService.MemberPrivacyService;
-import com.springbootjpa.codeGod.service.humanResourcesService.MemberService;
-import com.springbootjpa.codeGod.service.humanResourcesService.MemberSignContractService;
+import com.springbootjpa.codeGod.service.humanResourcesService.*;
 import com.springbootjpa.codeGod.utils.SaveFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,4 +59,25 @@ public class MemberBase {
 
     @Autowired
     protected MemberResourceSkillentityRepository memberResourceSkillentityRepository;
+
+    @Autowired
+    protected MemberResourceentityRepository memberResourceentityRepository;
+
+    @Autowired
+    protected MemberCaseService memberCaseService;
+
+    @Autowired
+    protected MemberCaseentityRepository memberCaseentityRepository;
+
+    @Autowired
+    protected MemberEmployService memberEmployService;
+
+    @Autowired
+    protected MemberEmployentityRepository memberEmployentityRepository;
+
+    @Autowired
+    protected MemberEmployPersonnelentityRepository memberEmployPersonnelentityRepository;
+
+    @Autowired
+    protected MemberEmployPersonnelService memberEmployPersonnelService;
 }

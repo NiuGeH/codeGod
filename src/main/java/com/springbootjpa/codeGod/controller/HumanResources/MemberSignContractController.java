@@ -80,10 +80,9 @@ public class MemberSignContractController extends MemberBase {
                         pages, ObjectUtils.isEmpty(hashMap.get("validationCode")) ? null : Integer.valueOf(hashMap.get("validationCode"))
                         , ObjectUtils.isEmpty(hashMap.get("siginEnd")) ? null : Integer.valueOf(hashMap.get("siginEnd")));
                 for (MemberSignContractEntity memberSignContractEntity : memberSignContractEntities) {
-                    BaseDataDictionaryEntity byDataKeyAndColumReturnDataValue = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(memberSignContractEntity.getSiginResults().toString(), "member_sign_contract.sigin_results");
+                    BaseDataDictionaryEntity byDataKeyAndColumReturnDataValue = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(memberSignContractEntity.getSiginResults().toString(), DataBaseFinal.MEMBERSIGNCONTRACT_SIGIN_RESULTS);
                     memberSignContractEntity.setSiginResultsData(ObjectUtils.isEmpty(byDataKeyAndColumReturnDataValue) ? "未申请" : byDataKeyAndColumReturnDataValue.getDataValue());
-
-                    BaseDataDictionaryEntity bd2 = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(memberSignContractEntity.getSiginVerificationCode().toString(), "member_sign_contract.sigin_verification_code");
+                    BaseDataDictionaryEntity bd2 = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(memberSignContractEntity.getSiginVerificationCode().toString(), DataBaseFinal.MEMBERSIGNCONTRACT_SIGNVERIFICATIONCODE);
                     memberSignContractEntity.setSiginVerificationCodeData(ObjectUtils.isEmpty(bd2) ? "" : bd2.getDataValue());
 
                 }

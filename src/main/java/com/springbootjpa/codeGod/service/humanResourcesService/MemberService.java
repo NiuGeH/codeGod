@@ -1,10 +1,12 @@
 package com.springbootjpa.codeGod.service.humanResourcesService;
 
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
+import com.springbootjpa.codeGod.entity.humanResources.MemberResourceEentity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.HashMap;
+import java.util.List;
 
 public interface MemberService {
     /**
@@ -39,4 +41,13 @@ public interface MemberService {
      * @param str 前端传来的json
      */
     void doSaveResourceAndSkillList(String str);
+
+    MemberEntity doItengerCoanvarToData(MemberEntity memberEntity);
+
+    /**
+     * 根据会员Id查询出该会员对应的技能和参与的角色
+     * @param memberId 会员id
+     * @return 会员对应的技能和角色
+     */
+    List<MemberResourceEentity> findByMemberIdReturnResourceAndKill(Long memberId);
 }

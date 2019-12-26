@@ -42,6 +42,12 @@ public class DataBaseFinal {
 
     public static final String PM_TEAMSTATUS = "pm_team.status";
 
+    public static final String MEMBERRESOURCE_MEMBERPROFICIENCY = "member_resource.member_proficiency";
+
+    public static final String MEMBERRESOURCESKILL_SKILLPROFICIENCY = "member_resource_skill.skill_proficiency";
+
+    public static final String  MEMBERCASE_CASEPLATFORMPROJECT= "member_case.case_platform_project";
+
     public static final String PM_TEAMCLEARING_FORM = "pm_team.clearing_form";
 
     public static final String OPERATION_NEWS_DISPLAY = "operation_news.display";
@@ -55,4 +61,7 @@ public class DataBaseFinal {
 
     public static final String OPERATION_PERSONAL_MENU_DISPLAY = "operation_personal_menu.display";
 
+    public static final String MEMBER_CONTRACT_CONTRACT_CLOSE_WAY = "member_contract.contract_close_way";
+
+    public static final String MEMBER_EMPLOY_PERSONNEL_DEVELOPMENT_WAY = "member_employ_personnel.employ_development_way";
 }

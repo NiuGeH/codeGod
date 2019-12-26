@@ -63,4 +63,7 @@ public class OperationSkillEntity extends AbstractEntity implements Serializable
 	@Column(name = "modify_time", nullable = true)
 	private Date modifyTime;
 
+	@Transient
+	private Integer skillProficiency;
+
 }

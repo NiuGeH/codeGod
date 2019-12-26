@@ -46,28 +46,8 @@ import java.util.Optional;
  */
 @Service
 @Transactional(rollbackOn = Exception.class)
-public class MemberSignContractServiceImpl implements MemberSignContractService {
+public class MemberSignContractServiceImpl extends MemberServiceBase implements MemberSignContractService  {
 
-    @Autowired
-    private MemberSignContractentityRepository memberSignContractentityRepository;
-
-    @Autowired
-    private MemberPrivacyentityRepository memberPrivacyentityRepository;
-
-    @Autowired
-    private UploadFileRepository uploadFileRepository;
-
-    @Autowired
-    private MemberentityRepository memberentityRepository;
-
-    @Autowired
-    private SaveFileUtils saveFileUtils = new SaveFileUtils();
-
-    @Autowired
-    private OperationRegionRepository operationRegionRepository;
-
-    @Autowired
-    private OperationCompanyRepository operationCompanyRepository;
 
     /**
      * 根据验证码和签约结果分页
