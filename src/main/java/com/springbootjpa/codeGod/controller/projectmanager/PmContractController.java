@@ -7,7 +7,10 @@ import com.springbootjpa.codeGod.entity.projectmanager.PmRepairOrderEntity;
 import com.springbootjpa.codeGod.entity.projectmanager.PmSettleAccountsEntity;
 import com.springbootjpa.codeGod.eunm.ProjectStatus;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -61,14 +64,24 @@ public class PmContractController extends PmDemandBase {
     @ResponseBody
     @ApiOperation(value = "添加合同", httpMethod = "POST", notes = "添加合同数据接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pmContractEntity"),
-            @ApiImplicitParam(name = "contractDocument", paramType = "formData", value = "合同文件"),
+            @ApiImplicitParam(name = "json", value = "{'contractName'(合同名称):'1','contractMoney'（合同金额）:'1','actualAmount（实际金额）':'会员系统'" +
+                    ",'contractDate'(签订日期):1000.0,'paymentMethod'（付款方式）:," +
+                    "'explains（付款方式说明）':'2019-12-06','project_id'(项目ID):,'demandId'（需求Id）:}"
+                    , required = true, paramType = "body")
     })
-    public AjaxResult<Object> addContract(@RequestParam("pmContractEntity") PmContractEntity pmContractEntity, @RequestParam("contractDocument") MultipartFile contractDocument) {
+    public AjaxResult<Object> addContract(HttpServletRequest servletRequest) {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
-                logger.info("url:/PmContractController/addContract 请求参数" + pmContractEntity);
+                MultipartFile file = null;
+                if (servletRequest instanceof StandardMultipartHttpServletRequest) {
+                    MultiValueMap<String, MultipartFile> fileMap = ((StandardMultipartHttpServletRequest) servletRequest).getMultiFileMap();
+                    file = fileMap.get("file").get(0);
+                }
+                System.out.println(file);
+                String type = servletRequest.getParameter("json");
+                System.out.println(type);
+//                logger.info("url:/PmContractController/addContract 请求参数" + json);
 //                PmContractEntity pmContractEntity = gson.fromJson(json, PmContractEntity.class);
 //                HashMap<String, String> map = gson.fromJson(json, HashMap.class);
 //                boolean save = pmContractService.save(pmContractEntity, Long.valueOf(map.get("projectId")), ProjectStatus.筹备中.getIndex(), contractDocument);
@@ -89,12 +102,12 @@ public class PmContractController extends PmDemandBase {
                     "'paymentMethod':'10%20%20%10%10%','explains':'重庆','contractDocument_id':1}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> Contract(@RequestBody String json) {
+    public AjaxResult<Object> Contract(@RequestBody String json){
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
                 logger.info("url:/PmContractController/echoContract 请求参数" + json);
-                HashMap<String, String> map = gson.fromJson(json, HashMap.class);
+                HashMap<String,String> map = gson.fromJson(json,HashMap.class);
                 return pmContractService.findOneById(Long.valueOf(map.get("id")));
             }
         });
@@ -110,17 +123,20 @@ public class PmContractController extends PmDemandBase {
                     "'paymentMethod':'10%20%20%10%10%','explains':'重庆','contractDocument_id':1}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<HashMap<String, Object>> renderData() {
+    public AjaxResult<HashMap<String,Object>>  renderData(){
         return AjaxUtils.process(new Func_T<HashMap<String, Object>>() {
             @Override
             public HashMap<String, Object> invoke() throws Exception {
                 logger.info("url:/PmContractController/renderData");
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("funds_type", baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PMSETTLEACCOUNTS_FUNDSTYPE));
+                HashMap<String,Object> map = new HashMap<>();
+                map.put("funds_type",baseDataDirctionaryService.findByColumNameRetrunDirctionaryAryList(DataBaseFinal.PMSETTLEACCOUNTS_FUNDSTYPE));
                 return map;
             }
         });
     }
+
+
+
 
 
     @PostMapping(value = "/doPageSettleAccounts", produces = "application/json;charset=UTF-8")
@@ -149,6 +165,9 @@ public class PmContractController extends PmDemandBase {
     }
 
 
+
+
+
     @PostMapping(value = "/addSettleAccounts", produces = "application/json;charset=UTF-8")
     @ResponseBody
     @ApiOperation(value = "添加结算单", httpMethod = "POST", notes = "添加结算单接口")
@@ -158,13 +177,13 @@ public class PmContractController extends PmDemandBase {
                     "'paymentMethod':'10%20%20%10%10%','explains':'重庆','contractDocument_id':1}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> addSettleAccounts(@RequestBody String json, @RequestParam("certificate") MultipartFile certificate) {
+    public AjaxResult<Object> addSettleAccounts(@RequestBody String json,@RequestParam("certificate") MultipartFile certificate){
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
                 PmSettleAccountsEntity pmSettleAccountsEntity = gson.fromJson(json, PmSettleAccountsEntity.class);
                 boolean b = pmSettleAccountsService.saveSettleAccount(pmSettleAccountsEntity, certificate);
-                if (b) {
+                if(b){
                     return "SUCCESS";
                 }
                 return "ERROR";
@@ -181,13 +200,13 @@ public class PmContractController extends PmDemandBase {
                     "'paymentMethod':'10%20%20%10%10%','explains':'重庆','contractDocument_id':1}"
                     , required = true, paramType = "body")
     })
-    public AjaxResult<Object> collectionConfirmation(@RequestBody String json, @RequestParam("payEvidence") MultipartFile payEvidence) {
+    public AjaxResult<Object> collectionConfirmation(@RequestBody String json,@RequestParam("payEvidence") MultipartFile payEvidence){
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws Exception {
                 PmSettleAccountsEntity pmSettleAccountsEntity = gson.fromJson(json, PmSettleAccountsEntity.class);
                 boolean b = pmSettleAccountsService.collectionConfirmation(pmSettleAccountsEntity, payEvidence);
-                if (b) {
+                if(b){
                     return "SUCCESS";
                 }
                 return "ERROR";

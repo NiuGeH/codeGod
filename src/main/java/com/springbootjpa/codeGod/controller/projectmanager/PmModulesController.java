@@ -40,7 +40,7 @@ public class PmModulesController extends PmDemandBase{
                     , required = true, paramType = "body")
     })
     public PageResult<PmModulesEntity> doPageModules(@RequestBody String json) throws CodeGodException {
-        logger.info("url:/PmModulesController/findAllModules 请求参数" + json);
+        logger.info("url:/PmProjectController/findAllModules 请求参数" + json);
         HashMap<String, String> map = gson.fromJson(json, HashMap.class);
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         PageRequestParam pages = null;

@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.entity.projectmanager;
 
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
+import com.springbootjpa.codeGod.entity.UploadFile;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
@@ -54,20 +55,40 @@ public class PmSettleAccountsEntity extends AbstractEntity implements Serializab
 	@ApiModelProperty(value = "收款备注")
 	@Column(name = "remark", nullable = true, length = 255)
 	private String remark;
+
 	/**
-	 * 收款备注
+	 * 收款凭证
+	 * default value: null
+	 */
+//	@ApiModelProperty(value = "收款凭证")
+//	@Column(name = "certificate_id", nullable = true, length = 50)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "certificate_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile certificate;
+
+
+	/**
+	 * 付款凭证
+	 * default value: null
+	 */
+//	@ApiModelProperty(value = "收款凭证")
+//	@Column(name = "certificate_id", nullable = true, length = 50)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pay_evidence_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private UploadFile payEvidence;
+
+	/**
+	 * 付款备注
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "付款备注")
 	@Column(name = "payment_note", nullable = true, length = 255)
 	private String payment_note;
-	/**
-	 * 收款凭证
-	 * default value: null
-	 */
-	@ApiModelProperty(value = "收款凭证")
-	@Column(name = "certificate", nullable = true, length = 50)
-	private String certificate;
+
+
+
 
 	/**
 	 * 项目ID
@@ -77,4 +98,15 @@ public class PmSettleAccountsEntity extends AbstractEntity implements Serializab
 	@JoinColumn(name = "project_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PmProjectEntity pmProjectEntity;
+
+	/**
+	 * 收款凭证
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "支付状态")
+	@Column(name = "status", nullable = true, length = 11)
+	private Integer status;
+	@Transient
+	private String statusString;
+
 }
