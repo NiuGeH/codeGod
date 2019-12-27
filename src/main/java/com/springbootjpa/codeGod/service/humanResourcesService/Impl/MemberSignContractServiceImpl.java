@@ -105,13 +105,14 @@ public class MemberSignContractServiceImpl extends MemberServiceBase implements 
      * @param memberCardFrontMultipartFile         身份证正面
      * @param memberCardReverseSideMultipartFile   身份证反面
      * @param siginAgreementMultipartFile          签约协议（可多个）
+     * @param delKey 删除的文件
      * @param request                              请求req
      * @return MemberSignContractEntity
      */
     @Override
     public MemberSignContractEntity signSetting(MemberSignContractEntity memberSignContractEntity, MemberEntity memberEntity, MemberPrivacyEntity memberPrivacyEntity,
                                                 MultipartFile memberPhotoFileMultipartFile, MultipartFile memberPhotoHeadPortraitMultipartFile, MultipartFile[] memberPersonalDataMultipartFile,
-                                                MultipartFile memberCardFrontMultipartFile, MultipartFile memberCardReverseSideMultipartFile, MultipartFile[] siginAgreementMultipartFile,
+                                                MultipartFile memberCardFrontMultipartFile, MultipartFile memberCardReverseSideMultipartFile, MultipartFile[] siginAgreementMultipartFile,String delKey,
                                                 HttpServletRequest request) throws CodeGodRunTimExcetion, CodeGodException {
         //添加用户 memberSignContract 的Id为空
         MemberEntity jdbc_memberEntity = null;
@@ -284,7 +285,64 @@ public class MemberSignContractServiceImpl extends MemberServiceBase implements 
             jdbc_memberPrivacy.setMemberMobile(memberPrivacyEntity.getMemberMobile());
             jdbc_memberPrivacy.setMemberPwd(memberPrivacyEntity.getMemberPwd());
 
+            //根据delKey删除字段属性
+            if (!ObjectUtils.isEmpty(delKey)){
+                String[] split = delKey.split(",");
+                for (String s : split) {
+                    if(!ObjectUtils.isEmpty(jdbc_memberPrivacy.getMemberPhotoFile())){
+                        Long id = jdbc_memberPrivacy.getMemberPhotoFile().getId();
+                        if(id.toString().equals(s)){
+                            jdbc_memberPrivacy.setMemberPhotoFile(null);
+                            continue;
+                        }
+                    }
+                    if (!ObjectUtils.isEmpty(jdbc_memberPrivacy.getMemberPhotoHeadPortrait())){
+                        Long id = jdbc_memberPrivacy.getMemberPhotoHeadPortrait().getId();
+                        if(id.toString().equals(s)){
+                            jdbc_memberPrivacy.setMemberPhotoHeadPortrait(null);
+                            continue;
+                        }
+                    }
+                    if(!ObjectUtils.isEmpty(jdbc_memberPrivacy.getMemberPersonalData())){
+                        String[] split1 = jdbc_memberPrivacy.getMemberPersonalData().split(",");
+                        StringBuilder sb = new StringBuilder();
+                        for (String s1 : split1) {
+                            if(!(s1.equals(s))){
+                                sb.append(s1).append(",");
+                            }
+                        }
 
+                        jdbc_memberPrivacy.setMemberPersonalData(sb.toString());
+                        if(!ObjectUtils.isEmpty(jdbc_memberPrivacy.getMemberPersonalData()))
+                            jdbc_memberPrivacy.setMemberPersonalData(jdbc_memberPrivacy.getMemberPersonalData().substring(0,jdbc_memberPrivacy.getMemberPersonalData().length()-1));
+                    }
+
+                    if(!(ObjectUtils.isEmpty(jdbc_memberPrivacy.getMemberCardFront()))){
+                        Long id = jdbc_memberPrivacy.getMemberCardFront().getId();
+                        if(s.equals(id.toString())){
+                            jdbc_memberPrivacy.setMemberCardFront(null);
+                            continue;
+                        }
+                    }
+                    if(!ObjectUtils.isEmpty(jdbc_memberPrivacy.getMemberCardReverseSide())){
+                        Long id = jdbc_memberPrivacy.getMemberCardReverseSide().getId();
+                        if(s.equals(id.toString())){
+                            jdbc_memberPrivacy.setMemberCardReverseSide(null);
+                        }
+                    }
+                    if(!ObjectUtils.isEmpty(jdbc_memberEntity.getMemberSigningAgreement())){
+                        String[] split1 = jdbc_memberEntity.getMemberSigningAgreement().split(",");
+                        StringBuilder sb = new StringBuilder();
+                        for (String s1 : split1) {
+                            if(!(s1.equals(s))){
+                                sb.append(s1).append(",");
+                            }
+                        }
+                        jdbc_memberEntity.setMemberSigningAgreement(sb.toString());
+                        if(!ObjectUtils.isEmpty(jdbc_memberEntity.getMemberSigningAgreement()))jdbc_memberEntity.setMemberSigningAgreement(jdbc_memberEntity.getMemberSigningAgreement().substring(0,jdbc_memberEntity.getMemberSigningAgreement().length()-1));
+                    }
+                }
+            }
             //形象照
             if (!memberPhotoFileMultipartFile.isEmpty()) {
                 UploadFile uploadFile = uploadFileRepository.save(saveFileUtils.saveFile(memberPhotoFileMultipartFile));
@@ -310,7 +368,7 @@ public class MemberSignContractServiceImpl extends MemberServiceBase implements 
                 }
                 if (!StringUtils.isEmpty(sb.toString())) {
                     sb.delete(sb.length() - 1, sb.length());
-                    jdbc_memberPrivacy.setMemberPersonalData(sb.toString());
+                    jdbc_memberPrivacy.setMemberPersonalData(sb.toString()+","+jdbc_memberPrivacy.getMemberPersonalData());
                 }
             }
             //身份证正面
@@ -337,7 +395,7 @@ public class MemberSignContractServiceImpl extends MemberServiceBase implements 
                 }
                 if (!StringUtils.isEmpty(sb.toString())) {
                     sb.delete(sb.length() - 1, sb.length());
-                    jdbc_memberEntity.setMemberSigningAgreement(sb.toString());
+                    jdbc_memberEntity.setMemberSigningAgreement(sb.toString()+","+jdbc_memberEntity.getMemberSigningAgreement());
                 }
             }
 

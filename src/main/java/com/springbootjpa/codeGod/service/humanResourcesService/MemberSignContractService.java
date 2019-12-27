@@ -52,6 +52,6 @@ public interface MemberSignContractService {
     MemberSignContractEntity signSetting(MemberSignContractEntity memberSignContractEntity,MemberEntity memberEntity, MemberPrivacyEntity memberPrivacyEntity,
                                           MultipartFile memberPhotoFileMultipartFile, MultipartFile memberPhotoHeadPortraitMultipartFile,
                                           MultipartFile[] memberPersonalDataMultipartFile, MultipartFile memberCardFrontMultipartFile,
-                                          MultipartFile memberCardReverseSideMultipartFile, MultipartFile[] siginAgreementMultipartFile
+                                          MultipartFile memberCardReverseSideMultipartFile, MultipartFile[] siginAgreementMultipartFile,String delKey
             , HttpServletRequest request) throws CodeGodException;
 }

@@ -2,6 +2,7 @@ package com.springbootjpa.codeGod.service.humanResourcesService;
 
 import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberResourceEentity;
+import com.springbootjpa.codeGod.entity.operation.OperationResourceEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -50,4 +51,10 @@ public interface MemberService {
      * @return 会员对应的技能和角色
      */
     List<MemberResourceEentity> findByMemberIdReturnResourceAndKill(Long memberId);
+
+    /**
+     * 根据会员Id查询会员对应的角色
+     * @param memberId 会员id
+     */
+    List<OperationResourceEntity> findByMemberIdReturnResource(Long memberId);
 }

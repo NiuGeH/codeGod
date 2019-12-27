@@ -9,10 +9,7 @@ import com.springbootjpa.codeGod.entity.humanResources.MemberPrivacyEntity;
 import com.springbootjpa.codeGod.entity.humanResources.MemberSignContractEntity;
 import com.springbootjpa.codeGod.eunm.OperationEnum;
 import com.springbootjpa.codeGod.fnalclass.DataBaseFinal;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -79,19 +76,23 @@ public class MemberSignContractController extends MemberBase {
                 Page<MemberSignContractEntity> memberSignContractEntities = memberSignContractService.doPageByValidationCodeAndSiginEnd(
                         pages, ObjectUtils.isEmpty(hashMap.get("validationCode")) ? null : Integer.valueOf(hashMap.get("validationCode"))
                         , ObjectUtils.isEmpty(hashMap.get("siginEnd")) ? null : Integer.valueOf(hashMap.get("siginEnd")));
+//                for (MemberSignContractEntity memberSignContractEntity : memberSignContractEntities) {
+//                    memberSignContractEntity.setMemberEndId(memberService.doStringConvarToList(memberSignContractEntity.getMemberEndId()));
+//                    BaseDataDictionaryEntity byDataKeyAndColumReturnDataValue = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(memberSignContractEntity.getSiginResults().toString(), DataBaseFinal.MEMBERSIGNCONTRACT_SIGIN_RESULTS);
+//                    memberSignContractEntity.setSiginResultsData(ObjectUtils.isEmpty(byDataKeyAndColumReturnDataValue) ? "未申请" : byDataKeyAndColumReturnDataValue.getDataValue());
+//                    BaseDataDictionaryEntity bd2 = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(memberSignContractEntity.getSiginVerificationCode().toString(), DataBaseFinal.MEMBERSIGNCONTRACT_SIGNVERIFICATIONCODE);
+//                    memberSignContractEntity.setSiginVerificationCodeData(ObjectUtils.isEmpty(bd2) ? "" : bd2.getDataValue());
+//
+//                }
                 for (MemberSignContractEntity memberSignContractEntity : memberSignContractEntities) {
-                    BaseDataDictionaryEntity byDataKeyAndColumReturnDataValue = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(memberSignContractEntity.getSiginResults().toString(), DataBaseFinal.MEMBERSIGNCONTRACT_SIGIN_RESULTS);
-                    memberSignContractEntity.setSiginResultsData(ObjectUtils.isEmpty(byDataKeyAndColumReturnDataValue) ? "未申请" : byDataKeyAndColumReturnDataValue.getDataValue());
-                    BaseDataDictionaryEntity bd2 = baseDataDirctionaryService.findByDataKeyAndColumReturnDataValue(memberSignContractEntity.getSiginVerificationCode().toString(), DataBaseFinal.MEMBERSIGNCONTRACT_SIGNVERIFICATIONCODE);
-                    memberSignContractEntity.setSiginVerificationCodeData(ObjectUtils.isEmpty(bd2) ? "" : bd2.getDataValue());
-
+                    memberSignContractEntity.setMemberEndId(memberService.doStringConvarToList(memberSignContractEntity.getMemberEndId()));
                 }
                 return memberSignContractEntities;
             }
         });
     }
 
-    @ApiOperation(value = "推荐签约审核删除接口" , notes = "签约结果未申请且验证码已过期 / 签约结果拒绝 删除")
+    @ApiOperation(value = "推荐签约审核删除接口" , notes = "签约结果未申请且验证码已过期 / 签约结果拒绝 删除  \n  ")
     @PostMapping("/deleteSignMember")
     @ResponseBody
     @ApiImplicitParams({
@@ -125,10 +126,10 @@ public class MemberSignContractController extends MemberBase {
             @Override
             public HashMap<String, Object> invoke() throws Exception {
                 logger.info("URL:/SignContract/signId 请求参数为: "+signId);
-                HashMap<String,String> hashMap1 = gson.fromJson(signId, HashMap.class);
-                String signId1 = hashMap1.get("signId");
+                HashMap<String,Object> hashMap1 = gson.fromJson(signId, HashMap.class);
+                Object signId1 = hashMap1.get("signId");
                 HashMap<String , Object> hashMap = new HashMap<>();
-                Optional<MemberSignContractEntity> byId = memberSignContractentityRepository.findById(Long.valueOf(signId1));
+                Optional<MemberSignContractEntity> byId = memberSignContractentityRepository.findById(Long.valueOf(String.valueOf(signId1)));
                 if(ObjectUtils.isEmpty(byId)){
                     throw new CodeGodException("signId 不存在", this.getClass());
                 }else{
@@ -152,7 +153,11 @@ public class MemberSignContractController extends MemberBase {
             "memberIntroduce >>> 个人账户  \n  memberType >>> 用户类型  \n  memberCardno >>> 身份证号  \n  memberSigningPost >>> 签约岗位  \n  memberSigningMode >>> 签约方式  \n" +
             "memberMedal >>> 勋章  \n  memberStationing >>> 是否驻场  \n  memberStatus >>> 当前状态  \n  memberDisplay >>> 公开显示  \n  memberSigningStatus >>> 签约状态  \n  " +
             "memberPhotoFileMultipartFile(文件) >>> 形象照  \n  memberPhotoHeadPortraitMultipartFile(文件)  >>> 头像  \n  memberPersonalDataMultipartFile(文件 可多个) >>> 个人资料  \n" +
-            "memberCardFrontMultipartFile >>> 身份证正面(文件)  \n  memberCardReverseSideMultipartFile >>> 身份证反面(文件)  \n  siginAgreementMultipartFile >>> 签约协议(文件 可多个)")
+            "memberCardFrontMultipartFile >>> 身份证正面(文件)  \n  memberCardReverseSideMultipartFile >>> 身份证反面(文件)  \n  siginAgreementMultipartFile >>> 签约协议(文件 可多个)  \n  " +
+            "postman 中复制粘贴:  \n  [{\"key\":\"id\",\"value\":\"2\",\"description\":\"memberSignId(必须)\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberMobile\",\"value\":\"1399999917326\",\"description\":\"手机号\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberPwd\",\"value\":\"9999999\",\"description\":\"登录密码\",\"type\":\"text\",\"enabled\":true},{\"key\":\"nickName\",\"value\":\"昵称2019-12-26\",\"description\":\"昵称\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberRealName\",\"value\":\"张三手下\",\"description\":\"姓名\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberEmail\",\"value\":\"123222222\",\"description\":\"邮箱\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberQq\",\"value\":\"99998888\",\"description\":\"QQ\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberWechat\",\"value\":\"微信号\",\"description\":\"微信\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memebrCity\",\"value\":\"重庆\",\"description\":\"所在城市\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberContactAddress\",\"value\":\"联系地址\",\"description\":\"联系地址\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberIntroduce\",\"value\":\"123222\",\"description\":\"个人账户\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberType\",\"value\":\"1\",\"description\":\"用户类型\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberCardno\",\"value\":\"991826215162742\",\"description\":\"身份证号\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberSigningPost\",\"value\":\"1\",\"description\":\"签约岗位\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberSigningMode\",\"value\":\"1\",\"description\":\"签约方式\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberPhotoFileMultipartFile\",\"description\":\"形象照（文件）\",\"type\":\"file\",\"enabled\":true,\"value\":[\"/Users/ushi/Downloads/123 (2).xlsx\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"memberPhotoHeadPortraitMultipartFile\",\"description\":\"头像（文件）\",\"type\":\"file\",\"enabled\":true,\"value\":[\"/Users/ushi/Downloads/83385489-b8b4-41cc-aa8a-c762f698ab89.jpg\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"memberPersonalDataMultipartFile\",\"description\":\"个人资料（文件）\",\"type\":\"file\",\"enabled\":true,\"value\":[\"/Users/ushi/Downloads/timg.jpeg\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"memberPersonalDataMultipartFile\",\"description\":\"个人资料（文件）\",\"type\":\"file\",\"enabled\":true,\"value\":[\"/Users/ushi/Downloads/timg.jpeg\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"memberPersonalDataMultipartFile\",\"description\":\"个人资料（文件）\",\"type\":\"file\",\"enabled\":false,\"value\":[\"/Users/ushi/Downloads/timg.jpeg\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"memberPersonalDataMultipartFile\",\"description\":\"个人资料（文件）\",\"type\":\"file\",\"enabled\":false,\"value\":[\"/Users/ushi/Downloads/4ac90853-6734-4258-8e6e-fe90c18b029f.pdf\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"memberCardFrontMultipartFile\",\"description\":\"身份证正面（文件）\",\"type\":\"file\",\"enabled\":true,\"value\":[\"/Users/ushi/Downloads/天府支付互联网支付开发指南2.0.1(2).docx\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"memberCardReverseSideMultipartFile\",\"description\":\"身份证反面(文件)\",\"type\":\"file\",\"enabled\":true,\"value\":[\"/Users/ushi/Downloads/83385489-b8b4-41cc-aa8a-c762f698ab89.jpg\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"siginAgreementMultipartFile\",\"description\":\"签约协议(文件 可多个)\",\"type\":\"file\",\"enabled\":true,\"value\":[\"/Users/ushi/Downloads/4ac90853-6734-4258-8e6e-fe90c18b029f.pdf\"],\"warning\":\"This file isn't in your working directory. Teammates you share this request with won't be able to use this file. To make collaboration easier you can setup your working directory in Settings.\"},{\"key\":\"delKey\",\"value\":\"363,364,367,360,353,346,339,332,325,318,311,283\",\"description\":\"\",\"type\":\"text\",\"enabled\":true}]" +
+            "" +
+            "\n  ===============  继续粘贴============  \n  [{\"key\":\"memberIntroduce\",\"value\":\"个人介绍\",\"description\":\"个人介绍\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberMedal\",\"value\":\"1,2\",\"description\":\"勋章\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberStationing\",\"value\":\"1\",\"description\":\"是否驻场\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberStatus\",\"value\":\"1\",\"description\":\"当前状态\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberDisplay\",\"value\":\"1\",\"description\":\"公开显示\",\"type\":\"text\",\"enabled\":true},{\"key\":\"memberSigningStatus\",\"value\":\"0\",\"description\":\"签约状态\",\"type\":\"text\",\"enabled\":true}]" +
+            "\n  =================无情===============")
     @PostMapping(value = "/doSaveSign", headers = "content-type=multipart/form-data")
     @ResponseBody
     @ApiImplicitParams({
@@ -167,7 +172,7 @@ public class MemberSignContractController extends MemberBase {
             @ApiImplicitParam(name = "siginAgreementMultipartFile" ,  paramType = "formData",value = "签约协议（可多个）")
 
     })
-    public AjaxResult<Object> doSaveSgin(MemberSignContractEntity memberSignContractEntity, MemberEntity memberEntity,MemberPrivacyEntity memberPrivacyEntity,
+    public AjaxResult<Object> doSaveSgin(@ApiParam MemberSignContractEntity memberSignContractEntity,@ApiParam MemberEntity memberEntity,@ApiParam MemberPrivacyEntity memberPrivacyEntity, String delKey,
                                          @RequestParam("memberPhotoFileMultipartFile") MultipartFile memberPhotoFileMultipartFile, @RequestParam("memberPhotoHeadPortraitMultipartFile") MultipartFile memberPhotoHeadPortraitMultipartFile,
                                          @RequestParam("memberPersonalDataMultipartFile") MultipartFile[] memberPersonalDataMultipartFile, @RequestParam("memberCardFrontMultipartFile") MultipartFile memberCardFrontMultipartFile,
                                          @RequestParam("memberCardReverseSideMultipartFile") MultipartFile memberCardReverseSideMultipartFile, @RequestParam("siginAgreementMultipartFile") MultipartFile[] siginAgreementMultipartFile
@@ -175,9 +180,9 @@ public class MemberSignContractController extends MemberBase {
         return AjaxUtils.process(new Func_T<Object>() {
             @Override
             public Object invoke() throws CodeGodException {
-                logger.info("URL:/SignContract/doSaveSgin 请求参数为: 用户签约 信息："+memberSignContractEntity.toString() +"  用户私密信息表数据:"+memberPrivacyEntity.toString() + " 用户基本信息："+memberEntity.toString());
+                logger.info("URL:/SignContract/doSaveSign 请求参数为: 用户签约 信息："+memberSignContractEntity.toString() +"  用户私密信息表数据:"+memberPrivacyEntity.toString() + " 用户基本信息："+memberEntity.toString());
                 if(ObjectUtils.isEmpty(memberSignContractEntity.getId())) throw new CodeGodException("id 为空 ",this.getClass());
-                memberSignContractService.signSetting(memberSignContractEntity, memberEntity, memberPrivacyEntity, memberPhotoFileMultipartFile, memberPhotoHeadPortraitMultipartFile, memberPersonalDataMultipartFile, memberCardFrontMultipartFile, memberCardReverseSideMultipartFile, siginAgreementMultipartFile, request);
+                memberSignContractService.signSetting(memberSignContractEntity, memberEntity, memberPrivacyEntity, memberPhotoFileMultipartFile, memberPhotoHeadPortraitMultipartFile, memberPersonalDataMultipartFile, memberCardFrontMultipartFile, memberCardReverseSideMultipartFile, siginAgreementMultipartFile, delKey, request);
                 return "success";
             }
         });

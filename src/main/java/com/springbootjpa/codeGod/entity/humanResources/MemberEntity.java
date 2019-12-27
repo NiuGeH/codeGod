@@ -108,9 +108,11 @@ public class MemberEntity extends AbstractEntity implements Serializable {
     private String memberTypeData;
 
     public String getMemberTypeData() {
-        if (memberType == HumanRecourcesStatus.MEMBER_MEMBERTYPE_ZJYH.getIndex()) {
+        if(ObjectUtils.isEmpty(getMemberType()))         return memberTypeData;
+
+        if (getMemberType() == HumanRecourcesStatus.MEMBER_MEMBERTYPE_ZJYH.getIndex()) {
             return HumanRecourcesStatus.MEMBER_MEMBERTYPE_ZJYH.getName();
-        } else if (memberType == HumanRecourcesStatus.MEMBER_MEMBERTYPE_ZSYH.getIndex()) {
+        } else if (getMemberType() == HumanRecourcesStatus.MEMBER_MEMBERTYPE_ZSYH.getIndex()) {
             return HumanRecourcesStatus.MEMBER_MEMBERTYPE_ZSYH.getName();
         }
         return memberTypeData;
@@ -128,7 +130,10 @@ public class MemberEntity extends AbstractEntity implements Serializable {
     private String memberSigningPostData;
 
     public String getMemberSigningPostData() {
-        String[] split = memberSigningPost.split(",");
+        if(ObjectUtils.isEmpty(getMemberSigningPost())){
+            return memberSigningPostData;
+        }
+        String[] split = getMemberSigningPost().split(",");
         StringBuilder sb = new StringBuilder();
         if (split.length > 1) {
             for (String s : split) {
@@ -168,6 +173,7 @@ public class MemberEntity extends AbstractEntity implements Serializable {
     private String memberSigningModeString;
 
     public String getMemberSigningModeString() {
+        if(ObjectUtils.isEmpty(getMemberSigningMode())) return memberSigningModeString;
         if (HumanRecourcesStatus.MEMBER_MEMBERSIGNINGMODE_QZ.getIndex() == memberSigningMode) {
             return HumanRecourcesStatus.MEMBER_MEMBERSIGNINGMODE_QZ.getName();
         } else if (HumanRecourcesStatus.MEMBER_MEMBERSIGNINGMODE_JZ.getIndex() == memberSigningMode) {
@@ -201,6 +207,7 @@ public class MemberEntity extends AbstractEntity implements Serializable {
     private String memberStationingData;
 
     public String getMemberStationingData() {
+        if(ObjectUtils.isEmpty(getMemberStationing())) return memberStationingData;
         if (Integer.valueOf(memberStationing) == HumanRecourcesStatus.MEMBER_MEMBERSTATIONING_KZC.getIndex()) {
             return HumanRecourcesStatus.MEMBER_MEMBERSTATIONING_KZC.getName();
         } else if (HumanRecourcesStatus.MEMBER_MEMBERSTATIONING_BKZC.getIndex() == Integer.valueOf(memberStationing)) {
@@ -245,6 +252,7 @@ public class MemberEntity extends AbstractEntity implements Serializable {
     private String memberDisplayData;
 
     public String getMemberDisplayData() {
+        if(ObjectUtils.isEmpty(getMemberDisplay())) return memberDisplayData;
         if (memberDisplay == HumanRecourcesStatus.MEMBER_MEMBERDISPLAY_XS.getIndex()) {
             return HumanRecourcesStatus.MEMBER_MEMBERDISPLAY_XS.getName();
         } else if (memberDisplay == HumanRecourcesStatus.MEMBER_MEMBERDISPLAY_BXS.getIndex()) {
@@ -258,7 +266,7 @@ public class MemberEntity extends AbstractEntity implements Serializable {
      * default value: null
      */
     @ApiModelProperty(value = "签约协议 可上传多个 ,号分割")
-    @Column(name = "member_signing_agreement", nullable = true, length = 50)
+    @Column(name = "member_signing_agreement", nullable = true, length = 360)
     private String memberSigningAgreement;
 
     @Transient

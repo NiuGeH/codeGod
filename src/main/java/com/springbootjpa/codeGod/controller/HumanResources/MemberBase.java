@@ -1,6 +1,7 @@
 package com.springbootjpa.codeGod.controller.HumanResources;
 
 import com.google.gson.Gson;
+import com.springbootjpa.codeGod.entity.humanResources.MemberWageEntity;
 import com.springbootjpa.codeGod.repository.HumanResources.*;
 import com.springbootjpa.codeGod.repository.Operation.*;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
@@ -80,4 +81,17 @@ public class MemberBase {
 
     @Autowired
     protected MemberEmployPersonnelService memberEmployPersonnelService;
+
+    @Autowired
+    protected MemberContractService memberContractService;
+
+    @Autowired
+    protected MemberContractEntityRepository memberContractEntityRepository;
+
+    @Autowired
+    protected MemberWageService memberWageService;
+
+    @Autowired
+    protected MemberWageentityRepository memberWageentityRepository;
+
 }

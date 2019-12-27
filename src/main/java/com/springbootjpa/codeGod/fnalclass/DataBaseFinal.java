@@ -62,5 +62,15 @@ public class DataBaseFinal {
 
     public static final String MEMBER_EMPLOY_PERSONNEL_DEVELOPMENT_WAY = "member_employ_personnel.employ_development_way";
 
+    public static final String MEMBER_CONTRACT_CONTRACT_STATUS="member_contract.contract_status";
+
     public static final String OPERATION_TEAM_DISPLAY = "operation_team.display";
+
+    public static final String MEMBER_EMPLOY_PERSONNEL_WORK_STATUS="member_employ_personnel.employ_work_status"; //member_employ_personnel.employ_work_status
+
+    public static final String OPERATION_PERSONAL_MENU_DISPLAY = "operation_personal_menu.display";
+
+    public static final String PMSETTLEACCOUNTS_FUNDSTYPE ="pm_settle_accounts.funds_type";
+
+    public static final String PM_SETTLE_ACCOUNTSSTATUS="pm_settle_accounts.status";
 }

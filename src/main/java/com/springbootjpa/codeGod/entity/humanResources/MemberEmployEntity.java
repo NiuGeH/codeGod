@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Proxy;
+import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 
@@ -118,6 +119,7 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
     private String employModeData;
 
     public String getEmployModeData() {
+        if(ObjectUtils.isEmpty(getEmployMode())) return employModeData;
         if(getEmployMode() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYMODE_ZC.getIndex()){
             return HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYMODE_ZC.getName();
         }else if (getEmployMode() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYMODE_YC.getIndex()){
@@ -146,6 +148,8 @@ public class MemberEmployEntity extends AbstractEntity implements Serializable {
     private String employStatusData;
 
     public String getEmployStatusData() {
+        if(ObjectUtils.isEmpty(getEmployStatus())) return employStatusData;
+
         if(getEmployStatus() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_WCL.getIndex()){
             return HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_WCL.getName();
         }else if(getEmployStatus() == HumanRecourcesStatus.MEMBER_EMPLOY_EMPLOYSTATUS_YJJ.getIndex()){

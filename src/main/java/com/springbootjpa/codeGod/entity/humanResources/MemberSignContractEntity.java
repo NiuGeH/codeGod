@@ -2,12 +2,14 @@ package com.springbootjpa.codeGod.entity.humanResources;
 
 import com.springbootjpa.codeGod.entity.AbstractEntity;
 import com.springbootjpa.codeGod.entity.UploadFile;
+import com.springbootjpa.codeGod.eunm.HumanRecourcesStatus;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 
@@ -85,6 +87,21 @@ public class MemberSignContractEntity extends AbstractEntity implements Serializ
 	@Transient
 	private String siginResultsData;
 
+	public String getSiginResultsData() {
+		if(!ObjectUtils.isEmpty(getSiginResults())){
+			if (getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_WSQ.getIndex()){
+				return HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_WSQ.getName();
+			}else if(getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_DDSH.getIndex()){
+				return HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_DDSH.getName();
+			}else if(getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_YQY.getIndex()){
+				return HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_YQY.getName();
+			}else if(getSiginResults() == HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_YJJ.getIndex()){
+				return HumanRecourcesStatus.MEMBERSIGNCONTRACT_SIGIN_RESULTS_YJJ.getName();
+			}
+		}
+		return siginResultsData;
+	}
+
 	/**
 	 * 验证码 0 未过期 1已过期
 	 * default value: null
@@ -99,6 +116,16 @@ public class MemberSignContractEntity extends AbstractEntity implements Serializ
 	@Transient
 	private String siginVerificationCodeData;
 
+	public String getSiginVerificationCodeData() {
+		if(!ObjectUtils.isEmpty(getSiginVerificationCode())){
+			if(getSiginVerificationCode() == HumanRecourcesStatus.MEMBER_SIGN_CONTRACT_SIGIN_VERIFICATION_CODE_WGQ.getIndex()){
+				return HumanRecourcesStatus.MEMBER_SIGN_CONTRACT_SIGIN_VERIFICATION_CODE_WGQ.getName();
+			}else if(getSiginVerificationCode() == HumanRecourcesStatus.MEMBER_SIGN_CONTRACT_SIGIN_VERIFICATION_CODE_YGQ.getIndex()){
+				return HumanRecourcesStatus.MEMBER_SIGN_CONTRACT_SIGIN_VERIFICATION_CODE_YGQ.getName();
+			}
+		}
+		return siginVerificationCodeData;
+	}
 
 	@Override
 	public String toString() {

@@ -40,11 +40,25 @@ public enum HumanRecourcesStatus {
     ,MEMBER_MEMBER_EMPLOY_PERSONNEL_INVITATION_STATYS_WYQ("未邀请",0)//employ_invitation_status
     ,MEMBER_MEMBER_EMPLOY_PERSONNEL_INVITATION_STATYS_YJJ("已拒绝",1)//employ_invitation_status
     ,MEMBER_MEMBER_EMPLOY_PERSONNEL_INVITATION_STATYS_YTY("已同意",2)//employ_invitation_status
+    ,MEMBER_MEMBER_EMPLOY_PERSONNEL_INVITATION_STATYS_YYY("已邀请",3)//employ_invitation_status
     ,MEMBER_MEMBER_EMPLOY_PERSIONNEL_WORK_STATUS_WJC("未进场",0) //employ_work_status
     ,MEMBER_MEMBER_EMPLOY_PERSIONNEL_WORK_STATUS_YJC("已进场",1) //employ_work_status
     ,MEMBER_MEMBER_EMPLOY_PERSIONNEL_WORK_STATUS_YLC("已离场",2) //employ_work_status
     ,MEMBER_MEMBER_EMPLOY_PERSIONNEL_SIGIN_TYPE_QZ("全职",0)  //employ_persionnel_sigin_type
     ,MEMBER_MEMBER_EMPLOY_PERSIONNEL_SIGIN_TYPE_JZ("兼职",1)  //employ_persionnel_sigin_type
+    ,MEMBER_CONTRACT_STATUS_YQY("已签约",0)
+    ,MEMBER_CONTRACT_STATUS_YZZ("已终止",1)//member_contract.contract_status
+    ,MEMBER_CONTRACT_CLOSE_WAY_TIAN("天",0)//member_contract.contract_close_way
+    ,MEMBER_CONTRACT_CLOSE_WAY_YUE("月",1)//member_contract.contract_close_way
+    ,MEMBER_CONTRACT_CLOSE_WAY_JI("季",2)//member_contract.contract_close_way
+    ,MEMBER_CONTRACT_COURT_ZC("驻场",0)//member_contract.contract_court
+    ,MEMBER_CONTRACT_COURT_YC("远程",1)//member_contract.contract_court
+    ,MEMBER_SIGN_CONTRACT_SIGIN_VERIFICATION_CODE_WGQ("未过期",0) //member_sign_contract.sigin_verification_code
+    ,MEMBER_SIGN_CONTRACT_SIGIN_VERIFICATION_CODE_YGQ("已过期",1)
+    ,MEMBER_WAGE_PAYMENT_STATUS_WZF("未支付",0)//wage_payment_status
+    ,MEMBER_WAGE_PAYMENT_STATUS_YZF("已支付",1)
+    ,MEMBER_WAGE_PAYMENT_WAY_PTHZ("平台划账",0)//wage_payment_way
+    ,MEMBER_WAGE_PAYMENT_WAY_XXDK("线下打款",1)
     ;
     // 成员变量
     private String name;

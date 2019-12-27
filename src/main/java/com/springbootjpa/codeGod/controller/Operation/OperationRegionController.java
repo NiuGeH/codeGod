@@ -3,6 +3,7 @@ package com.springbootjpa.codeGod.controller.Operation;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
 import com.springbootjpa.codeGod.common.*;
 import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
+import com.springbootjpa.codeGod.eunm.OperationEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -12,10 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,6 +109,19 @@ public class OperationRegionController extends OperationBase{
             }
         });
     }
+
+    @PostMapping(value = "/findAllCityForm")
+    @ApiOperation(value = "表单中用到的城市" , httpMethod = "POST")
+    @ResponseBody
+    public AjaxResult<Object> findAllCityForm(){
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                return operationRegionRepository.findAllByDisplay(OperationEnum.OPERATION_ENUM_REGION_DISPLAY_XS.getIndex());
+            }
+        });
+    }
+
 
 
     @PostMapping(value = "/findCity", produces = "application/json;charset=UTF-8")

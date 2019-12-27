@@ -3,12 +3,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springbootjpa.codeGod.entity.AbstractEntity;
 import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.operation.OperationRegionEntity;
+import com.springbootjpa.codeGod.eunm.HumanRecourcesStatus;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 
@@ -83,6 +85,15 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
     private String contractCloseWayData;
 
     public String getContractCloseWayData() {
+        if(!ObjectUtils.isEmpty(getContractCloseWay())){
+            if(getContractCloseWay() == HumanRecourcesStatus.MEMBER_CONTRACT_CLOSE_WAY_TIAN.getIndex()){
+                return HumanRecourcesStatus.MEMBER_CONTRACT_CLOSE_WAY_TIAN.getName();
+            }else if(getContractCloseWay() == HumanRecourcesStatus.MEMBER_CONTRACT_CLOSE_WAY_YUE.getIndex()){
+                return HumanRecourcesStatus.MEMBER_CONTRACT_CLOSE_WAY_YUE.getName();
+            }else if(getContractCloseWay() == HumanRecourcesStatus.MEMBER_CONTRACT_CLOSE_WAY_JI.getIndex()){
+                return HumanRecourcesStatus.MEMBER_CONTRACT_CLOSE_WAY_JI.getName();
+            }
+        }
         return contractCloseWayData;
     }
 
@@ -105,6 +116,21 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
     @Column(name = "contract_court", nullable = true, length = 20)
     private Integer contractCourt;
 
+    @Transient
+    private String contractCourtData;
+
+    public String getContractCourtData() {
+        if(!ObjectUtils.isEmpty(getContractCourt())){
+            if(getContractCourt() == HumanRecourcesStatus.MEMBER_CONTRACT_COURT_ZC.getIndex()){
+                return HumanRecourcesStatus.MEMBER_CONTRACT_COURT_ZC.getName();
+            }else if(getContractCourt() == HumanRecourcesStatus.MEMBER_CONTRACT_COURT_YC.getIndex()){
+                return HumanRecourcesStatus.MEMBER_CONTRACT_COURT_YC.getName();
+
+            }
+        }
+        return contractCourtData;
+    }
+
     /**
      * 合同 uploadfile ID
      * default value: null
@@ -123,6 +149,27 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
     @Column(name = "contract_number",nullable = true,length = 20)
     private Integer contractNumber;
 
+
+    /**
+     * 签约状态 0已签约 1已终止
+     */
+    @Column(name = "contract_status",nullable = true)
+    private Integer contractStatus;
+
+    @Transient
+    private String contractStatusData;
+
+    public String getContractStatusData() {
+        if(!ObjectUtils.isEmpty(getContractStatus())){
+            if(getContractStatus() == HumanRecourcesStatus.MEMBER_CONTRACT_STATUS_YQY.getIndex()){
+                return HumanRecourcesStatus.MEMBER_CONTRACT_STATUS_YQY.getName();
+            }else if(getContractStatus() == HumanRecourcesStatus.MEMBER_CONTRACT_STATUS_YZZ.getIndex()){
+                return HumanRecourcesStatus.MEMBER_CONTRACT_STATUS_YZZ.getName();
+            }
+        }
+        return contractStatusData;
+    }
+
     @Override
     public String toString() {
         return "MemberContractEntity{" +
@@ -132,10 +179,13 @@ public class MemberContractEntity extends AbstractEntity implements Serializable
                 ", contractCycleStart=" + contractCycleStart +
                 ", contractCycleEnd=" + contractCycleEnd +
                 ", contractCloseWay=" + contractCloseWay +
-                ", contractAddress='" + contractAddress + '\'' +
+                ", contractCloseWayData='" + contractCloseWayData + '\'' +
+                ", contractAddress=" + contractAddress +
                 ", contractCourt=" + contractCourt +
                 ", contractPact=" + contractPact +
                 ", contractNumber=" + contractNumber +
+                ", contractStatus=" + contractStatus +
+                ", contractStatusData='" + contractStatusData + '\'' +
                 ", id=" + id +
                 '}';
     }

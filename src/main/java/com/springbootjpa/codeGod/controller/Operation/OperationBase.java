@@ -1,6 +1,8 @@
 package com.springbootjpa.codeGod.controller.Operation;
 
 import com.google.gson.Gson;
+import com.springbootjpa.codeGod.repository.Operation.OperationRegionRepository;
+import com.springbootjpa.codeGod.repository.Operation.OperationResourceRepository;
 import com.springbootjpa.codeGod.service.operationService.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,6 +50,9 @@ public class OperationBase {
 
     @Autowired
     protected OperationPersonalMenuService operationPersonalMenuService;
+
+    @Autowired
+    protected OperationRegionRepository operationRegionRepository;
 
     @Autowired
     protected OperationTeamService operationTeamService;

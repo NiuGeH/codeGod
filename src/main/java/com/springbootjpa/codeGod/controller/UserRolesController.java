@@ -127,4 +127,15 @@ public class UserRolesController extends SysBase{
 
     }
 
+    @RequestMapping("/loginHtml")
+    @ResponseBody
+    public AjaxResult<Object> loginHtml(){
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                return "请先登录";
+            }
+        });
+    }
+
 }

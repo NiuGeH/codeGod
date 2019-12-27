@@ -214,4 +214,16 @@ public class MemberServiceImpl extends MemberServiceBase implements MemberServic
         }
         return allByMemberId;
     }
+
+    @Override
+    public List<OperationResourceEntity> findByMemberIdReturnResource(Long memberId) {
+        List<MemberResourceEentity> allByMemberId = memberResourceentityRepository.findAllByMemberId(memberId);
+        List<OperationResourceEntity> list = new ArrayList<>();
+        for (MemberResourceEentity memberResourceEentity : allByMemberId) {
+            list.add(memberResourceEentity.getMemberOperationResource());
+//            List<MemberResourceSkillEntity> allByMemberResourceId = memberResourceSkillentityRepository.findAllByMemberResourceId(memberResourceEentity.getId());
+//            memberResourceEentity.setMemberResourceSkillEntityList(allByMemberResourceId);
+        }
+        return list;
+    }
 }

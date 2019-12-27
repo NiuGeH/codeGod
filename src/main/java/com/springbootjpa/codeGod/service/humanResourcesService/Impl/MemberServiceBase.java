@@ -64,6 +64,8 @@ public class MemberServiceBase {
     @Autowired
     protected MemberContractEntityRepository memberContractEntityRepository;
 
+    @Autowired
+    protected MemberWageentityRepository memberWageentityRepository;
 
 
 }

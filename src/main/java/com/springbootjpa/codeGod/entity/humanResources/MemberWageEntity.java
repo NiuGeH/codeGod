@@ -1,13 +1,16 @@
 package com.springbootjpa.codeGod.entity.humanResources;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springbootjpa.codeGod.entity.AbstractEntity;
 import com.springbootjpa.codeGod.entity.UploadFile;
+import com.springbootjpa.codeGod.eunm.HumanRecourcesStatus;
 import lombok.Data;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 
@@ -50,6 +53,7 @@ public class MemberWageEntity extends AbstractEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "结算周期开始时间")
 	@Column(name = "settlement_cycle_start", nullable = true )
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
 	private java.util.Date settlementCycleStart;
 
 	/**
@@ -58,6 +62,7 @@ public class MemberWageEntity extends AbstractEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "结算周期结束时间")
 	@Column(name = "settlement_cycle_end", nullable = true )
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
 	private java.util.Date settlementCycleEnd;
 
 	/**
@@ -116,6 +121,20 @@ public class MemberWageEntity extends AbstractEntity implements Serializable {
 	@Column(name = "wage_payment_status", nullable = true, length = 11)
 	private Integer wagePaymentStatus;
 
+	@Transient
+	private String wagePaymentStatusData;
+
+	public String getWagePaymentStatusData() {
+		if(!ObjectUtils.isEmpty(getWagePaymentStatus())){
+			if(getWagePaymentStatus() == HumanRecourcesStatus.MEMBER_WAGE_PAYMENT_STATUS_WZF.getIndex()){
+				return HumanRecourcesStatus.MEMBER_WAGE_PAYMENT_STATUS_WZF.getName();
+			}else if(getWagePaymentStatus() == HumanRecourcesStatus.MEMBER_WAGE_PAYMENT_STATUS_YZF.getIndex()){
+				return HumanRecourcesStatus.MEMBER_WAGE_PAYMENT_STATUS_YZF.getName();
+			}
+		}
+		return wagePaymentStatusData;
+	}
+
 	/**
 	 * 付款方式 0平台划账 1线下打款
 	 * default value: null
@@ -123,6 +142,20 @@ public class MemberWageEntity extends AbstractEntity implements Serializable {
 	@ApiModelProperty(value = "付款方式 0平台划账 1线下打款")
 	@Column(name = "wage_payment_way", nullable = true, length = 11)
 	private Integer wagePaymentWay;
+
+	@Transient
+	private String wagePaymentWayData;
+
+	public String getWagePaymentWayData() {
+		if(!ObjectUtils.isEmpty(getWagePaymentWay())){
+			if (getWagePaymentWay() == HumanRecourcesStatus.MEMBER_WAGE_PAYMENT_WAY_PTHZ.getIndex()){
+				return HumanRecourcesStatus.MEMBER_WAGE_PAYMENT_WAY_PTHZ.getName();
+			} else if (getWagePaymentWay() == HumanRecourcesStatus.MEMBER_WAGE_PAYMENT_WAY_XXDK.getIndex()) {
+				return HumanRecourcesStatus.MEMBER_WAGE_PAYMENT_WAY_XXDK.getName();
+			}
+		}
+		return wagePaymentWayData;
+	}
 
 	/**
 	 * 付款凭证 uploadFile
