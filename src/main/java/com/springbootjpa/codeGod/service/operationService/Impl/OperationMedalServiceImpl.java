@@ -60,7 +60,7 @@ public class OperationMedalServiceImpl implements OperationMedalService {
         if(ObjectUtils.isEmpty(medalPhotoFile) || medalPhotoFile.getSize()==0) throw new CodeGodRunTimExcetion("勋章图标不能为空", this.getClass());
 
         //判断新添加的勋章名称是否存在
-        OperationMedalEntity medalEntity = operationMedalRepository.findByMedalName(name);
+        OperationMedalEntity medalEntity = operationMedalRepository.findByMedalNameAndState(name, OperationEnum.OPERATION_STATE_ZC.getIndex());
         if(!ObjectUtils.isEmpty(medalEntity)){
             throw new CodeGodRunTimExcetion("该勋章名称已存在", this.getClass());
         }
@@ -109,7 +109,7 @@ public class OperationMedalServiceImpl implements OperationMedalService {
 
         //修改勋章属性
         if (!medalEntity.getMedalName().equals(newName)) {
-            OperationMedalEntity me = operationMedalRepository.findByMedalName(newName);
+            OperationMedalEntity me = operationMedalRepository.findByMedalNameAndState(newName, OperationEnum.OPERATION_STATE_ZC.getIndex());
             if(!ObjectUtils.isEmpty(me)) throw new CodeGodRunTimExcetion("该勋章名称已存在",this.getClass());
             medalEntity.setMedalName(newName);
         }

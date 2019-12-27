@@ -30,7 +30,7 @@ public class OperationMedalController extends OperationBase {
             @ApiImplicitParam(name = "medalPhotoFile",value = "上传的勋章图标文件", paramType = "formData")
     })
     public AjaxResult<Object> addMedal(String medalName, @RequestParam("medalPhotoFile") MultipartFile medalPhotoFile){
-        log.info("URL:/medal/addMedal 请求参数：" + medalName);
+        log.info("URL:/medal/addMedal 请求参数：勋章名称：" + medalName + "，图标文件：" + medalPhotoFile.getOriginalFilename());
         return AjaxUtils.process(new Func_T<Object>() {
 
             @Override
@@ -50,7 +50,7 @@ public class OperationMedalController extends OperationBase {
             @ApiImplicitParam(name = "medalPhotoFile",value = "上传的勋章图标文件", paramType = "formData")
     })
     public AjaxResult<Object> updateMedal(Long id, String newName, @RequestParam("medalPhotoFile") MultipartFile medalPhotoFile){
-        log.info("URL:/medal/updateMedal 请求参数：修改的勋章id>>>" + id.toString() + "，勋章新名称>>>" + newName);
+        log.info("URL:/medal/updateMedal 请求参数：修改的勋章id：" + id + "，勋章名称：" + newName + "，图标文件：" + medalPhotoFile.getOriginalFilename());
         return AjaxUtils.process(new Func_T<Object>() {
 
             @Override

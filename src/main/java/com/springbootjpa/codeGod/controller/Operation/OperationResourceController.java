@@ -43,7 +43,7 @@ public class OperationResourceController extends OperationBase {
     })
     public AjaxResult<Object> addResource(String name, Long amount, Long order, Map<Long,String> skillMap, Integer display,
                                           @RequestParam("resourcePhotoFile") MultipartFile resourcePhotoFile){
-        log.info("URL:/resource/addResource 请求参数：资源类型名称:"+name+",人数:"+amount+",资源排序："+order+",关联技术栈map:"+skillMap+",是否显示:"+display);
+        log.info("URL:/resource/addResource 请求参数：资源类型名称："+name+"，人数："+amount+"，资源排序："+order+"，关联技术栈map："+skillMap+"，是否显示："+display+"，图标文件："+resourcePhotoFile.getOriginalFilename());
         return AjaxUtils.process(new Func_T<Object>() {
 
             @Override
@@ -69,7 +69,7 @@ public class OperationResourceController extends OperationBase {
     })
     public AjaxResult<Object> updateResource(Long id, String newName, Long amount, Long order, Map<Long,String> skillMap, Integer display,
                                           @RequestParam("resourcePhotoFile") MultipartFile resourcePhotoFile){
-        log.info("URL:/resource/updateResource 请求参数：资源类型id："+id+",资源类型名称:"+newName+",人数:"+amount+",资源排序："+order+",关联技术栈map:"+skillMap+",是否显示:"+display);
+        log.info("URL:/resource/updateResource 请求参数：资源类型id："+id+"，资源类型名称："+newName+"，人数："+amount+"，资源排序："+order+"，关联技术栈map："+skillMap+"，是否显示："+display);
         return AjaxUtils.process(new Func_T<Object>() {
 
             @Override

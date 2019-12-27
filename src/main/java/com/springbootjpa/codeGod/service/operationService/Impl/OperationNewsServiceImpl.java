@@ -67,7 +67,7 @@ public class OperationNewsServiceImpl implements OperationNewsService {
         }
 
         //判断类型是否已存在
-        OperationNewsEntity ne = operationNewsRepository.findByTitle(title);
+        OperationNewsEntity ne = operationNewsRepository.findByTitleAndState(title, OperationEnum.OPERATION_STATE_ZC.getIndex());
         if(!ObjectUtils.isEmpty(ne)){
             throw new CodeGodRunTimExcetion("该新闻标题已存在", this.getClass());
         }
@@ -145,7 +145,7 @@ public class OperationNewsServiceImpl implements OperationNewsService {
 
         //修改属性
         if (!newsEntity.getTitle().equals(title)) {
-            OperationNewsEntity ne = operationNewsRepository.findByTitle(title);
+            OperationNewsEntity ne = operationNewsRepository.findByTitleAndState(title, OperationEnum.OPERATION_STATE_ZC.getIndex());
             if(!ObjectUtils.isEmpty(ne)) throw new CodeGodRunTimExcetion("该新闻标题已存在",this.getClass());
             newsEntity.setTitle(title);
         }
