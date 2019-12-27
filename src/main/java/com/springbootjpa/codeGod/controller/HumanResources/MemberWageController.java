@@ -52,7 +52,7 @@ public class MemberWageController  extends MemberBase{
 
     @PostMapping(value = "/findWageById", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    @ApiOperation(value = "根据Id 返回工资实体",httpMethod = "POST",notes ="employPersonnel.employMonthMoney==>工资  \n  "+
+    @ApiOperation(value = "根据Id 返回工资实体",httpMethod = "POST",notes ="employPersonnel.employMonthMoney==>工资  \n  memberRealName==>姓名  \n"+
             "settlementCycleStart==>结算周期 Start  \n" +
             "settlementCycleEnd==>结算周期结束时间  \n" +
             "wageSocialSecurity==>社保缴纳  \n" +
@@ -73,13 +73,46 @@ public class MemberWageController  extends MemberBase{
                 Object id = hashMap.get("id");
                 if(ObjectUtils.isEmpty(id)) throw new CodeGodException("id为空",this.getClass());
                 MemberWageEntity memberWageEntity = memberWageentityRepository.findById(Long.valueOf(String.valueOf(id))).orElseThrow(() -> new CodeGodException("/wageController/findWageById ==> id 不存在", this.getClass()));
-                MemberPrivacyEntity memberPricacy = memberWageEntity.getEmployPersonnel().getMemberId().getMemberPricacy();
-                String memberRealName = memberPricacy.getMemberRealName();
-//                HashMap>
-                return null;
+                try {
+                    MemberPrivacyEntity memberPricacy = memberWageEntity.getEmployPersonnel().getMemberId().getMemberPricacy();
+                    String memberRealName = memberPricacy.getMemberRealName();
+                    HashMap<String,Object> map = new HashMap<>();
+                    map.put("ent",memberWageEntity);
+                    map.put("memberRealName",memberRealName);
+                    return map;
+                }catch (NullPointerException e){
+                    throw new CodeGodException("用户信息不完整",this.getClass());
+                }
             }
         });
     }
+
+
+    @PostMapping(value = "/doEditWag", produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "编辑",notes = "id==>/doPage中的id  \n" +
+            "wageSocialSecurity==>社保缴纳  \n" +
+            "wageAccumulationFund==>公积金缴纳  \n" +
+            "wagePersonalTaxes==>个人税  \n" +
+            "wageBonus==>奖金  \n" +
+            "wageRealWages==>实发工资  \n" +
+            "wagePaymentNote==>付款备注",httpMethod = "POST")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "json",value = "")
+    })
+    public AjaxResult<Object> doEditWag(@RequestBody String json){
+        log.info("URL: /wageController/doEditWag 参数: "+json);
+        return AjaxUtils.process(new Func_T<Object>() {
+            @Override
+            public Object invoke() throws Exception {
+                MemberWageEntity memberWageEntity = gson.fromJson(json, MemberWageEntity.class);
+                System.err.println(memberWageEntity.toString());
+                HashMap hashMap = gson.fromJson(json, HashMap.class);
+                return memberWageService.doMakeSalary(memberWageEntity);
+            }
+        });
+    }
+
 
 
 
