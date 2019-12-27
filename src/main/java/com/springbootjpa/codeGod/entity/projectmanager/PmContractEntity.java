@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.springframework.data.annotation.Transient;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -56,7 +55,6 @@ public class PmContractEntity extends AbstractEntity implements Serializable {
 	 */
 	@ApiModelProperty(value = "签订日期")
 	@Column(name = "contract_date", nullable = true)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date contractDate;
 
 	/**s

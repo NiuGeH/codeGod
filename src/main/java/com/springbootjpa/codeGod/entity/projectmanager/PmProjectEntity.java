@@ -37,6 +37,7 @@ public class PmProjectEntity extends AbstractEntity implements Serializable {
 	private MemberEntity memberEntity;
 	@Transient
 	private Long productManagerId;
+
 	/**
 	 * 关联需求编号
 	 * default value: null
@@ -45,6 +46,7 @@ public class PmProjectEntity extends AbstractEntity implements Serializable {
 	@JoinColumn(name = "demand_id")
 	@NotFound(action = NotFoundAction.IGNORE)
 	private PmDemandEntity pmDemandEntity;
+
 	@Transient
 	private Long demandId;
 	/**

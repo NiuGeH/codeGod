@@ -27,24 +27,21 @@ import javax.persistence.*;
 @Table(name = "pm_demand")
 public class PmDemandEntity extends AbstractEntity implements Serializable {
 
-//	/**
-//	 * 发布人
-//	 * default value: null
-//	 */
-//	@ApiModelProperty(value = "发布人")
-//	@Column(name = "demand_publisher", nullable = true, length = 20)
-//	private String demandPublisher;
-//
-//	/**
-//	 * 联系方式
-//	 * default value: null
-//	 */
-//	@ApiModelProperty(value = "联系方式")
-//	@Column(name = "demand_contact_information", nullable = true, length = 20)
-//	private String demandContactInformation;
+	/**
+	 * 发布人
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "发布人")
+	@Column(name = "demand_publisher", nullable = true, length = 20)
+	private String demandPublisher;
 
-
-
+	/**
+	 * 联系方式
+	 * default value: null
+	 */
+	@ApiModelProperty(value = "联系方式")
+	@Column(name = "demand_contact_information", nullable = true, length = 20)
+	private String demandContactInformation;
 
 	/**
 	 * 发布时间
@@ -74,7 +71,7 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "custom_id")
 	@NotFound(action = NotFoundAction.IGNORE)
-	private MemberEntity custom_id;
+	private MemberPrivacyEntity memberPrivacyEntity;
 
 
 	/**
@@ -122,8 +119,11 @@ public class PmDemandEntity extends AbstractEntity implements Serializable {
 	public String toString() {
 		return "PmDemandEntity{" +
 				"id='"+ id + '\'' +
+				",demandPublisher='" + demandPublisher + '\'' +
+				", demandContactInformation='" + demandContactInformation + '\'' +
 				", demandDeliverTime=" + demandDeliverTime +
 				", pmTeamEntity=" + pmTeamEntity +
+				", memberPrivacyEntity=" + memberPrivacyEntity +
 				", demandDescribe='" + demandDescribe + '\'' +
 				", demandStatus=" + demandStatus +
 				", demandStatus1='" + demandStatus1 + '\'' +

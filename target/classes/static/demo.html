@@ -5,9 +5,57 @@
     <title>Title</title>
 </head>
 <body>
+<img src="http://localhost:8888/files/20191214/jpg/08757f9d-afa0-4140-94d0-b7320aa46d95.jpg">
+<a href="http://localhost:8888/files/dl/20191214/xlsx/a7a44ebe-4720-4185-ae78-4116aa194927.xlsx?filename=123.xlsx">asd</a>
+<form method="post" enctype="multipart/form-data" id="uploadForm"
+      action="/codeGod/SignContract/doSaveSgin">
+    <input type="hidden" name="id" value="2" >
+     手机号 <input name="memberMobile"> <br>
+     登录密码 <input name="memberPwd"> <br>
+     昵称 <input name="nickName"> <br>
+     姓名 <input name="memberRealName"> <br>
+     邮箱 <input name="memberEmail"> <br>
+     QQ <input name="memberQq"> <br>
+     微信 <input name="memberWechat"> <br>
+     所在城市 <input name="memebrCity"> <br>
+     联系地址 <input name="memberContactAddress"> <br>
+     关键词 <input name="memberWord"> <br>
+     远程开发报价 <input name="memberLongRange"> <br>
+     驻场开发报价 <input name="memberOnSiteDevelopment"> <br>
+     提现账户 <input name="memberCashWithdrawal"> <br>
+     个人介绍 <input name="memberIntroduce"> <br>
+     用户类型 <input name="memberTypememberType"> <br>
+     身份证号 <input name="memberCardno"> <br>
+     签约岗位 <input name="memberSigningPost"> <br>
+     签约方式 <input name="memberSigningMode"> <br>
+     勋章 <input name="memberMedal"> <br>
+     是否驻场 <input name="memberStationing"> <br>
+     当前状态 <input name="memberStatus"> <br>
+     公开显示 <input name="memberDisplay"> <br>
+     签约状态 <input name="memberSigningStatus"> <br>
+    所属企业: <input name="memberCompany"><br>
+    所属团队: <input name="memberTeam"><br>
+<!--    <option value="请选择">请选择</option>-->
+<br>
+    形象照:<input type="file" name="memberPhotoFileMultipartFile" ><br>
+    个人资料:<input type="file" name="memberPersonalDataMultipartFile" ><br>
+    个人资料:<input type="file" name="memberPersonalDataMultipartFile" ><br>
+    头像:<input type="file" name="memberPhotoHeadPortraitMultipartFile" ><br>
+    身份证正面:<input type="file" name="memberCardFrontMultipartFile" ><br>
+    身份证反面:<input type="file" name="memberCardReverseSideMultipartFile" ><br>
+    签约协议:<input type="file" name="siginAgreementMultipartFile" ><br>
+    签约协议:<input type="file" name="siginAgreementMultipartFile" ><br>
+    签约协议:<input type="file" name="siginAgreementMultipartFile" ><br>
+    <input type="submit" id="sub" value="提交">
+</form>
 
+
+<form>
+    <input type="checkbox" >
+</form>
 </body>
 <script src="js/jquery-1.7.2.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="ASE/ASE.js"></script>
 <script>
     /*****************************************************
@@ -19,8 +67,8 @@
      * @return 加密密文
      ****************************************************/
 
-    function encrypt(content, key){
-        var sKey = CryptoJS.enc.Utf8.parse(key);
+    function encrypt(content){
+        var sKey = CryptoJS.enc.Utf8.parse("MI97JSJfjwIDAQAB");
         var sContent = CryptoJS.enc.Utf8.parse(content);
         var encrypted = CryptoJS.AES.encrypt(sContent, sKey, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
         return encrypted.toString();
@@ -43,15 +91,45 @@
 
 
     $(function () {
-        console.log(encrypt("123456123456","MI97JSJfjwIDAQAB"));
-        $.post("/codeGod/AppUser/login",{
-            "mb":encrypt("123456123456","MI97JSJfjwIDAQAB"),
-            "Obj":encrypt("zhangsansiwhu","MI97JSJfjwIDAQAB")
-        },function (data) {
-            var dat = JSON.parse(decrypt(data.data,"MI97JSJfjwIDAQAB"));
-            console.log(dat.zhangsan);
+        var sd = decrypt("5LK1ac+DIHQIdlF7az9vIF8+oAj017z5RiOarugVsBd2ejwlU2jiAd%2F57A47u86m=","MI97JSJfjwIDAQAB");
+        console.log(sd);
+        var dat = {username:'test1',password:123};
+        console.log(encrypt(JSON.stringify(dat)));
+        $.ajax({
+            url:'/codeGod/login',
+            type:'POST',
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:encrypt(JSON.stringify(dat)),
+            success:function(data, status){
+                console.log(data);
+            }
+        });
 
-        })
+        // $("#sub").click(function () {
+        //     let formData = new FormData()
+        //     formData.append('name', $("#name").val())
+        //     formData.append('age', $("#age").val())
+        //     formData.append('file', $("input[name='file']"))
+        //     let config = {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        //         }
+        //     };
+        //     this.$http.post('/myupload', formData, config).then(function (res) {
+        //         if (res.status === 2000) {
+        //             /*这里做处理*/
+        //         }
+        //     })
+        // });
+        // debugger
+        //
+        // $.post("/login",{
+        //     "username":'test1',
+        //     "password":'123456'
+        // },function (data) {
+        //     console.log(data);
+        // })
     })
 </script>
 </html>

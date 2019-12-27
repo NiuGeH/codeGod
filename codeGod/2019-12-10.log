@@ -1,0 +1,968 @@
+2019-12-10 10:03:42.470 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:50 - Starting CodeGodApplication on niugehangdeMacBook-Pro.local with PID 1151 (/Users/ushi/Desktop/NiuWorkSpaces/codeGod/target/classes started by ushi in /Users/ushi/Desktop/NiuWorkSpaces/codeGod)
+2019-12-10 10:03:42.474 [main] DEBUG com.springbootjpa.codeGod.CodeGodApplication:53 - Running with Spring Boot v2.1.7.RELEASE, Spring v5.1.9.RELEASE
+2019-12-10 10:03:42.475 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:651 - The following profiles are active: dev
+2019-12-10 10:03:44.589 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-12-10 10:03:44.590 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:03:44.786 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 169ms. Found 5 repository interfaces.
+2019-12-10 10:03:44.825 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-12-10 10:03:44.827 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:03:44.860 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysPermissionsRepository.
+2019-12-10 10:03:44.861 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysRolesRepository.
+2019-12-10 10:03:44.861 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository.
+2019-12-10 10:03:44.862 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysUsersRepository.
+2019-12-10 10:03:44.862 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysUsersRolesRepository.
+2019-12-10 10:03:44.863 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+2019-12-10 10:03:45.704 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'shiroConfiguration' of type [com.springbootjpa.codeGod.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$e9518829] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:45.849 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:45.868 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisConfig' of type [com.springbootjpa.codeGod.config.RedisConfig$$EnhancerBySpringCGLIB$$53d4398] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:45.900 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:45.906 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration$$EnhancerBySpringCGLIB$$495ba4ce] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.111 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.272 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.304 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisTemplate' of type [org.springframework.data.redis.core.RedisTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.305 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisUtils' of type [com.springbootjpa.codeGod.utils.RedisUtils] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.336 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#486e610a' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.337 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#486e610a' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.338 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#65a39169' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.341 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#516581b5' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.342 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#516581b5' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.347 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'druidConfig' of type [com.springbootjpa.codeGod.config.DruidConfig$$EnhancerBySpringCGLIB$$f151fbf] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.420 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'statFilter' of type [com.alibaba.druid.filter.stat.StatFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.614 [main] INFO  com.alibaba.druid.pool.DruidDataSource:930 - {dataSource-1} inited
+2019-12-10 10:03:46.614 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'dataSource' of type [com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.626 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.jpa-org.springframework.boot.autoconfigure.orm.jpa.JpaProperties' of type [org.springframework.boot.autoconfigure.orm.jpa.JpaProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.632 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.jpa.hibernate-org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties' of type [org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.638 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration' of type [org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$$EnhancerBySpringCGLIB$$c8b5e18e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.651 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.transaction-org.springframework.boot.autoconfigure.transaction.TransactionProperties' of type [org.springframework.boot.autoconfigure.transaction.TransactionProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.652 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'platformTransactionManagerCustomizers' of type [org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.655 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration' of type [org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration$$EnhancerBySpringCGLIB$$94990e68] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.660 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'hikariPoolDataSourceMetadataProvider' of type [org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration$$Lambda$393/1648886085] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.670 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration' of type [org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration$$EnhancerBySpringCGLIB$$5318a8f3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.737 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaVendorAdapter' of type [org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:46.742 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactoryBuilder' of type [org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:47.238 [main] INFO  org.hibernate.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-12-10 10:03:47.402 [main] INFO  org.hibernate.Version:46 - HHH000412: Hibernate Core {5.3.10.Final}
+2019-12-10 10:03:47.407 [main] INFO  org.hibernate.cfg.Environment:213 - HHH000206: hibernate.properties not found
+2019-12-10 10:03:47.744 [main] INFO  org.hibernate.annotations.common.Version:49 - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-12-10 10:03:48.267 [main] INFO  org.hibernate.dialect.Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-12-10 10:03:50.451 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:415 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-10 10:03:50.455 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactory' of type [org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.456 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactory' of type [com.sun.proxy.$Proxy101] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.470 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#48bc2fa1' of type [com.sun.proxy.$Proxy102] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.492 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaMappingContext' of type [org.springframework.data.jpa.repository.config.JpaMetamodelMappingContextFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.492 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaMappingContext' of type [org.springframework.data.jpa.mapping.JpaMetamodelMappingContext] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.987 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.987 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRepository' of type [com.sun.proxy.$Proxy105] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.992 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#645cb77' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.992 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#645cb77' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.993 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#28407a30' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.994 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7ee6ef11' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.994 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7ee6ef11' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:50.996 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#4a3d96a' of type [com.sun.proxy.$Proxy102] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.022 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRolesRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.022 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRolesRepository' of type [com.sun.proxy.$Proxy106] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.027 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#538ddb7e' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.027 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#538ddb7e' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.027 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7190b564' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.028 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7d71615f' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.029 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7d71615f' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.030 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7e71aba8' of type [com.sun.proxy.$Proxy102] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.079 [main] INFO  org.hibernate.hql.internal.QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+2019-12-10 10:03:51.267 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysRolesRermissionsRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.267 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysRolesRermissionsRepository' of type [com.sun.proxy.$Proxy108] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.268 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'shiroRealm' of type [com.springbootjpa.codeGod.shiro.MyShiroRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.271 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.317 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:51.445 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3441e684] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:03:52.398 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:90 - Tomcat initialized with port(s): 8000 (http)
+2019-12-10 10:03:52.459 [main] INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2019-12-10 10:03:52.459 [main] INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-12-10 10:03:52.723 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod]:173 - Initializing Spring embedded WebApplicationContext
+2019-12-10 10:03:52.723 [main] INFO  org.springframework.web.context.ContextLoader:284 - Root WebApplicationContext: initialization completed in 10178 ms
+2019-12-10 10:03:55.138 [main] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-12-10 10:03:55.747 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:171 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-10 10:03:57.016 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:120 - Context refreshed
+2019-12-10 10:03:57.044 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:123 - Found 1 custom documentation plugin(s)
+2019-12-10 10:03:57.065 [main] INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41 - Scanning for api listing references
+2019-12-10 10:03:57.402 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:202 - Tomcat started on port(s): 8000 (http) with context path '/codeGod'
+2019-12-10 10:03:57.407 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:59 - Started CodeGodApplication in 16.3 seconds (JVM running for 21.325)
+2019-12-10 10:03:57.776 [RMI TCP Connection(3)-192.168.3.10] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-10 10:03:57.776 [RMI TCP Connection(3)-192.168.3.10] INFO  org.springframework.web.servlet.DispatcherServlet:524 - Initializing Servlet 'dispatcherServlet'
+2019-12-10 10:03:57.799 [RMI TCP Connection(3)-192.168.3.10] INFO  org.springframework.web.servlet.DispatcherServlet:546 - Completed initialization in 23 ms
+2019-12-10 10:03:58.300 [parallel-1] INFO  io.lettuce.core.EpollProvider:68 - Starting without optional epoll library
+2019-12-10 10:03:58.302 [parallel-1] INFO  io.lettuce.core.KqueueProvider:70 - Starting without optional kqueue library
+2019-12-10 10:04:52.496 [http-nio-8000-exec-2] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:233 - Enabling session validation scheduler...
+2019-12-10 10:14:03.935 [http-nio-8000-exec-1] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:14:03.959 [http-nio-8000-exec-1] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2019-12-10 10:14:03.997 [http-nio-8000-exec-1] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:14:04.008 [http-nio-8000-exec-1] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 10ms. Found 0 repository interfaces.
+2019-12-10 10:15:00.324 [http-nio-8000-exec-3] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:15:00.338 [http-nio-8000-exec-3] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+2019-12-10 10:15:00.361 [http-nio-8000-exec-3] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:15:00.368 [http-nio-8000-exec-3] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-12-10 10:15:52.317 [lettuce-eventExecutorLoop-1-8] INFO  io.lettuce.core.protocol.ConnectionWatchdog:173 - Reconnecting, last destination was /117.78.37.58:6379
+2019-12-10 10:15:52.373 [lettuce-nioEventLoop-4-3] INFO  io.lettuce.core.protocol.ReconnectionHandler:177 - Reconnected to 117.78.37.58:6379
+2019-12-10 10:16:35.847 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:16:35.865 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 17ms. Found 0 repository interfaces.
+2019-12-10 10:16:35.888 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:16:35.895 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-12-10 10:45:06.881 [Thread-55] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:45:06.900 [Thread-55] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+2019-12-10 10:45:06.928 [Thread-55] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:45:06.941 [Thread-55] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 12ms. Found 0 repository interfaces.
+2019-12-10 10:45:08.435 [Thread-55] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-10 10:45:08.451 [Thread-55] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:250 - Disabled session validation scheduler.
+2019-12-10 10:45:08.455 [Thread-55] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:597 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-10 10:45:08.499 [Thread-55] INFO  com.alibaba.druid.pool.DruidDataSource:1825 - {dataSource-1} closed
+2019-12-10 10:45:15.452 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:50 - Starting CodeGodApplication on niugehangdeMacBook-Pro.local with PID 1935 (/Users/ushi/Desktop/NiuWorkSpaces/codeGod/target/classes started by ushi in /Users/ushi/Desktop/NiuWorkSpaces/codeGod)
+2019-12-10 10:45:15.455 [main] DEBUG com.springbootjpa.codeGod.CodeGodApplication:53 - Running with Spring Boot v2.1.7.RELEASE, Spring v5.1.9.RELEASE
+2019-12-10 10:45:15.456 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:651 - The following profiles are active: dev
+2019-12-10 10:45:16.622 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-12-10 10:45:16.623 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:45:16.718 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 86ms. Found 5 repository interfaces.
+2019-12-10 10:45:16.731 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-12-10 10:45:16.732 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 10:45:16.751 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysPermissionsRepository.
+2019-12-10 10:45:16.751 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysRolesRepository.
+2019-12-10 10:45:16.752 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository.
+2019-12-10 10:45:16.752 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysUsersRepository.
+2019-12-10 10:45:16.753 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysUsersRolesRepository.
+2019-12-10 10:45:16.753 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+2019-12-10 10:45:17.197 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'shiroConfiguration' of type [com.springbootjpa.codeGod.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$4ab27010] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.391 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.404 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisConfig' of type [com.springbootjpa.codeGod.config.RedisConfig$$EnhancerBySpringCGLIB$$669e2b7f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.428 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.432 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration$$EnhancerBySpringCGLIB$$aabc8cb5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.515 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.573 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.590 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisTemplate' of type [org.springframework.data.redis.core.RedisTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.590 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisUtils' of type [com.springbootjpa.codeGod.utils.RedisUtils] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.612 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#143413cd' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.612 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#143413cd' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.613 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#101c15ad' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.616 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#15e5246' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.616 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#15e5246' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.620 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'druidConfig' of type [com.springbootjpa.codeGod.config.DruidConfig$$EnhancerBySpringCGLIB$$707607a6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.665 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'statFilter' of type [com.alibaba.druid.filter.stat.StatFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.751 [main] INFO  com.alibaba.druid.pool.DruidDataSource:930 - {dataSource-1} inited
+2019-12-10 10:45:17.752 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'dataSource' of type [com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.760 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.jpa-org.springframework.boot.autoconfigure.orm.jpa.JpaProperties' of type [org.springframework.boot.autoconfigure.orm.jpa.JpaProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.764 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.jpa.hibernate-org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties' of type [org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.769 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration' of type [org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$$EnhancerBySpringCGLIB$$2a16c975] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.780 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.transaction-org.springframework.boot.autoconfigure.transaction.TransactionProperties' of type [org.springframework.boot.autoconfigure.transaction.TransactionProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.781 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'platformTransactionManagerCustomizers' of type [org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.784 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration' of type [org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration$$EnhancerBySpringCGLIB$$f5f9f64f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.789 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'hikariPoolDataSourceMetadataProvider' of type [org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration$$Lambda$393/1013199775] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.799 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration' of type [org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration$$EnhancerBySpringCGLIB$$b47990da] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.822 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaVendorAdapter' of type [org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:17.826 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactoryBuilder' of type [org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:22.401 [Druid-ConnectionPool-Create-859456754] ERROR com.alibaba.druid.pool.DruidDataSource:2471 - create connection SQLException, url: jdbc:mysql://117.78.37.58:3306/framework?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true, errorCode 0, state 08001
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:897)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:822)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:447)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:156)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:218)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:150)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1560)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1623)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2468)
+Caused by: com.mysql.cj.exceptions.CJException: Access denied for user 'cqpay_codeGod'@'%' to database 'framework'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.__newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45009)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45012)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:129)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:795)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:720)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:688)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:130)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:540)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1348)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:163)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:841)
+	... 10 common frames omitted
+2019-12-10 10:45:26.780 [Druid-ConnectionPool-Create-859456754] ERROR com.alibaba.druid.pool.DruidDataSource:2471 - create connection SQLException, url: jdbc:mysql://117.78.37.58:3306/framework?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true, errorCode 0, state 08001
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:897)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:822)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:447)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:156)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:218)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:150)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1560)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1623)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2468)
+Caused by: com.mysql.cj.exceptions.CJException: Access denied for user 'cqpay_codeGod'@'%' to database 'framework'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.__newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45009)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45012)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:129)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:795)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:720)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:688)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:130)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:540)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1348)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:163)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:841)
+	... 10 common frames omitted
+2019-12-10 10:45:27.840 [main] WARN  com.alibaba.druid.pool.DruidDataSource:1260 - get connection timeout retry : 1
+2019-12-10 10:45:31.627 [Druid-ConnectionPool-Create-859456754] ERROR com.alibaba.druid.pool.DruidDataSource:2471 - create connection SQLException, url: jdbc:mysql://117.78.37.58:3306/framework?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true, errorCode 0, state 08001
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:897)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:822)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:447)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:156)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:218)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:150)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1560)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1623)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2468)
+Caused by: com.mysql.cj.exceptions.CJException: Access denied for user 'cqpay_codeGod'@'%' to database 'framework'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.__newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45009)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45012)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:129)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:795)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:720)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:688)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:130)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:540)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1348)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:163)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:841)
+	... 10 common frames omitted
+2019-12-10 10:45:36.477 [Druid-ConnectionPool-Create-859456754] ERROR com.alibaba.druid.pool.DruidDataSource:2471 - create connection SQLException, url: jdbc:mysql://117.78.37.58:3306/framework?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true, errorCode 0, state 08001
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:897)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:822)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:447)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:156)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:218)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:150)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1560)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1623)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2468)
+Caused by: com.mysql.cj.exceptions.CJException: Access denied for user 'cqpay_codeGod'@'%' to database 'framework'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.__newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45009)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45012)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:129)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:795)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:720)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:688)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:130)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:540)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1348)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:163)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:841)
+	... 10 common frames omitted
+2019-12-10 10:45:37.953 [main] INFO  org.hibernate.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-12-10 10:45:38.011 [main] INFO  org.hibernate.Version:46 - HHH000412: Hibernate Core {5.3.10.Final}
+2019-12-10 10:45:38.013 [main] INFO  org.hibernate.cfg.Environment:213 - HHH000206: hibernate.properties not found
+2019-12-10 10:45:38.144 [main] INFO  org.hibernate.annotations.common.Version:49 - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-12-10 10:45:41.335 [Druid-ConnectionPool-Create-859456754] ERROR com.alibaba.druid.pool.DruidDataSource:2471 - create connection SQLException, url: jdbc:mysql://117.78.37.58:3306/framework?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true, errorCode 0, state 08001
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:897)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:822)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:447)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:156)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:218)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:150)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1560)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1623)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2468)
+Caused by: com.mysql.cj.exceptions.CJException: Access denied for user 'cqpay_codeGod'@'%' to database 'framework'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.__newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45009)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45012)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:129)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:795)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:720)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:688)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:130)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:540)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1348)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:163)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:841)
+	... 10 common frames omitted
+2019-12-10 10:45:46.196 [Druid-ConnectionPool-Create-859456754] ERROR com.alibaba.druid.pool.DruidDataSource:2471 - create connection SQLException, url: jdbc:mysql://117.78.37.58:3306/framework?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true, errorCode 0, state 08001
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:897)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:822)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:447)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:156)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:218)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:150)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1560)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1623)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2468)
+Caused by: com.mysql.cj.exceptions.CJException: Access denied for user 'cqpay_codeGod'@'%' to database 'framework'
+	at sun.reflect.GeneratedConstructorAccessor49.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.__newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45009)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45012)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:129)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:795)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:720)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:688)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:130)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:540)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1348)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:163)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:841)
+	... 10 common frames omitted
+2019-12-10 10:45:48.293 [main] WARN  com.alibaba.druid.pool.DruidDataSource:1260 - get connection timeout retry : 1
+2019-12-10 10:45:51.023 [Druid-ConnectionPool-Create-859456754] ERROR com.alibaba.druid.pool.DruidDataSource:2471 - create connection SQLException, url: jdbc:mysql://117.78.37.58:3306/framework?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true, errorCode 0, state 08001
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:897)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:822)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:447)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:199)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:156)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:218)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:150)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1560)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1623)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2468)
+Caused by: com.mysql.cj.exceptions.CJException: Access denied for user 'cqpay_codeGod'@'%' to database 'framework'
+	at sun.reflect.GeneratedConstructorAccessor49.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.__newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45009)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45012)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:129)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:795)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:720)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:688)
+	at com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:130)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:540)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:202)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1348)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:163)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:841)
+	... 10 common frames omitted
+2019-12-10 10:45:52.052 [main] INFO  org.hibernate.dialect.Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-12-10 10:45:52.767 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:415 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-10 10:45:52.772 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactory' of type [org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:52.772 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactory' of type [com.sun.proxy.$Proxy100] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:52.783 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#2807cf3' of type [com.sun.proxy.$Proxy101] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:52.793 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaMappingContext' of type [org.springframework.data.jpa.repository.config.JpaMetamodelMappingContextFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:52.794 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaMappingContext' of type [org.springframework.data.jpa.mapping.JpaMetamodelMappingContext] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.047 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.047 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRepository' of type [com.sun.proxy.$Proxy104] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.051 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#2446be5f' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.051 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#2446be5f' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.052 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#3ef7fb04' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.052 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#4bc39640' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.052 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#4bc39640' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.053 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#6892d403' of type [com.sun.proxy.$Proxy101] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.077 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRolesRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.077 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRolesRepository' of type [com.sun.proxy.$Proxy105] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.080 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#47cf922d' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.081 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#47cf922d' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.081 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#1da61a29' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.082 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#55a2f08b' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.082 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#55a2f08b' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.083 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#66d73e2d' of type [com.sun.proxy.$Proxy101] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.113 [main] INFO  org.hibernate.hql.internal.QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+2019-12-10 10:45:53.189 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysRolesRermissionsRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.190 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysRolesRermissionsRepository' of type [com.sun.proxy.$Proxy107] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.190 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'shiroRealm' of type [com.springbootjpa.codeGod.shiro.MyShiroRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.192 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.217 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.282 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95a2ce6b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 10:45:53.817 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:90 - Tomcat initialized with port(s): 8000 (http)
+2019-12-10 10:45:53.840 [main] INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2019-12-10 10:45:53.841 [main] INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-12-10 10:45:53.994 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod]:173 - Initializing Spring embedded WebApplicationContext
+2019-12-10 10:45:53.994 [main] INFO  org.springframework.web.context.ContextLoader:284 - Root WebApplicationContext: initialization completed in 38485 ms
+2019-12-10 10:45:55.714 [main] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-12-10 10:45:56.168 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:171 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-10 10:45:57.059 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:120 - Context refreshed
+2019-12-10 10:45:57.071 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:123 - Found 1 custom documentation plugin(s)
+2019-12-10 10:45:57.085 [main] INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41 - Scanning for api listing references
+2019-12-10 10:45:57.257 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:202 - Tomcat started on port(s): 8000 (http) with context path '/codeGod'
+2019-12-10 10:45:57.260 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:59 - Started CodeGodApplication in 42.379 seconds (JVM running for 45.901)
+2019-12-10 10:45:57.789 [RMI TCP Connection(1)-192.168.3.10] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-10 10:45:57.789 [RMI TCP Connection(1)-192.168.3.10] INFO  org.springframework.web.servlet.DispatcherServlet:524 - Initializing Servlet 'dispatcherServlet'
+2019-12-10 10:45:57.805 [RMI TCP Connection(1)-192.168.3.10] INFO  org.springframework.web.servlet.DispatcherServlet:546 - Completed initialization in 16 ms
+2019-12-10 10:45:58.081 [parallel-1] INFO  io.lettuce.core.EpollProvider:68 - Starting without optional epoll library
+2019-12-10 10:45:58.083 [parallel-1] INFO  io.lettuce.core.KqueueProvider:70 - Starting without optional kqueue library
+2019-12-10 10:46:17.281 [http-nio-8000-exec-2] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:233 - Enabling session validation scheduler...
+2019-12-10 10:49:19.008 [http-nio-8000-exec-9] ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod].[dispatcherServlet]:175 - Servlet.service() for servlet [dispatcherServlet] in context with path [/codeGod] threw exception [Request processing failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.springbootjpa.codeGod.common.Func_T]: Is it an abstract class?; nested exception is java.lang.InstantiationException] with root cause
+java.lang.InstantiationException: null
+	at sun.reflect.InstantiationExceptionConstructorAccessorImpl.newInstance(InstantiationExceptionConstructorAccessorImpl.java:48)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45012)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:172)
+	at org.springframework.web.method.annotation.ModelAttributeMethodProcessor.constructAttribute(ModelAttributeMethodProcessor.java:256)
+	at org.springframework.web.method.annotation.ModelAttributeMethodProcessor.createAttribute(ModelAttributeMethodProcessor.java:224)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletModelAttributeMethodProcessor.createAttribute(ServletModelAttributeMethodProcessor.java:84)
+	at org.springframework.web.method.annotation.ModelAttributeMethodProcessor.resolveArgument(ModelAttributeMethodProcessor.java:139)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:127)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:167)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:134)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:114)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.__invoke(StandardContextValve.java:96)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:41002)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:853)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019-12-10 11:14:33.607 [http-nio-8000-exec-9] DEBUG com.alibaba.druid.pool.DruidDataSource:1302 - skip not validate connection.
+2019-12-10 11:14:58.494 [lettuce-eventExecutorLoop-1-1] INFO  io.lettuce.core.protocol.ConnectionWatchdog:173 - Reconnecting, last destination was /117.78.37.58:6379
+2019-12-10 11:14:58.543 [lettuce-nioEventLoop-4-3] INFO  io.lettuce.core.protocol.ReconnectionHandler:177 - Reconnected to 117.78.37.58:6379
+2019-12-10 11:15:06.738 [Thread-107] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-10 11:15:06.748 [Thread-107] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:250 - Disabled session validation scheduler.
+2019-12-10 11:15:06.750 [Thread-107] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:597 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-10 11:15:06.775 [Thread-107] INFO  com.alibaba.druid.pool.DruidDataSource:1825 - {dataSource-1} closed
+2019-12-10 11:15:14.024 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:50 - Starting CodeGodApplication on niugehangdeMacBook-Pro.local with PID 2463 (/Users/ushi/Desktop/NiuWorkSpaces/codeGod/target/classes started by ushi in /Users/ushi/Desktop/NiuWorkSpaces/codeGod)
+2019-12-10 11:15:14.028 [main] DEBUG com.springbootjpa.codeGod.CodeGodApplication:53 - Running with Spring Boot v2.1.7.RELEASE, Spring v5.1.9.RELEASE
+2019-12-10 11:15:14.028 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:651 - The following profiles are active: dev
+2019-12-10 11:15:15.431 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-12-10 11:15:15.432 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 11:15:15.521 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 82ms. Found 5 repository interfaces.
+2019-12-10 11:15:15.533 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-12-10 11:15:15.534 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 11:15:15.554 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysPermissionsRepository.
+2019-12-10 11:15:15.555 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysRolesRepository.
+2019-12-10 11:15:15.555 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository.
+2019-12-10 11:15:15.556 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysUsersRepository.
+2019-12-10 11:15:15.556 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysUsersRolesRepository.
+2019-12-10 11:15:15.556 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 14ms. Found 0 repository interfaces.
+2019-12-10 11:15:16.031 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'shiroConfiguration' of type [com.springbootjpa.codeGod.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$a09818f3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.107 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.119 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisConfig' of type [com.springbootjpa.codeGod.config.RedisConfig$$EnhancerBySpringCGLIB$$bc83d462] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.142 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.147 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration$$EnhancerBySpringCGLIB$$a23598] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.373 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.439 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.458 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisTemplate' of type [org.springframework.data.redis.core.RedisTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.459 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisUtils' of type [com.springbootjpa.codeGod.utils.RedisUtils] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.479 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#55638165' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.480 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#55638165' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.481 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#483b7dc4' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.483 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7019d619' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.483 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7019d619' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.487 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'druidConfig' of type [com.springbootjpa.codeGod.config.DruidConfig$$EnhancerBySpringCGLIB$$c65bb089] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.528 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'statFilter' of type [com.alibaba.druid.filter.stat.StatFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.617 [main] INFO  com.alibaba.druid.pool.DruidDataSource:930 - {dataSource-1} inited
+2019-12-10 11:15:16.618 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'dataSource' of type [com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.626 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.jpa-org.springframework.boot.autoconfigure.orm.jpa.JpaProperties' of type [org.springframework.boot.autoconfigure.orm.jpa.JpaProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.632 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.jpa.hibernate-org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties' of type [org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.639 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration' of type [org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$$EnhancerBySpringCGLIB$$7ffc7258] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.652 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.transaction-org.springframework.boot.autoconfigure.transaction.TransactionProperties' of type [org.springframework.boot.autoconfigure.transaction.TransactionProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.653 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'platformTransactionManagerCustomizers' of type [org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.658 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration' of type [org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration$$EnhancerBySpringCGLIB$$4bdf9f32] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.664 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'hikariPoolDataSourceMetadataProvider' of type [org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration$$Lambda$393/808297264] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.676 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration' of type [org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration$$EnhancerBySpringCGLIB$$a5f39bd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.702 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaVendorAdapter' of type [org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:16.706 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactoryBuilder' of type [org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:17.410 [main] INFO  org.hibernate.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-12-10 11:15:17.474 [main] INFO  org.hibernate.Version:46 - HHH000412: Hibernate Core {5.3.10.Final}
+2019-12-10 11:15:17.475 [main] INFO  org.hibernate.cfg.Environment:213 - HHH000206: hibernate.properties not found
+2019-12-10 11:15:17.650 [main] INFO  org.hibernate.annotations.common.Version:49 - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-12-10 11:15:17.835 [main] INFO  org.hibernate.dialect.Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-12-10 11:15:18.622 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:415 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-10 11:15:18.627 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactory' of type [org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.628 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactory' of type [com.sun.proxy.$Proxy101] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.643 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7b4b8199' of type [com.sun.proxy.$Proxy102] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.655 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaMappingContext' of type [org.springframework.data.jpa.repository.config.JpaMetamodelMappingContextFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.655 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaMappingContext' of type [org.springframework.data.jpa.mapping.JpaMetamodelMappingContext] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.936 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.937 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRepository' of type [com.sun.proxy.$Proxy105] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.941 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7e5c8c80' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.941 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7e5c8c80' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.942 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7da9b32c' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.942 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7674f9d4' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.943 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7674f9d4' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.944 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7ca8f5d7' of type [com.sun.proxy.$Proxy102] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.975 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRolesRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.975 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRolesRepository' of type [com.sun.proxy.$Proxy106] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.979 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#53fd59d4' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.980 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#53fd59d4' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.980 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#2fafa9bf' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.981 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#4d359c69' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.981 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#4d359c69' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:18.982 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7fa86ddd' of type [com.sun.proxy.$Proxy102] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:19.019 [main] INFO  org.hibernate.hql.internal.QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+2019-12-10 11:15:19.134 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysRolesRermissionsRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:19.134 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysRolesRermissionsRepository' of type [com.sun.proxy.$Proxy108] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:19.135 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'shiroRealm' of type [com.springbootjpa.codeGod.shiro.MyShiroRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:19.137 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:19.172 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:19.271 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$eb88774e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 11:15:19.908 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:90 - Tomcat initialized with port(s): 8000 (http)
+2019-12-10 11:15:19.934 [main] INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2019-12-10 11:15:19.934 [main] INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-12-10 11:15:20.067 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod]:173 - Initializing Spring embedded WebApplicationContext
+2019-12-10 11:15:20.067 [main] INFO  org.springframework.web.context.ContextLoader:284 - Root WebApplicationContext: initialization completed in 5923 ms
+2019-12-10 11:15:21.939 [main] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-12-10 11:15:22.441 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:171 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-10 11:15:23.503 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:120 - Context refreshed
+2019-12-10 11:15:23.517 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:123 - Found 1 custom documentation plugin(s)
+2019-12-10 11:15:23.531 [main] INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41 - Scanning for api listing references
+2019-12-10 11:15:23.714 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:202 - Tomcat started on port(s): 8000 (http) with context path '/codeGod'
+2019-12-10 11:15:23.719 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:59 - Started CodeGodApplication in 10.368 seconds (JVM running for 14.084)
+2019-12-10 11:15:24.223 [RMI TCP Connection(4)-192.168.3.10] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-10 11:15:24.224 [RMI TCP Connection(4)-192.168.3.10] INFO  org.springframework.web.servlet.DispatcherServlet:524 - Initializing Servlet 'dispatcherServlet'
+2019-12-10 11:15:24.246 [RMI TCP Connection(4)-192.168.3.10] INFO  org.springframework.web.servlet.DispatcherServlet:546 - Completed initialization in 22 ms
+2019-12-10 11:15:24.546 [parallel-1] INFO  io.lettuce.core.EpollProvider:68 - Starting without optional epoll library
+2019-12-10 11:15:24.548 [parallel-1] INFO  io.lettuce.core.KqueueProvider:70 - Starting without optional kqueue library
+2019-12-10 11:16:31.371 [http-nio-8000-exec-1] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:233 - Enabling session validation scheduler...
+2019-12-10 12:05:31.706 [Thread-44] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 12:05:31.891 [Thread-44] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 172ms. Found 1 repository interfaces.
+2019-12-10 12:05:31.912 [Thread-44] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 12:05:31.927 [Thread-44] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.CityRepository.
+2019-12-10 12:05:31.927 [Thread-44] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 14ms. Found 0 repository interfaces.
+2019-12-10 12:05:32.792 [Thread-44] INFO  org.hibernate.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-12-10 12:05:33.835 [Thread-44] DEBUG com.alibaba.druid.pool.DruidDataSource:1302 - skip not validate connection.
+2019-12-10 12:05:34.303 [Thread-44] INFO  org.hibernate.dialect.Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-12-10 12:05:34.538 [Thread-44] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-10 12:05:34.551 [Thread-44] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:250 - Disabled session validation scheduler.
+2019-12-10 12:05:34.554 [Thread-44] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:597 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-10 12:05:34.563 [Thread-44] INFO  com.alibaba.druid.pool.DruidDataSource:1825 - {dataSource-1} closed
+2019-12-10 16:19:07.018 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:50 - Starting CodeGodApplication on niugehangdeMacBook-Pro.local with PID 8271 (/Users/ushi/Desktop/NiuWorkSpaces/codeGod/target/classes started by ushi in /Users/ushi/Desktop/NiuWorkSpaces/codeGod)
+2019-12-10 16:19:07.021 [main] DEBUG com.springbootjpa.codeGod.CodeGodApplication:53 - Running with Spring Boot v2.1.7.RELEASE, Spring v5.1.9.RELEASE
+2019-12-10 16:19:07.021 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:651 - The following profiles are active: dev
+2019-12-10 16:19:08.562 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-12-10 16:19:08.563 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:19:08.703 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 122ms. Found 7 repository interfaces.
+2019-12-10 16:19:08.726 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-12-10 16:19:08.728 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:19:08.758 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.HumanResources.MemberPrivacyentityRepository.
+2019-12-10 16:19:08.759 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository.
+2019-12-10 16:19:08.760 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysPermissionsRepository.
+2019-12-10 16:19:08.760 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysRolesRepository.
+2019-12-10 16:19:08.761 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysRolesRermissionsRepository.
+2019-12-10 16:19:08.761 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysUsersRepository.
+2019-12-10 16:19:08.761 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.SysUsersRolesRepository.
+2019-12-10 16:19:08.762 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 19ms. Found 0 repository interfaces.
+2019-12-10 16:19:09.303 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'shiroConfiguration' of type [com.springbootjpa.codeGod.shiro.ShiroConfiguration$$EnhancerBySpringCGLIB$$3f8fd83f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.542 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.558 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisConfig' of type [com.springbootjpa.codeGod.config.RedisConfig$$EnhancerBySpringCGLIB$$5b7b93ae] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.584 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.588 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration$$EnhancerBySpringCGLIB$$9f99f4e4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.753 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.882 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.908 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisTemplate' of type [org.springframework.data.redis.core.RedisTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.909 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'redisUtils' of type [com.springbootjpa.codeGod.utils.RedisUtils] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.931 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#45fb2354' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.932 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#45fb2354' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.933 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#45424c0' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.935 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#1d444652' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.936 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#1d444652' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:09.940 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'druidConfig' of type [com.springbootjpa.codeGod.config.DruidConfig$$EnhancerBySpringCGLIB$$65536fd5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.022 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'statFilter' of type [com.alibaba.druid.filter.stat.StatFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.132 [main] INFO  com.alibaba.druid.pool.DruidDataSource:930 - {dataSource-1} inited
+2019-12-10 16:19:10.133 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'dataSource' of type [com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.141 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.jpa-org.springframework.boot.autoconfigure.orm.jpa.JpaProperties' of type [org.springframework.boot.autoconfigure.orm.jpa.JpaProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.146 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.jpa.hibernate-org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties' of type [org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.151 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration' of type [org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration$$EnhancerBySpringCGLIB$$1ef431a4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.161 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'spring.transaction-org.springframework.boot.autoconfigure.transaction.TransactionProperties' of type [org.springframework.boot.autoconfigure.transaction.TransactionProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.162 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'platformTransactionManagerCustomizers' of type [org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.165 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration' of type [org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration$$EnhancerBySpringCGLIB$$ead75e7e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.169 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'hikariPoolDataSourceMetadataProvider' of type [org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration$HikariPoolDataSourceMetadataProviderConfiguration$$Lambda$393/274725976] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.180 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration' of type [org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration$$EnhancerBySpringCGLIB$$a956f909] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.220 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaVendorAdapter' of type [org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.226 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactoryBuilder' of type [org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:10.990 [main] INFO  org.hibernate.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-12-10 16:19:11.107 [main] INFO  org.hibernate.Version:46 - HHH000412: Hibernate Core {5.3.10.Final}
+2019-12-10 16:19:11.109 [main] INFO  org.hibernate.cfg.Environment:213 - HHH000206: hibernate.properties not found
+2019-12-10 16:19:11.396 [main] INFO  org.hibernate.annotations.common.Version:49 - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-12-10 16:19:11.603 [main] INFO  org.hibernate.dialect.Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-12-10 16:19:12.670 [main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:415 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-12-10 16:19:12.677 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactory' of type [org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:12.678 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'entityManagerFactory' of type [com.sun.proxy.$Proxy103] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:12.691 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#2dd8a273' of type [com.sun.proxy.$Proxy104] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:12.707 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaMappingContext' of type [org.springframework.data.jpa.repository.config.JpaMetamodelMappingContextFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:12.708 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'jpaMappingContext' of type [org.springframework.data.jpa.mapping.JpaMetamodelMappingContext] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.072 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.072 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRepository' of type [com.sun.proxy.$Proxy107] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.076 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#4b99f2ed' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.077 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#4b99f2ed' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.077 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#3d0697da' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.078 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#45a40353' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.078 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#45a40353' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.079 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#356cb230' of type [com.sun.proxy.$Proxy104] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.104 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRolesRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.104 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysUsersRolesRepository' of type [com.sun.proxy.$Proxy108] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.108 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7364073b' of type [org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.108 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#7364073b' of type [java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.109 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#5afaae7e' of type [org.springframework.data.repository.core.support.PropertiesBasedNamedQueries] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.110 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#f5a680' of type [org.springframework.data.repository.core.support.RepositoryFragmentsFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.110 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#f5a680' of type [org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.111 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean '(inner bean)#71f86562' of type [com.sun.proxy.$Proxy104] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.148 [main] INFO  org.hibernate.hql.internal.QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+2019-12-10 16:19:13.250 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysRolesRermissionsRepository' of type [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.251 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'sysRolesRermissionsRepository' of type [com.sun.proxy.$Proxy110] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.251 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'shiroRealm' of type [com.springbootjpa.codeGod.shiro.MyShiroRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.254 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.284 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:13.375 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$8a80369a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-10 16:19:14.090 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:90 - Tomcat initialized with port(s): 8000 (http)
+2019-12-10 16:19:14.123 [main] INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+2019-12-10 16:19:14.123 [main] INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/9.0.22]
+2019-12-10 16:19:14.301 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod]:173 - Initializing Spring embedded WebApplicationContext
+2019-12-10 16:19:14.301 [main] INFO  org.springframework.web.context.ContextLoader:284 - Root WebApplicationContext: initialization completed in 7223 ms
+2019-12-10 16:19:16.312 [main] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver:58 - Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-12-10 16:19:16.809 [main] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:171 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-10 16:19:17.974 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:120 - Context refreshed
+2019-12-10 16:19:17.998 [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:123 - Found 1 custom documentation plugin(s)
+2019-12-10 16:19:18.021 [main] INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41 - Scanning for api listing references
+2019-12-10 16:19:18.304 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:202 - Tomcat started on port(s): 8000 (http) with context path '/codeGod'
+2019-12-10 16:19:18.308 [main] INFO  com.springbootjpa.codeGod.CodeGodApplication:59 - Started CodeGodApplication in 12.086 seconds (JVM running for 15.934)
+2019-12-10 16:19:18.430 [RMI TCP Connection(2)-192.168.3.10] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-10 16:19:18.431 [RMI TCP Connection(2)-192.168.3.10] INFO  org.springframework.web.servlet.DispatcherServlet:524 - Initializing Servlet 'dispatcherServlet'
+2019-12-10 16:19:18.454 [RMI TCP Connection(2)-192.168.3.10] INFO  org.springframework.web.servlet.DispatcherServlet:546 - Completed initialization in 23 ms
+2019-12-10 16:19:18.906 [parallel-1] INFO  io.lettuce.core.EpollProvider:68 - Starting without optional epoll library
+2019-12-10 16:19:18.907 [parallel-1] INFO  io.lettuce.core.KqueueProvider:70 - Starting without optional kqueue library
+2019-12-10 16:20:01.753 [http-nio-8000-exec-6] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:233 - Enabling session validation scheduler...
+2019-12-10 16:20:01.783 [http-nio-8000-exec-6] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:198 - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2019-12-10 16:47:30.315 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:47:30.338 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 19ms. Found 0 repository interfaces.
+2019-12-10 16:47:30.342 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:47:30.353 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 11ms. Found 0 repository interfaces.
+2019-12-10 16:47:36.550 [http-nio-8000-exec-2] DEBUG com.alibaba.druid.pool.DruidDataSource:1302 - skip not validate connection.
+2019-12-10 16:48:08.332 [http-nio-8000-exec-8] WARN  org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver:198 - Resolved [org.springframework.web.bind.MissingPathVariableException: Missing URI template variable 'memberId' for method parameter of type Long]
+2019-12-10 16:48:31.288 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:48:31.296 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-12-10 16:48:31.299 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:48:31.305 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-12-10 16:49:16.637 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:49:16.650 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 11ms. Found 0 repository interfaces.
+2019-12-10 16:49:16.653 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:49:16.662 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 9ms. Found 0 repository interfaces.
+2019-12-10 16:49:33.478 [http-nio-8000-exec-4] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:49:33.487 [http-nio-8000-exec-4] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:49:33.489 [http-nio-8000-exec-4] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:49:33.498 [http-nio-8000-exec-4] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 9ms. Found 0 repository interfaces.
+2019-12-10 16:49:50.539 [http-nio-8000-exec-6] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:49:50.545 [http-nio-8000-exec-6] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 5ms. Found 0 repository interfaces.
+2019-12-10 16:49:50.547 [http-nio-8000-exec-6] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:49:50.553 [http-nio-8000-exec-6] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-12-10 16:52:27.723 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:52:27.732 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-12-10 16:52:27.735 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:52:27.743 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:52:46.848 [http-nio-8000-exec-4] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:52:46.857 [http-nio-8000-exec-4] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:52:46.860 [http-nio-8000-exec-4] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:52:46.869 [http-nio-8000-exec-4] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:52:48.434 [http-nio-8000-exec-4] DEBUG com.alibaba.druid.pool.DruidDataSource:1302 - skip not validate connection.
+2019-12-10 16:54:13.649 [http-nio-8000-exec-7] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:54:13.657 [http-nio-8000-exec-7] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:54:13.660 [http-nio-8000-exec-7] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:54:13.697 [http-nio-8000-exec-7] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 36ms. Found 0 repository interfaces.
+2019-12-10 16:56:04.282 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:56:04.297 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 13ms. Found 0 repository interfaces.
+2019-12-10 16:56:04.299 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:56:04.308 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:58:05.391 [http-nio-8000-exec-3] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:58:05.403 [http-nio-8000-exec-3] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 9ms. Found 0 repository interfaces.
+2019-12-10 16:58:05.406 [http-nio-8000-exec-3] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:58:05.417 [http-nio-8000-exec-3] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 10ms. Found 0 repository interfaces.
+2019-12-10 16:59:14.061 [http-nio-8000-exec-6] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:59:14.071 [http-nio-8000-exec-6] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:59:14.075 [http-nio-8000-exec-6] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:59:14.083 [http-nio-8000-exec-6] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:59:34.793 [http-nio-8000-exec-8] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:59:34.802 [http-nio-8000-exec-8] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 16:59:34.805 [http-nio-8000-exec-8] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 16:59:34.813 [http-nio-8000-exec-8] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 17:00:33.438 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 17:00:33.451 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 10ms. Found 0 repository interfaces.
+2019-12-10 17:00:33.458 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 17:00:33.468 [http-nio-8000-exec-10] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 9ms. Found 0 repository interfaces.
+2019-12-10 17:00:56.054 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 17:00:56.062 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-12-10 17:00:56.064 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 17:00:56.069 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 5ms. Found 0 repository interfaces.
+2019-12-10 17:02:14.537 [http-nio-8000-exec-8] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 17:02:14.547 [http-nio-8000-exec-8] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 17:02:14.551 [http-nio-8000-exec-8] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 17:02:14.559 [http-nio-8000-exec-8] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 8ms. Found 0 repository interfaces.
+2019-12-10 17:02:33.969 [http-nio-8000-exec-10] ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/codeGod].[dispatcherServlet]:175 - Servlet.service() for servlet [dispatcherServlet] in context with path [/codeGod] threw exception [Request processing failed; nested exception is org.springframework.beans.NullValueInNestedPathException: Invalid property 'page' of bean class [com.springbootjpa.codeGod.common.PageRequestParam]: Could not instantiate property type [java.lang.Integer] to auto-grow nested property path; nested exception is java.lang.NoSuchMethodException: java.lang.Integer.<init>()] with root cause
+java.lang.NoSuchMethodException: java.lang.Integer.<init>()
+	at java.lang.Class.getConstructor0(Class.java:3082)
+	at java.lang.Class.getDeclaredConstructor(Class.java:2178)
+	at org.springframework.beans.AbstractNestablePropertyAccessor.newValue(AbstractNestablePropertyAccessor.java:910)
+	at org.springframework.beans.AbstractNestablePropertyAccessor.createDefaultPropertyValue(AbstractNestablePropertyAccessor.java:883)
+	at org.springframework.beans.AbstractNestablePropertyAccessor.setDefaultValue(AbstractNestablePropertyAccessor.java:870)
+	at org.springframework.beans.AbstractNestablePropertyAccessor.getNestedPropertyAccessor(AbstractNestablePropertyAccessor.java:842)
+	at org.springframework.beans.AbstractNestablePropertyAccessor.getPropertyAccessorForPropertyPath(AbstractNestablePropertyAccessor.java:816)
+	at org.springframework.beans.AbstractNestablePropertyAccessor.setPropertyValue(AbstractNestablePropertyAccessor.java:256)
+	at org.springframework.beans.AbstractPropertyAccessor.setPropertyValues(AbstractPropertyAccessor.java:97)
+	at org.springframework.validation.DataBinder.applyPropertyValues(DataBinder.java:848)
+	at org.springframework.validation.DataBinder.doBind(DataBinder.java:744)
+	at org.springframework.web.bind.WebDataBinder.doBind(WebDataBinder.java:197)
+	at org.springframework.web.bind.ServletRequestDataBinder.bind(ServletRequestDataBinder.java:107)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletModelAttributeMethodProcessor.bindRequestParameters(ServletModelAttributeMethodProcessor.java:157)
+	at org.springframework.web.method.annotation.ModelAttributeMethodProcessor.resolveArgument(ModelAttributeMethodProcessor.java:160)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:127)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:167)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:134)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:114)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.__invoke(StandardContextValve.java:96)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:41002)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:853)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019-12-10 17:03:02.228 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 17:03:02.236 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-12-10 17:03:02.239 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 17:03:02.247 [http-nio-8000-exec-2] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-12-10 17:20:01.801 [SessionValidationThread-1] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:275 - Validating all active sessions...
+2019-12-10 17:20:01.813 [SessionValidationThread-1] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:308 - Finished session validation.  No sessions were stopped.
+2019-12-10 17:21:27.201 [http-nio-8000-exec-10] DEBUG com.alibaba.druid.pool.DruidDataSource:1302 - skip not validate connection.
+2019-12-10 18:20:01.904 [SessionValidationThread-1] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:275 - Validating all active sessions...
+2019-12-10 18:20:02.086 [SessionValidationThread-1] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:308 - Finished session validation.  [1] sessions were stopped.
+2019-12-10 19:20:01.941 [SessionValidationThread-1] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:275 - Validating all active sessions...
+2019-12-10 19:20:01.954 [SessionValidationThread-1] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:308 - Finished session validation.  No sessions were stopped.
+2019-12-10 19:39:59.024 [Thread-47] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 19:39:59.145 [Thread-47] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 117ms. Found 1 repository interfaces.
+2019-12-10 19:39:59.156 [Thread-47] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-12-10 19:39:59.181 [Thread-47] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport:363 - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.springbootjpa.codeGod.repository.HumanResources.MemberCaseentityRepository.
+2019-12-10 19:39:59.181 [Thread-47] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:182 - Finished Spring Data repository scanning in 24ms. Found 0 repository interfaces.
+2019-12-10 19:40:00.142 [Thread-47] INFO  org.hibernate.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-12-10 19:40:00.211 [Thread-47] DEBUG com.alibaba.druid.pool.DruidDataSource:1302 - skip not validate connection.
+2019-12-10 19:40:00.734 [Thread-47] INFO  org.hibernate.dialect.Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-12-10 19:40:01.576 [Thread-47] INFO  org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-10 19:40:01.591 [Thread-47] INFO  org.apache.shiro.session.mgt.AbstractValidatingSessionManager:250 - Disabled session validation scheduler.
+2019-12-10 19:40:01.598 [Thread-47] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:597 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-12-10 19:40:01.607 [Thread-47] INFO  com.alibaba.druid.pool.DruidDataSource:1825 - {dataSource-1} closed

@@ -2,17 +2,12 @@ package com.springbootjpa.codeGod.service.projectmanager.Impl;
 
 import com.alibaba.druid.util.StringUtils;
 import com.springbootjpa.codeGod.codeException.CodeGodException;
-import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.BaseDataDictionaryEntity;
 import com.springbootjpa.codeGod.entity.UploadFile;
-import com.springbootjpa.codeGod.entity.humanResources.MemberEntity;
 import com.springbootjpa.codeGod.entity.projectmanager.PmApplicationEntity;
-import com.springbootjpa.codeGod.entity.projectmanager.PmDemandEntity;
 import com.springbootjpa.codeGod.entity.projectmanager.PmProjectEntity;
 import com.springbootjpa.codeGod.repository.BaseDataDictionaryentityRepository;
-import com.springbootjpa.codeGod.repository.HumanResources.MemberentityRepository;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
-import com.springbootjpa.codeGod.repository.projectmanager.PmDemandentityRepository;
 import com.springbootjpa.codeGod.repository.projectmanager.PmProjectentityRepository;
 import com.springbootjpa.codeGod.service.projectmanager.PmProjectService;
 import com.springbootjpa.codeGod.utils.SaveFileUtils;
@@ -47,10 +42,6 @@ public class PmProjectServiceIml implements PmProjectService {
     @Autowired
     private BaseDataDictionaryentityRepository baseDataDictionaryentityRepository;
     @Autowired
-    private MemberentityRepository memberentityRepository;
-    @Autowired
-    private PmDemandentityRepository pmDemandentityRepository;
-    @Autowired
     private SaveFileUtils saveFiles = new SaveFileUtils();
 
     @Override
@@ -84,20 +75,14 @@ public class PmProjectServiceIml implements PmProjectService {
                 //保存文件
                 if (!(ObjectUtils.isEmpty(file)) && file.getSize() != 0) {
                     UploadFile uploadFile = uploadFileRepository.save(saveFiles.saveFile(file));
-                    sb.append(uploadFile.getId());
-                    if(i!=(requirementDocument.length-1)){
-                        sb.append(",");
-                    }
+                    sb.append(uploadFile.getId()).append(",");
                 }
                 if (!org.springframework.util.StringUtils.isEmpty(sb.toString())) {
+                    sb.delete(sb.length() - 1, sb.length());
                     pmProjectEntity.setRequirementDocument(sb.toString());
                 }
             }
         }
-        MemberEntity memberEntity = memberentityRepository.findById(pmProjectEntity.getProductManagerId()).orElseThrow(() -> new CodeGodRunTimExcetion("该项目经理不存在", this.getClass()));
-        PmDemandEntity pmDemandEntity = pmDemandentityRepository.findById(pmProjectEntity.getDemandId()).orElseThrow(() -> new CodeGodRunTimExcetion("该需求不存在！", this.getClass()));
-        pmProjectEntity.setMemberEntity(memberEntity);
-        pmProjectEntity.setPmDemandEntity(pmDemandEntity);
         PmProjectEntity save = pmProjectentityRepository.save(pmProjectEntity);
         if (save != null) {
             return true;
@@ -143,21 +128,7 @@ public class PmProjectServiceIml implements PmProjectService {
     @Override
     public PmProjectEntity findOne(Long id) {
         Optional<PmProjectEntity> byId = pmProjectentityRepository.findById(id);
-        if(ObjectUtils.isEmpty(byId)){
-            throw new CodeGodRunTimExcetion("该项目不存在",this.getClass());
-        }
-        PmProjectEntity pmProjectEntity = byId.get();
-        List<UploadFile> list = new ArrayList<>();
-        String[] split = pmProjectEntity.getRequirementDocument().split(",");
-        for (int i = 0;i < split.length ; i++){
-            Optional<UploadFile> uploadFile = uploadFileRepository.findById(Long.valueOf(split[i]));
-            if(ObjectUtils.isEmpty(uploadFile)){
-                throw new CodeGodRunTimExcetion("该项目的需求文档不存在",this.getClass());
-            }
-            list.add(uploadFile.get());
-        }
-        pmProjectEntity.setRequirementDocumentList(list);
-        return pmProjectEntity;
+        return byId.get();
     }
 
     /**

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="text" value="" id="name">
+    <input type="text" value="" id="pwd">
+    <button id="btn" >ssss</button>
+
+    <h1>
+        修改密码
+    </h1>
+
+    原密码：    <input type="text" id="usname">
+    新密码：    <input type="text" id="upwd">
+
+    <input type="button" id="mdpwd" value="修改">
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="ASE/ASE.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    /*****************************************************
+     * AES加密
+     * @param content 加密内容
+     * @param key 加密密码，由字母或数字组成
+     　　　　　　此方法使用AES-128-ECB加密模式，key需要为16位
+     　　　　　　加密解密key必须相同，如：abcd1234abcd1234
+     * @return 加密密文
+     ****************************************************/
+
+    function encrypt(content){
+        var sKey = CryptoJS.enc.Utf8.parse("MI97JSJfjwIDAQAB");
+        var sContent = CryptoJS.enc.Utf8.parse(content);
+        var encrypted = CryptoJS.AES.encrypt(sContent, sKey, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+        return encrypted.toString();
+    }
+
+    /*****************************************************
+     * AES解密
+     * @param content 加密密文
+     * @param key 加密密码，由字母或数字组成
+     　　　　　　此方法使用AES-128-ECB加密模式，key需要为16位
+     　　　　　　加密解密key必须相同，如：abcd1234abcd1234
+     * @return 解密明文
+     ****************************************************/
+
+    function decrypt(content, key){
+        var sKey = CryptoJS.enc.Utf8.parse(key);
+        var decrypt = CryptoJS.AES.decrypt(content, sKey, {mode:CryptoJS.mode.ECB,padding: CryptoJS.pad.Pkcs7});
+        return CryptoJS.enc.Utf8.stringify(decrypt).toString();
+    }
+
+
+    $(function () {
+        // var sd = decrypt("5LK1ac+DIHQIdlF7az9vIF8+oAj017z5RiOarugVsBd2ejwlU2jiAd%2F57A47u86m=","MI97JSJfjwIDAQAB");
+        // console.log(sd);
+        console.log(getSessionId());
+        $("#btn").click(function () {
+            var dat = {username:$("#name").val(),password:$("#pwd").val()};
+            console.log(encrypt(JSON.stringify(dat)));
+            $.ajax({
+                url:'/codeGod/login',
+                type:'POST',
+                dataType:'json',
+                contentType:'application/json;charset=UTF-8',
+                data:encrypt(JSON.stringify(dat)),
+                success:function(data, status){
+                    console.log(data);
+                }
+            });
+        });
+
+        $("#mdpwd").click(function () {
+            let usname = $("#usname").val();
+            let mdpwd = $("#upwd").val();
+            let dataaa = {id : 1 , newPwd : usname , password: mdpwd}
+            $.ajax({
+                url:'/codeGod/modifyPwd',
+                type:'POST',
+                dataType:'json',
+                contentType:'application/json;charset=UTF-8',
+                data:encrypt(JSON.stringify(dataaa)),
+                success:function(data, status){
+                    console.log(data);
+                }
+            });
+        });
+
+
+        // $("#sub").click(function () {
+        //     let formData = new FormData()
+        //     formData.append('name', $("#name").val())
+        //     formData.append('age', $("#age").val())
+        //     formData.append('file', $("input[name='file']"))
+        //     let config = {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data;boundary = ' + new Date().getTime()
+        //         }
+        //     };
+        //     this.$http.post('/myupload', formData, config).then(function (res) {
+        //         if (res.status === 2000) {
+        //             /*这里做处理*/
+        //         }
+        //     })
+        // });
+        // debugger
+        //
+        // $.post("/login",{
+        //     "username":'test1',
+        //     "password":'123456'
+        // },function (data) {
+        //     console.log(data);
+        // })
+    })
+    function getSessionId(){
+        var c_name = 'JSESSIONID';
+        if(document.cookie.length>0){
+            c_start=document.cookie.indexOf(c_name + "=");
+            if(c_start!=-1){
+                c_start=c_start + c_name.length+1;
+                c_end=document.cookie.indexOf(";",c_start);
+                if(c_end==-1) c_end=document.cookie.length;
+                return unescape(document.cookie.substring(c_start,c_end));
+            }else{
+                //手动从后台传来sessionid
+                var JSESSIONID = $('#JSESSIONID').val();
+                return JSESSIONID;
+            }
+        }else{
+            console.log('123123');
+        }
+    }
+</script>
+</html>
