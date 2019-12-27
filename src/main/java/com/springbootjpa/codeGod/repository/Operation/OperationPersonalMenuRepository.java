@@ -7,5 +7,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface OperationPersonalMenuRepository extends JpaSpecificationExecutor<OperationPersonalMenuEntity>, PagingAndSortingRepository<OperationPersonalMenuEntity, Long>, JpaRepository<OperationPersonalMenuEntity, Long> {
 
-    OperationPersonalMenuEntity findByMenuName(String menuName);
 }

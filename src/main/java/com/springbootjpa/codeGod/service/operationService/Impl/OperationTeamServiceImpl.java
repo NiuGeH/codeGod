@@ -77,9 +77,9 @@ public class OperationTeamServiceImpl implements OperationTeamService {
         team.setLatitude(latitude);
         team.setRemark(remark);
         if(ObjectUtils.isEmpty(display)){
-            team.setDisplay(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
+            team.setState(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
         }else {
-            team.setDisplay(display);
+            team.setState(display);
         }
         team.setCreateTime(Calendar.getInstance().getTime());
 
@@ -124,9 +124,9 @@ public class OperationTeamServiceImpl implements OperationTeamService {
         teamEntity.setLatitude(latitude);
         teamEntity.setRemark(remark);
         if(ObjectUtils.isEmpty(display)){
-            teamEntity.setDisplay(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
+            teamEntity.setState(OperationEnum.OPERATION_DISPLAY_YES.getIndex());
         }else {
-            teamEntity.setDisplay(display);
+            teamEntity.setState(display);
         }
         teamEntity.setModifyTime(Calendar.getInstance().getTime());
         //保存
@@ -151,7 +151,7 @@ public class OperationTeamServiceImpl implements OperationTeamService {
         Page<OperationTeamEntity> all = operationTeamRepository.findAll(specification, pageable);
         if(!ObjectUtils.isEmpty(all) && all.getSize()>0){
             for(OperationTeamEntity operationTeamEntity : all){
-                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTeamEntity.getDisplay().toString(), DataBaseFinal.OPERATION_TEAM_DISPLAY);
+                BaseDataDictionaryEntity bdd = baseDataDictionaryentityRepository.findDistinctByDataColumnNameAndAndDataKey(operationTeamEntity.getState().toString(), DataBaseFinal.OPERATION_TEAM_DISPLAY);
                 operationTeamEntity.setDisplayStr(bdd.getDataValue());
             }
         }

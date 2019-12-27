@@ -52,4 +52,7 @@ public class OperationBase {
     @Autowired
     protected OperationTeamService operationTeamService;
 
+    @Autowired
+    protected OperationAgreementService operationAgreementService;
+
 }

@@ -39,7 +39,7 @@ public class OperationCodeGodDataServiceImpl implements OperationCodeGodDataServ
         OperationCodeGodDataEntity codeGodDataEntity = new OperationCodeGodDataEntity();
         List<OperationCodeGodDataEntity> list = operationCodeGodDataRepository.findAll();
         if(!ObjectUtils.isEmpty(list) && list.size()>0){
-            codeGodDataEntity = operationCodeGodDataRepository.findById(1L).get();
+            codeGodDataEntity = list.get(0);
         }
         codeGodDataEntity.setAmountProject(amountProject);
         codeGodDataEntity.setGrossAccount(grossAccount);
@@ -58,6 +58,11 @@ public class OperationCodeGodDataServiceImpl implements OperationCodeGodDataServ
      */
     @Override
     public OperationCodeGodDataEntity findAll() {
-        return operationCodeGodDataRepository.findAll().get(0);
+        OperationCodeGodDataEntity codeGodDataEntity = new OperationCodeGodDataEntity();
+        List<OperationCodeGodDataEntity> list = operationCodeGodDataRepository.findAll();
+        if(list != null && list.size() > 0){
+            codeGodDataEntity = list.get(0);
+        }
+        return codeGodDataEntity;
     }
 }

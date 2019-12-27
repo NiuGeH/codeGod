@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class OperationPersonalMenuController extends OperationBase {
 
     @PostMapping(value = "/setMenuIcon", headers = "content-type=multipart/form-data")
-    @ApiOperation(value = "修改个人中心菜单图标", httpMethod = "POST", notes = "myInvitation 我的邀请图标  \n  demandList 需求列表图标  \n  " +
+    @ApiOperation(value = "设置个人中心菜单图标", httpMethod = "POST", notes = "myInvitation 我的邀请图标  \n  demandList 需求列表图标  \n  " +
             "recommendProject 推荐项目图标  \n  publishOrder 发起工单图标  \n  myAgent 我的经纪人图标  \n  publishDemand 发布需求图标  \n  operationDemand 运维需求图标")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "myInvitation",value = "我的邀请图标", paramType = "formData"),

@@ -69,33 +69,33 @@ public class OperationPersonalMenuServiceImpl implements OperationPersonalMenuSe
         UploadFile uploadFile = null;
         //我的邀请图标
         uploadFile = saveFileUtils.saveFile(myInvitation);
-        if(!ObjectUtils.isEmpty(menuEntity)) uploadFile.setId(menuEntity.getMyInvitation().getId());
+        if(menuEntity.getMyInvitation() != null) uploadFile.setId(menuEntity.getMyInvitation().getId());
         menuEntity.setMyInvitation(uploadFileRepository.save(uploadFile));
         //需求列表图标
         uploadFile = saveFileUtils.saveFile(demandList);
-        if(!ObjectUtils.isEmpty(menuEntity)) uploadFile.setId(menuEntity.getDemandList().getId());
+        if(menuEntity.getDemandList() != null) uploadFile.setId(menuEntity.getDemandList().getId());
         menuEntity.setDemandList(uploadFileRepository.save(uploadFile));
         //推荐项目图标
         uploadFile = saveFileUtils.saveFile(recommendProject);
-        if(!ObjectUtils.isEmpty(menuEntity)) uploadFile.setId(menuEntity.getRecommendProject().getId());
+        if(menuEntity.getRecommendProject() != null) uploadFile.setId(menuEntity.getRecommendProject().getId());
         menuEntity.setRecommendProject(uploadFileRepository.save(uploadFile));
         //发起工单图标
         uploadFile = saveFileUtils.saveFile(publishOrder);
-        if(!ObjectUtils.isEmpty(menuEntity)) uploadFile.setId(menuEntity.getPublishOrder().getId());
+        if(menuEntity.getPublishOrder() != null) uploadFile.setId(menuEntity.getPublishOrder().getId());
         menuEntity.setPublishOrder(uploadFileRepository.save(uploadFile));
         //我的经纪人图标
         uploadFile = saveFileUtils.saveFile(myAgent);
-        if(!ObjectUtils.isEmpty(menuEntity)) uploadFile.setId(menuEntity.getMyAgent().getId());
+        if(menuEntity.getMyAgent() != null) uploadFile.setId(menuEntity.getMyAgent().getId());
         menuEntity.setMyAgent(uploadFileRepository.save(uploadFile));
         //发布需求图标
         uploadFile = saveFileUtils.saveFile(publishDemand);
-        if(!ObjectUtils.isEmpty(menuEntity)) uploadFile.setId(menuEntity.getPublishDemand().getId());
+        if(menuEntity.getPublishDemand() != null) uploadFile.setId(menuEntity.getPublishDemand().getId());
         menuEntity.setPublishDemand(uploadFileRepository.save(uploadFile));
         //运维需求图标
         uploadFile = saveFileUtils.saveFile(operationDemand);
-        if(!ObjectUtils.isEmpty(menuEntity)) uploadFile.setId(menuEntity.getOperationDemand().getId());
+        if(menuEntity.getOperationDemand() != null) uploadFile.setId(menuEntity.getOperationDemand().getId());
         menuEntity.setOperationDemand(uploadFileRepository.save(uploadFile));
-        //修改时间
+        //更新时间
         menuEntity.setModifyTime(Calendar.getInstance().getTime());
 
         operationPersonalMenuRepository.save(menuEntity);
@@ -109,6 +109,11 @@ public class OperationPersonalMenuServiceImpl implements OperationPersonalMenuSe
      */
     @Override
     public OperationPersonalMenuEntity findAll() {
-        return operationPersonalMenuRepository.findAll().get(0);
+        OperationPersonalMenuEntity menuEntity = new OperationPersonalMenuEntity();
+        List<OperationPersonalMenuEntity> list = operationPersonalMenuRepository.findAll();
+        if(list != null && list.size()>0){
+            menuEntity = list.get(0);
+        }
+        return menuEntity;
     }
 }

@@ -84,8 +84,8 @@ public class OperationTeamEntity extends AbstractEntity implements Serializable 
 	 * default value: null
 	 */
 	@ApiModelProperty(value = "是否显示：0显示，1不显示")
-	@Column(name = "display", nullable = true, length = 2)
-	private Integer display;
+	@Column(name = "state", nullable = true, length = 2)
+	private Integer state;
 	@Transient
 	private String displayStr;
 
