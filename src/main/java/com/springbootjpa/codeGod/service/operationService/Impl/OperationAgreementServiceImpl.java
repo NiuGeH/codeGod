@@ -1,6 +1,7 @@
 package com.springbootjpa.codeGod.service.operationService.Impl;
 
 import com.springbootjpa.codeGod.codeException.CodeGodException;
+import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.operation.OperationAgreementEntity;
 import com.springbootjpa.codeGod.repository.Operation.OperationAgreementRepository;
@@ -64,44 +65,49 @@ public class OperationAgreementServiceImpl implements OperationAgreementService 
         //主场须知
         agreementEntity.setResidentNotice(residentNotice);
         //码神签约协议
-        if(ObjectUtils.isEmpty(codeGodSignAgreement)){
-           agreementEntity.setCodeGodSignAgreement(null);
-        }else {
+        if(!ObjectUtils.isEmpty(codeGodSignAgreement)){
+            if(codeGodSignAgreement.getSize() == 0) throw new CodeGodRunTimExcetion("上传文件'"+codeGodSignAgreement.getOriginalFilename()+"'为空", this.getClass());
             uploadFile = saveFileUtils.saveFile(codeGodSignAgreement);
             if (agreementEntity.getCodeGodSignAgreement() != null) uploadFile.setId(agreementEntity.getCodeGodSignAgreement().getId());
             agreementEntity.setCodeGodSignAgreement(uploadFileRepository.save(uploadFile));
+        }else {
+            agreementEntity.setCodeGodSignAgreement(null);
         }
         //人力外包协议
-        if(ObjectUtils.isEmpty(workerOutsourcingAgreement)){
-            agreementEntity.setWorkerOutsourcingAgreement(null);
-        }else {
+        if(!ObjectUtils.isEmpty(workerOutsourcingAgreement)){
+            if(workerOutsourcingAgreement.getSize() == 0) throw new CodeGodRunTimExcetion("上传文件'"+workerOutsourcingAgreement.getOriginalFilename()+"'为空", this.getClass());
             uploadFile = saveFileUtils.saveFile(workerOutsourcingAgreement);
             if (agreementEntity.getWorkerOutsourcingAgreement() != null) uploadFile.setId(agreementEntity.getWorkerOutsourcingAgreement().getId());
             agreementEntity.setWorkerOutsourcingAgreement(uploadFileRepository.save(uploadFile));
+        }else {
+            agreementEntity.setWorkerOutsourcingAgreement(null);
         }
         //项目签约协议
-        if(ObjectUtils.isEmpty(projectSignAgreement)){
-            agreementEntity.setProjectSignAgreement(null);
-        }else {
+        if(!ObjectUtils.isEmpty(projectSignAgreement)){
+            if(projectSignAgreement.getSize() == 0) throw new CodeGodRunTimExcetion("上传文件'"+projectSignAgreement.getOriginalFilename()+"'为空", this.getClass());
             uploadFile = saveFileUtils.saveFile(projectSignAgreement);
             if (agreementEntity.getProjectSignAgreement() != null) uploadFile.setId(agreementEntity.getProjectSignAgreement().getId());
             agreementEntity.setProjectSignAgreement(uploadFileRepository.save(uploadFile));
+        }else {
+            agreementEntity.setProjectSignAgreement(null);
         }
         //兼职协议
-        if(ObjectUtils.isEmpty(parttimeAgreement)){
-            agreementEntity.setParttimeAgreement(null);
-        }else {
+        if(!ObjectUtils.isEmpty(parttimeAgreement)){
+            if(parttimeAgreement.getSize() == 0) throw new CodeGodRunTimExcetion("上传文件'"+parttimeAgreement.getOriginalFilename()+"'为空", this.getClass());
             uploadFile = saveFileUtils.saveFile(parttimeAgreement);
             if (agreementEntity.getParttimeAgreement() != null) uploadFile.setId(agreementEntity.getParttimeAgreement().getId());
             agreementEntity.setParttimeAgreement(uploadFileRepository.save(uploadFile));
+        }else {
+            agreementEntity.setParttimeAgreement(null);
         }
         //全职协议
-        if(ObjectUtils.isEmpty(fulltimeAgreement)){
-            agreementEntity.setFulltimeAgreement(null);
-        }else {
+        if(!ObjectUtils.isEmpty(fulltimeAgreement)){
+            if(fulltimeAgreement.getSize() == 0) throw new CodeGodRunTimExcetion("上传文件'"+fulltimeAgreement.getOriginalFilename()+"'为空", this.getClass());
             uploadFile = saveFileUtils.saveFile(fulltimeAgreement);
             if (agreementEntity.getFulltimeAgreement() != null) uploadFile.setId(agreementEntity.getFulltimeAgreement().getId());
             agreementEntity.setFulltimeAgreement(uploadFileRepository.save(uploadFile));
+        }else {
+            agreementEntity.setFulltimeAgreement(null);
         }
         //推荐奖励
         if(ObjectUtils.isEmpty(recommendReward)){

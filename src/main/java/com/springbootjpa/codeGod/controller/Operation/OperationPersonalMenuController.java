@@ -49,9 +49,9 @@ public class OperationPersonalMenuController extends OperationBase {
             @RequestParam("publishDemand") MultipartFile publishDemand,
             @RequestParam("operationDemand") MultipartFile operationDemand
     ){
-        log.info("URL:/personalMenu/setMenuIcon 请求参数：我的邀请图标:"+ myInvitation.getName() +",需求列表图标:"+ demandList.getName()
-                +",推荐项目图标:"+ recommendProject.getName() +",发起工单图标:"+ publishOrder.getName() +",我的经纪人图标:"+ myAgent.getName()
-                +",发布需求图标:"+ publishDemand.getName() +",运维需求图标:"+ operationDemand.getName());
+        log.info("URL:/personalMenu/setMenuIcon 请求参数：我的邀请图标："+ myInvitation.getOriginalFilename() +"，需求列表图标："+ demandList.getOriginalFilename()
+                +"，推荐项目图标："+ recommendProject.getOriginalFilename() +"，发起工单图标："+ publishOrder.getOriginalFilename() +"，我的经纪人图标："+ myAgent.getOriginalFilename()
+                +"，发布需求图标："+ publishDemand.getOriginalFilename() +"，运维需求图标："+ operationDemand.getOriginalFilename());
         return AjaxUtils.process(new Func_T<Object>() {
 
             @Override
