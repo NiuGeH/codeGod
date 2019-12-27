@@ -1,6 +1,7 @@
 package com.springbootjpa.codeGod.service.projectmanager.Impl;
 
 import com.springbootjpa.codeGod.codeException.CodeGodException;
+import com.springbootjpa.codeGod.codeException.CodeGodRunTimExcetion;
 import com.springbootjpa.codeGod.entity.UploadFile;
 import com.springbootjpa.codeGod.entity.projectmanager.PmContractEntity;
 import com.springbootjpa.codeGod.repository.UploadFileRepository;
@@ -9,11 +10,14 @@ import com.springbootjpa.codeGod.repository.projectmanager.PmProjectentityReposi
 import com.springbootjpa.codeGod.service.projectmanager.PmContractService;
 import com.springbootjpa.codeGod.utils.SaveFileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 /**
  * 合同
@@ -49,4 +53,31 @@ public class PmContractServiceIml implements PmContractService {
         }
         return false;
     }
+
+    /**
+     * 根据ID获取合同
+     * @param id
+     * @return
+     */
+    @Override
+    public PmContractEntity findOneById(Long id) {
+
+        Optional<PmContractEntity> byId = pmContractentityRepository.findById(id);
+        if(ObjectUtils.isEmpty(byId)){
+            throw new CodeGodRunTimExcetion("该合同不存在",this.getClass());
+        }
+        return byId.get();
+    }
+
+    /**
+     * 合同分页查询
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<PmContractEntity> findAll(Pageable pageable) {
+        return pmContractentityRepository.findAll(pageable);
+    }
+
+
 }
